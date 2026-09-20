@@ -1,0 +1,34 @@
+name: Fehler in der App
+description: Etwas funktioniert nicht wie erwartet.
+title: 'Fehler: '
+labels: [bug]
+body:
+  - type: textarea
+    id: was
+    attributes:
+      label: Was passiert?
+    validations:
+      required: true
+  - type: textarea
+    id: erwartet
+    attributes:
+      label: Was sollte stattdessen passieren?
+    validations:
+      required: true
+  - type: textarea
+    id: schritte
+    attributes:
+      label: Schritte zum Nachstellen
+      placeholder: |
+        1. Tab "Rechnen" öffnen
+        2. Aufgabentyp "Rückwärtskalkulation"
+        3. ...
+  - type: dropdown
+    id: geraet
+    attributes:
+      label: Wo?
+      options:
+        - iPhone, als App vom Home-Bildschirm
+        - iPhone, in Safari
+        - Android
+        - Desktop-Browser

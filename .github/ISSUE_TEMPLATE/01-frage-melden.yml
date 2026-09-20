@@ -1,0 +1,32 @@
+name: Falsche oder unklare Prüfungsfrage melden
+description: Eine Frage in der App ist fachlich falsch, unklar oder die Erklärung hilft nicht.
+title: 'Frage: '
+labels: [inhalt]
+body:
+  - type: input
+    id: frage-id
+    attributes:
+      label: Frage-ID
+      description: Steht in der App unter der Erklärung, z. B. "wawi-kalk-07".
+      placeholder: wawi-kalk-07
+    validations:
+      required: true
+  - type: dropdown
+    id: art
+    attributes:
+      label: Was stimmt nicht?
+      options:
+        - Antwort ist falsch
+        - Erklärung ist falsch oder unverständlich
+        - Rechenweg stimmt nicht
+        - Frage ist mehrdeutig
+        - Rechtsbezug ist veraltet
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Was müsste richtig sein?
+      description: Wenn möglich mit Quelle (Paragraf, Lehrbuch, IHK-Unterlage).
+    validations:
+      required: true

@@ -1,0 +1,40 @@
+name: Claude Code Review
+
+# Automatisches KI-Review für jeden Pull Request.
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Review diesen Pull Request der Lern-App AzubiBoost (React + TypeScript PWA).
+            Achte besonders auf:
+            - Fachliche Richtigkeit der Prüfungsinhalte und Rechenwege
+              (Kalkulationsschema, Lagerkennzahlen, IHK-Notenschlüssel, Bestehensregel § 29 VerkEHKflAusbV)
+            - Korrektheit der Bewertungs- und SRS-Logik in src/engine
+            - React-Hook-Fehler und unnötige Re-Renders
+            - Barrierefreiheit und Bedienbarkeit auf dem iPhone (Touch-Ziele, Kontraste, safe-area)
+            - Ob localStorage-Migrationen bestehende Lernfortschritte zerstören könnten
+            Antworte auf Deutsch. Nenne konkrete Datei und Zeile. Kein Lob ohne Inhalt.
+          claude_args: --max-turns 15
