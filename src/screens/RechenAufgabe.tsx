@@ -39,6 +39,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
   const [richtig, setRichtig] = useState(false)
   const [ohneFehler, setOhneFehler] = useState(false)
   const rezept = REZEPTE[aufgabe.typId]
+  const istGrundlage = aufgabe.typId.startsWith('g-')
 
   const starteGefuehrt = () => {
     setPhase('gefuehrt')
@@ -97,13 +98,26 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
               </p>
             </div>
           </div>
-          <RezeptKarte rezept={rezept} />
-          <button className="knopf knopf--breit" onClick={() => setPhase('rechnen')}>
-            Ich rechne jetzt
-          </button>
-          <button className="knopf knopf--zweit knopf--breit" onClick={starteGefuehrt}>
-            Schritt für Schritt mit Hilfe
-          </button>
+          <RezeptKarte rezept={rezept} offen={istGrundlage} />
+          {istGrundlage ? (
+            <>
+              <button className="knopf knopf--breit" onClick={starteGefuehrt}>
+                Gemeinsam Schritt für Schritt
+              </button>
+              <button className="knopf knopf--zweit knopf--breit" onClick={() => setPhase('rechnen')}>
+                Ich probier es allein
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="knopf knopf--breit" onClick={() => setPhase('rechnen')}>
+                Ich rechne jetzt
+              </button>
+              <button className="knopf knopf--zweit knopf--breit" onClick={starteGefuehrt}>
+                Schritt für Schritt mit Hilfe
+              </button>
+            </>
+          )}
         </>
       )}
 

@@ -30,7 +30,7 @@ export function schrittWert(s: RechenSchritt): SchrittWert | null {
   // Toleranz aus der angezeigten Genauigkeit: wer mit ungerundeten Zwischenwerten
   // rechnet, darf in der letzten Stelle um eins abweichen.
   const nachkomma = text.includes(',') ? (text.split(',')[1] ?? '').length : 0
-  const toleranz = nachkomma === 0 ? 0 : 1.5 * 10 ** -nachkomma
+  const toleranz = s.toleranz ?? (nachkomma === 0 ? 0 : 1.5 * 10 ** -nachkomma)
 
   const rest = s.ergebnis.slice((letzter.index ?? 0) + text.length).trim()
   const einheit = rest.startsWith('€')

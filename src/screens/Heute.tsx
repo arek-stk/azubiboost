@@ -138,7 +138,7 @@ export function Heute() {
       </button>
 
       <section className="karte">
-        <h3>💬 {coach.titel}</h3>
+        <h3>{coach.titel}</h3>
         <p>{coach.text}</p>
         {coach.empfehlung !== undefined && <p className="untertitel">{coach.empfehlung}</p>}
         {schwach !== undefined && schwach.quote !== null && schwach.quote < 0.8 && (
@@ -161,7 +161,7 @@ export function Heute() {
 
       {tempo !== null && tempo.proTag > 0 && (
         <section className="karte">
-          <h3>📅 Dein Tempo bis zur Prüfung</h3>
+          <h3>Dein Tempo bis zur Prüfung</h3>
           <p>
             Mit <strong>{tempo.proTag} Fragen am Tag</strong> sitzt bis zwei Wochen vor der Prüfung jede Frage mindestens
             dreimal richtig. Die letzten zwei Wochen bleiben frei für Probeprüfungen.

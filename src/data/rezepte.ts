@@ -147,6 +147,30 @@ export const REZEPTE: Record<AufgabentypId, Rezept> = {
     ],
     merke: 'Fixkosten fallen immer an. Jedes Stück trägt seinen Deckungsbeitrag dazu bei, sie zu bezahlen.',
   },
+  'g-prozentwert': {
+    schritte: ['Das Ganze durch 100 teilen — das ist 1 %.', 'Mit der Prozentzahl malnehmen.'],
+    merke: 'Prozent heißt „von Hundert". Erst auf 1 %, dann auf die gesuchten Prozent.',
+  },
+  'g-prozentsatz': {
+    schritte: ['Den Teil durch das Ganze teilen.', 'Das Ergebnis mal 100 nehmen.'],
+    merke: 'Teil durch Ganzes, mal 100. Der Teil ist die kleinere Zahl.',
+  },
+  'g-aufschlag': {
+    schritte: ['Aufschlag in Euro: Preis × Prozent ÷ 100.', 'Zum Preis dazuzählen.'],
+    merke: 'Aufschlag = es kommt etwas dazu.',
+  },
+  'g-abzug': {
+    schritte: ['Rabatt in Euro: Preis × Prozent ÷ 100.', 'Vom Preis abziehen.'],
+    merke: 'Rabatt = es wird weniger.',
+  },
+  'g-herausrechnen': {
+    schritte: ['100 % + Steuersatz = Prozent mit Steuer (z. B. 119 %).', 'Als Kommazahl schreiben (119 % = 1,19).', 'Den Bruttopreis durch diese Zahl teilen.'],
+    merke: 'Steuer raus heißt: teilen durch 1,19 oder 1,07 — nie Prozent abziehen.',
+  },
+  'g-runden': {
+    schritte: ['Die dritte Stelle nach dem Komma anschauen.', '0 bis 4: die Cent bleiben. 5 bis 9: eine Cent-Stelle mehr.'],
+    merke: 'Ab 5 wird aufgerundet.',
+  },
   rentabilitaet: {
     schritte: [
       'Gewinn durch die Bezugsgröße teilen (Eigenkapital oder Umsatz).',

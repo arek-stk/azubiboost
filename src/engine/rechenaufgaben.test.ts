@@ -78,7 +78,7 @@ describe('Aufgabengeneratoren', () => {
 
 describe('Von Hand nachgerechnete Aufgaben (Seed 1)', () => {
   // Jeder Wert unten wurde per Hand nach dem Kalkulationsschema geprüft.
-  const erwartet: Record<AufgabentypId, { titel: string; wert: number }> = {
+  const erwartet: Partial<Record<AufgabentypId, { titel: string; wert: number }>> = {
     // 640 − 10 % = 576 − 3 % = 558,72 + 60
     bezugspreis: { titel: 'Bezugspreis', wert: 618.72 },
     // 154 + 25 % = 192,50 + 15 % = 221,38 + 7 %
@@ -120,8 +120,9 @@ describe('Von Hand nachgerechnete Aufgaben (Seed 1)', () => {
   it.each(AUFGABENTYPEN.map((t) => [t.id, t] as const))('%s', (id, typ) => {
     const a = typ.erzeuge(rngMitSeed(1))
     const soll = erwartet[id]
-    expect(a.titel).toBe(soll.titel)
-    expect(a.loesung.wert).toBeCloseTo(soll.wert, 2)
+    expect(soll, id).toBeDefined()
+    expect(a.titel).toBe(soll?.titel)
+    expect(a.loesung.wert).toBeCloseTo(soll?.wert ?? NaN, 2)
   })
 })
 

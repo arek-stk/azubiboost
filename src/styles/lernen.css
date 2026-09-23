@@ -485,3 +485,10 @@
   background: var(--akzent);
   color: var(--akzent-text);
 }
+
+/* Der Platzhalter soll einladen, nicht wie ein Ergebnis aussehen. */
+.eingabe-anzeige__leer {
+  font-family: var(--schrift);
+  font-size: 17px;
+  font-weight: 500;
+}

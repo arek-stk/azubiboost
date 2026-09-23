@@ -25,7 +25,7 @@ export type CoachNachricht = {
 }
 
 function anrede(name: string | null): string {
-  return name === null || name.trim() === '' ? '' : ` ${name.trim()}`
+  return name === null || name.trim() === '' ? '' : `, ${name.trim()}`
 }
 
 function countdownSatz(tage: number | null): string | null {

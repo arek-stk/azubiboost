@@ -48,6 +48,8 @@ export type RechenSchritt = {
   rechnung: string
   ergebnis: string
   hinweis?: string
+  /** Erlaubte Abweichung beim Eintippen im geführten Modus; sonst aus der Anzeige abgeleitet. */
+  toleranz?: number
 }
 
 export type Frage = {

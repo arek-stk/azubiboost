@@ -14,6 +14,7 @@ import type { RechenSchritt, Schwierigkeit, ThemaId, ZahlLoesung } from '../doma
 import { eur, pz, r2, rN, tage, zahl } from './format'
 import { waehle, zwischen, type Rng } from './zufall'
 import { ERWEITERTE_AUFGABENTYPEN } from './rechenaufgaben-erweitert'
+import { GRUNDLAGEN_TYPEN } from './grundlagen'
 
 export type AufgabentypId =
   | 'bezugspreis'
@@ -34,6 +35,12 @@ export type AufgabentypId =
   | 'dreisatz'
   | 'break-even'
   | 'rentabilitaet'
+  | 'g-prozentwert'
+  | 'g-prozentsatz'
+  | 'g-aufschlag'
+  | 'g-abzug'
+  | 'g-herausrechnen'
+  | 'g-runden'
 
 export type RechenAufgabe = {
   typId: AufgabentypId
@@ -1033,7 +1040,7 @@ export const AUFGABENTYPEN: readonly Aufgabentyp[] = [
 ]
 
 export function aufgabentyp(id: AufgabentypId): Aufgabentyp {
-  const t = AUFGABENTYPEN.find((a) => a.id === id)
+  const t = [...AUFGABENTYPEN, ...GRUNDLAGEN_TYPEN].find((a) => a.id === id)
   if (!t) throw new Error(`Unbekannter Aufgabentyp: ${id}`)
   return t
 }
