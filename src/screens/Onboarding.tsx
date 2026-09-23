@@ -72,7 +72,7 @@ export function Onboarding() {
             <span className="untertitel">Termin der schriftlichen Prüfung (Teil 2)</span>
             <input type="date" value={termin} onChange={(e) => setTermin(e.target.value)} style={feld} />
             <span className="untertitel" style={{ fontSize: 13 }}>
-              Vorbelegt ist der bundesweite Sommertermin 2027. Den genauen Termin nennt deine IHK.
+              Vorbelegt ist Teil 2 bei der IHK Niederbayern: 28. April 2027 (Winter wäre der 25. November 2026).
             </span>
           </label>
           <span className="untertitel">Wie viele Fragen am Tag?</span>

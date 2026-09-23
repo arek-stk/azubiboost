@@ -1,5 +1,5 @@
 // Erzeugt die App-Icons als PNG — ohne externe Abhängigkeiten.
-// Motiv: drei steigende Balken (Fortschritt), der höchste in Gold.
+// Motiv: drei steigende Balken (Fortschritt), der höchste in Gold, auf Weinrot.
 // Alle Icons sind vollflächig: iOS rundet die Ecken selbst ab und füllt
 // Transparenz schwarz auf; die Android-Maske schneidet aus der Mitte.
 
@@ -46,10 +46,10 @@ function png(breite, hoehe, rgba) {
   ])
 }
 
-const OBEN = [0x14, 0xa3, 0x8f]
-const UNTEN = [0x0a, 0x5f, 0x55]
+const OBEN = [0xa8, 0x43, 0x5a]
+const UNTEN = [0x6e, 0x1f, 0x33]
 const WEISS = [0xff, 0xff, 0xff]
-const GOLD = [0xff, 0xc8, 0x57]
+const GOLD = [0xf2, 0xc2, 0x6b]
 
 function inAbgerundetemRechteck(x, y, links, oben, rechts, unten, radius) {
   if (x < links || x > rechts || y < oben || y > unten) return false

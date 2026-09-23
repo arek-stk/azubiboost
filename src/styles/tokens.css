@@ -1,7 +1,7 @@
 /* Design-Tokens nach dem Designkonzept „persönliches Notizbuch":
-   warmes Off-White, Terrakotta als Akzent, gedämpfte Bereichsfarben.
+   warmes Off-White, Weinrot als Akzent — ihre Lieblingsfarbe, gedämpfte Bereichsfarben.
    Fehler werden nicht rot bestraft, sondern als korrigierbare Lernmomente gezeigt.
-   Kontraste u. a.: #263238 auf #FBF8F3 ≈ 13:1, #FFFFFF auf #A94E3D ≈ 5,3:1. */
+   Kontraste u. a.: #263238 auf #FBF8F3 ≈ 13:1, #FFFFFF auf #8C2F45 ≈ 8,1:1. */
 
 :root {
   color-scheme: light;
@@ -15,12 +15,12 @@
   --text-2: #596168;
   --text-3: #727a7f;
 
-  --akzent: #a94e3d;
-  --akzent-hell: #c87865;
+  --akzent: #8c2f45;
+  --akzent-hell: #b4566b;
   --akzent-text: #ffffff;
-  --akzent-weich: #f4e2dc;
+  --akzent-weich: #f5e3e7;
 
-  --pfirsich: #f0c5b4;
+  --pfirsich: #e9bcc5;
   --gold: #b08a35;
 
   --gut: #35665a;
@@ -71,12 +71,12 @@
     --text-2: #c8c1b8;
     --text-3: #9d9891;
 
-    --akzent: #d27a67;
-    --akzent-hell: #e09988;
-    --akzent-text: #241714;
-    --akzent-weich: #402924;
+    --akzent: #e38da0;
+    --akzent-hell: #eeaab8;
+    --akzent-text: #2a0e15;
+    --akzent-weich: #3f1f27;
 
-    --pfirsich: #70483d;
+    --pfirsich: #6b3441;
     --gold: #d2af5b;
 
     --gut: #75b09b;

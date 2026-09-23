@@ -110,7 +110,7 @@ export function Einstellungen() {
               style={feldStil}
             />
             <span className="untertitel" style={{ fontSize: 13 }}>
-              Voreingestellt ist der bundesweite Sommertermin 2027. Den genauen Termin nennt deine IHK.
+              Voreingestellt ist Teil 2 bei der IHK Niederbayern: 28. April 2027. Die mündliche Prüfung folgt Mitte Juni bis Juli.
             </span>
           </label>
 

@@ -96,10 +96,18 @@ export const QUELLEN: readonly QuellenGruppe[] = [
       'Wer eine ärztlich oder psychologisch festgestellte Rechenstörung (Dyskalkulie) hat, kann bei der IHK einen Nachteilsausgleich beantragen — zum Beispiel mehr Zeit in der Prüfung. Der Antrag muss spätestens mit der Anmeldung zur Prüfung gestellt werden, und es braucht ein fachärztliches oder psychologisches Gutachten; ein Hausarztattest reicht nicht.',
     quellen: [
       {
-        titel: 'Nachteilsausgleich bei der Prüfung',
-        wer: 'IHK für München und Oberbayern',
-        url: 'https://www.ihk-muenchen.de/de/berufsbildung-berufszugang/auszubildende/ausbildungspruefung/nachteilsausgleich/',
-        warum: 'Erklärt Voraussetzungen und Antrag. Zuständig ist immer die eigene IHK — dort fragen.',
+        titel: 'Informationen zur Prüfung und Nachteilsausgleich',
+        wer: 'IHK Niederbayern',
+        url: 'https://www.ihk-niederbayern.de/berufliche-bildung/ausbildung/ausbildungspruefungen/informationen-zur-pruefung/',
+        warum:
+          'Deine IHK. Der Antrag auf Nachteilsausgleich wird dort bei der Online-Anmeldung zur Prüfung gestellt, mit aktuellem Attest — ein Antrag bei der Berufsschule zählt dafür nicht.',
+        art: 'Offiziell',
+      },
+      {
+        titel: 'Antrag auf Nachteilsausgleich (PDF)',
+        wer: 'IHK Niederbayern',
+        url: 'https://www.ihk-niederbayern.de/pdfs/antrag-nachteilsausgleich-data.pdf',
+        warum: 'Das Formular für den Antrag, mit Hinweisen, welche Nachweise nötig sind. Ärztliche Unterlagen sollten nicht älter als ein Jahr sein.',
         art: 'Offiziell',
       },
     ],
@@ -113,6 +121,20 @@ export const QUELLEN: readonly QuellenGruppe[] = [
         wer: 'Bundesministerium der Justiz',
         url: 'https://www.gesetze-im-internet.de/verkehkflausbv/BJNR045800017.html',
         warum: 'Prüfungsbereiche, Zeiten, Gewichtung und Bestehensregeln im Original.',
+        art: 'Offiziell',
+      },
+      {
+        titel: 'Prüfungstermine Kaufleute im Einzelhandel',
+        wer: 'IHK Niederbayern',
+        url: 'https://www.ihk-niederbayern.de/berufliche-bildung/ausbildung/ausbildungspruefungen/pruefungstermine/kaufmann-frau-im-einzelhandel/',
+        warum: 'Teil 2 schriftlich: 28. April 2027 (Winter: 25. November 2026). Mündlich: Mitte Juni bis Juli bzw. im Januar.',
+        art: 'Offiziell',
+      },
+      {
+        titel: 'Zugelassene Hilfsmittel',
+        wer: 'IHK-AkA, Aufgabenstelle der IHKs',
+        url: 'https://www.ihk-aka.de/pruefungen/ap/hilfsmittel',
+        warum: 'Erlaubt ist ein nicht programmierbarer, netzunabhängiger Taschenrechner ohne Kommunikationsmöglichkeit — also genau der, mit dem du hier übst.',
         art: 'Offiziell',
       },
     ],

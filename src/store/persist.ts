@@ -14,8 +14,11 @@ import { heute, type IsoTag } from '../engine/datum'
 export const SCHEMA_VERSION = 1
 export const SPEICHER_SCHLUESSEL = 'azubiboost:zustand'
 
-/** Schriftliche Prüfung Sommer 2027 laut bundeseinheitlichem Terminplan. */
-export const STANDARD_PRUEFUNGSTERMIN: IsoTag = '2027-04-27'
+/**
+ * Schriftliche Prüfung Teil 2 (Geschäftsprozesse), Sommer 2027, laut IHK Niederbayern.
+ * Teil 1 wäre der Vortag (27.04.2027); die mündliche Prüfung liegt Mitte Juni bis Juli.
+ */
+export const STANDARD_PRUEFUNGSTERMIN: IsoTag = '2027-04-28'
 export const STANDARD_TAGESZIEL = 20
 
 /** So viele Versuche bleiben gespeichert; nur die jüngsten behalten Einzelantworten. */
