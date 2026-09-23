@@ -1,0 +1,101 @@
+import { themaFabrik } from './_fabrik'
+
+const f = themaFabrik('warenpraesentation', 'verkauf')
+
+export const warenpraesentation = [
+  f.einfach(
+    'wp-01',
+    'In welcher Regalzone verkauft sich Ware am besten?',
+    ['Reckzone (ganz oben)', 'Sichtzone (Augenhöhe)', 'Bückzone (ganz unten)', 'Alle Zonen gleich gut'],
+    1,
+    'Was auf Augenhöhe steht, sieht der Kunde zuerst — ohne sich zu strecken oder zu bücken. Dorthin gehören Artikel mit guter Spanne. Die Griffzone darunter ist die zweitbeste.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wp-02',
+    'Welche Artikel gehören typischerweise in die Bückzone?',
+    [
+      'Impulsartikel mit hoher Spanne',
+      'Schwere Großpackungen und Artikel, die Kunden gezielt suchen',
+      'Neue Produkte, die bekannt werden sollen',
+      'Aktionsware der Woche',
+    ],
+    1,
+    'Wasserkästen, Waschmittel, Tierfutter im Großsack: schwer, und Kunden suchen sie ohnehin gezielt. Unten stehen sie sicher und nehmen den guten Zonen keinen Platz weg.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wp-03',
+    'Welche Artikel stehen typischerweise im Kassenbereich?',
+    ['Mehlsäcke', 'Impulsartikel wie Kaugummi, Süßigkeiten und Batterien', 'Tiefkühlpizza', 'Frisches Obst'],
+    1,
+    'In der Wartezeit an der Kasse greifen Kunden spontan zu kleinen, günstigen Artikeln. Genau dafür ist die Kassenzone da: Impulskäufe.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wp-04',
+    'Chips stehen zusätzlich zum Snackregal auch neben den Getränken. Wie heißt das?',
+    ['Sortimentsbereinigung', 'Zweitplatzierung', 'Blockplatzierung', 'Regalpflege'],
+    1,
+    'Bei der Zweitplatzierung steht ein Artikel an einem zusätzlichen Ort — oft dort, wo er zum Einkauf passt. Das löst Impulskäufe aus.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wp-05',
+    'Wofür steht die Werbeformel AIDA?',
+    [
+      'Angebot, Information, Dienstleistung, Absatz',
+      'Attention, Interest, Desire, Action',
+      'Aktion, Inhalt, Design, Anzeige',
+      'Analyse, Idee, Durchführung, Auswertung',
+    ],
+    1,
+    'Werbung muss erst Aufmerksamkeit wecken, dann Interesse, dann den Wunsch zu kaufen — und schließlich zur Handlung führen. Ein Plakat, das nur auffällt, aber nicht zum Kauf führt, hat die Hälfte verfehlt.',
+    { merksatz: 'Auffallen – interessieren – wollen – kaufen.', schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wp-06',
+    'Ein Plakat hängt an einer Litfaßsäule. Was ist das Werbemittel?',
+    ['Die Litfaßsäule', 'Das Plakat', 'Die Straße', 'Der Kunde'],
+    1,
+    'Das Werbemittel ist die Botschaft in ihrer Form: Plakat, Anzeige, Radiospot. Der Werbeträger ist das Medium, das sie transportiert: Litfaßsäule, Zeitung, Radiosender.',
+    { merksatz: 'Mittel = was man sieht. Träger = worauf es steht.' },
+  ),
+  f.einfach(
+    'wp-07',
+    'Für welche Menge muss der Grundpreis bei Lebensmitteln in Fertigpackungen angegeben werden?',
+    ['Je 100 g oder 100 ml', 'Je 1 kg oder 1 l', 'Je Packung', 'Nur auf Nachfrage'],
+    1,
+    'Der Grundpreis macht verschieden große Packungen vergleichbar. Seit der Neufassung der Preisangabenverordnung 2022 gilt einheitlich die Mengeneinheit 1 Kilogramm oder 1 Liter.',
+    { rechtsbezug: '§ 4, § 5 PAngV' },
+  ),
+  f.einfach(
+    'wp-08',
+    'Ein Artikel wird in der Werbung angeboten. Wie lange muss er in der Regel vorrätig sein, damit es kein Lockvogelangebot ist?',
+    ['Mindestens eine Stunde', 'In der Regel zwei Tage', 'Eine Woche', 'Solange der Vorrat reicht, ohne Mindestmenge'],
+    1,
+    'Wird ein Artikel beworben, der kaum vorrätig ist, gilt das als irreführend. Als angemessen gilt in der Regel ein Vorrat für zwei Tage — sonst muss der Händler gute Gründe haben.',
+    { rechtsbezug: 'UWG, Anhang zu § 3 Abs. 3, Nr. 5', schwierigkeit: 3 },
+  ),
+  f.mehrfach(
+    'wp-09',
+    'Was gehört zu einer guten Warenpräsentation? (Mehrere richtig)',
+    [
+      'Regale sauber und vollständig aufgefüllt',
+      'Preise gut lesbar direkt am Artikel',
+      'Artikel mit der Vorderseite zum Kunden ausgerichtet',
+      'Möglichst viele verschiedene Artikel durcheinander',
+    ],
+    [0, 1, 2],
+    'Leere Lücken wirken wie „ausverkauft“, fehlende Preise verunsichern, verdrehte Packungen findet niemand. Ordnung verkauft.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wp-10',
+    'Nudeln, Tomatensauce und Parmesan stehen nebeneinander. Wie nennt man das?',
+    ['Verbundplatzierung', 'Randsortiment', 'Mussartikel', 'Reckzone'],
+    0,
+    'Bei der Verbundplatzierung stehen Artikel zusammen, die man gemeinsam verwendet. Der Kunde denkt an die ganze Mahlzeit — und kauft mehr davon.',
+    { schwierigkeit: 1 },
+  ),
+]

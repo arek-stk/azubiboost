@@ -1,0 +1,102 @@
+import { themaFabrik } from './_fabrik'
+
+const f = themaFabrik('wirtschaftsordnung', 'wiso')
+
+export const wirtschaftsordnung = [
+  f.einfach(
+    'wo-01',
+    'Was kennzeichnet die soziale Marktwirtschaft?',
+    [
+      'Der Staat legt alle Preise fest',
+      'Angebot und Nachfrage bestimmen die Preise, der Staat sichert Wettbewerb und sozialen Ausgleich',
+      'Es gibt keinerlei staatliche Regeln',
+      'Alle Unternehmen gehören dem Staat',
+    ],
+    1,
+    'Märkte regeln Preise und Produktion, aber der Staat greift ein, wo der Markt allein ungerecht würde: Kartellrecht, Sozialversicherung, Arbeitsschutz, Mindestlohn.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wo-02',
+    'Nach einer schlechten Ernte gibt es weniger Erdbeeren, die Nachfrage bleibt gleich. Was passiert mit dem Preis?',
+    ['Er sinkt', 'Er steigt', 'Er bleibt gleich', 'Er wird vom Staat festgelegt'],
+    1,
+    'Weniger Angebot bei gleicher Nachfrage: Käufer konkurrieren um die knappe Ware, der Preis steigt.',
+    { merksatz: 'Knapp macht teuer, Überfluss macht billig.', schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wo-03',
+    'Wenige große Unternehmen teilen sich den Lebensmitteleinzelhandel in Deutschland. Welche Marktform ist das auf der Angebotsseite?',
+    ['Polypol', 'Oligopol', 'Monopol', 'Planwirtschaft'],
+    1,
+    'Viele Anbieter: Polypol. Wenige: Oligopol. Einer: Monopol. Im Oligopol beobachten sich die Anbieter genau — senkt einer die Preise, ziehen die anderen oft nach.',
+  ),
+  f.einfach(
+    'wo-04',
+    'Mit einem festen Werbebudget von 2.000 € sollen möglichst viele neue Kunden gewonnen werden. Welches Prinzip ist das?',
+    ['Minimalprinzip', 'Maximalprinzip', 'Solidaritätsprinzip', 'Äquivalenzprinzip'],
+    1,
+    'Beim Maximalprinzip ist der Einsatz fest und der Erfolg soll möglichst groß sein. Beim Minimalprinzip ist das Ziel fest und der Einsatz soll möglichst klein sein.',
+    { merksatz: 'Maximal: fester Einsatz, größter Erfolg. Minimal: festes Ziel, kleinster Einsatz.' },
+  ),
+  f.einfach(
+    'wo-05',
+    'Wann wird aus einem Bedürfnis ein Bedarf?',
+    ['Wenn es dringend ist', 'Wenn Kaufkraft dahintersteht', 'Wenn es viele Menschen haben', 'Wenn der Staat es erlaubt'],
+    1,
+    'Ein Bedürfnis ist ein Wunsch. Hat man das Geld, ihn zu erfüllen, wird daraus Bedarf. Tritt dieser Bedarf am Markt auf, ist es Nachfrage.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wo-06',
+    'Was bewirkt eine hohe Inflation für Verbraucher?',
+    ['Die Kaufkraft des Geldes sinkt', 'Die Kaufkraft steigt', 'Die Preise sinken', 'Die Löhne steigen automatisch mit'],
+    0,
+    'Steigen die Preise allgemein, bekommt man für denselben Euro weniger. Gerade im Lebensmittelhandel merken Kunden das sofort und greifen häufiger zu Eigenmarken.',
+    { schwierigkeit: 1 },
+  ),
+  f.mehrfach(
+    'wo-07',
+    'Welche Ziele gehören zum magischen Viereck der Wirtschaftspolitik? (Mehrere richtig)',
+    ['Stabiles Preisniveau', 'Hoher Beschäftigungsstand', 'Außenwirtschaftliches Gleichgewicht', 'Stetiges und angemessenes Wirtschaftswachstum', 'Möglichst hohe Staatsverschuldung'],
+    [0, 1, 2, 3],
+    'Diese vier Ziele stehen im Stabilitätsgesetz. „Magisch“ heißt das Viereck, weil sich die Ziele gegenseitig behindern — alle gleichzeitig zu erreichen, gelingt kaum.',
+    { rechtsbezug: '§ 1 StabG' },
+  ),
+  f.einfach(
+    'wo-08',
+    'Welche Aufgabe hat das Bundeskartellamt?',
+    [
+      'Es legt die Lebensmittelpreise fest',
+      'Es schützt den Wettbewerb, etwa durch die Kontrolle von Fusionen und das Verbot von Preisabsprachen',
+      'Es zieht die Umsatzsteuer ein',
+      'Es genehmigt neue Filialen',
+    ],
+    1,
+    'Ohne Wettbewerb könnten wenige Anbieter die Preise diktieren. Das Kartellamt verbietet Absprachen und prüft, ob Übernahmen den Markt zu sehr verengen.',
+  ),
+  f.einfach(
+    'wo-09',
+    'Wie haftet ein Einzelunternehmer für Schulden seines Geschäfts?',
+    ['Gar nicht', 'Nur mit dem Geschäftsvermögen', 'Unbeschränkt, auch mit seinem Privatvermögen', 'Nur bis 25.000 €'],
+    2,
+    'Beim Einzelunternehmen gibt es keine Trennung zwischen Firma und Person. Reicht das Geschäftsvermögen nicht, haftet der Inhaber mit allem, was er besitzt.',
+    { schwierigkeit: 1 },
+  ),
+  f.einfach(
+    'wo-10',
+    'Wie hoch ist das Mindest-Stammkapital einer GmbH?',
+    ['1 €', '12.500 €', '25.000 €', '50.000 €'],
+    2,
+    'Die GmbH haftet nur mit ihrem Gesellschaftsvermögen, die Gesellschafter riskieren nur ihre Einlage. Als Ausgleich verlangt das Gesetz ein Stammkapital von mindestens 25.000 €.',
+    { rechtsbezug: '§ 5 GmbHG' },
+  ),
+  f.einfach(
+    'wo-11',
+    'Was darf ein Prokurist ohne besondere Befugnis NICHT?',
+    ['Waren einkaufen', 'Mitarbeiter einstellen', 'Grundstücke verkaufen oder belasten', 'Kredite aufnehmen'],
+    2,
+    'Die Prokura ist eine sehr weite Vollmacht für fast alle Geschäfte eines Handelsbetriebs. Grundstücke veräußern oder belasten darf der Prokurist aber nur, wenn ihm das ausdrücklich erlaubt wurde.',
+    { rechtsbezug: '§ 49 HGB', schwierigkeit: 3 },
+  ),
+]

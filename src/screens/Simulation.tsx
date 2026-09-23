@@ -5,6 +5,7 @@ import { uhrzeit, useCountdown } from '../components/useCountdown'
 import { FRAGEN, alsFrage, istGeneriert } from '../data/fragen'
 import { istBeantwortet, istRichtig, leereAntwort, mitGemischtenOptionen } from '../data/fragen/pruefen'
 import { bereich as bereichInfo, punkteAusQuote } from '../domain/pruefung'
+import { PRUEFUNGSTHEMEN } from '../domain/themen'
 import type { Antwort, BereichId, Frage } from '../domain/types'
 import { heute } from '../engine/datum'
 import { AUFGABENTYPEN } from '../engine/rechenaufgaben'
@@ -27,11 +28,17 @@ export function simulationsUmfang(b: BereichId, verfuegbar: number) {
   return { anzahl, minuten: anzahl >= ziel ? info.minuten : anzahl * MINUTEN_JE_AUFGABE, rechnen }
 }
 
+/** Alle Fragen, aus denen die Simulation dieses Prüfungsbereichs ziehen darf. */
+export function simulationsPool(b: BereichId): Frage[] {
+  const themen = PRUEFUNGSTHEMEN[b]
+  return FRAGEN.filter((f) => themen.includes(f.thema))
+}
+
 function stelleZusammen(b: BereichId): Frage[] {
-  const pool = FRAGEN.filter((f) => f.bereich === b)
+  const pool = simulationsPool(b)
   const { anzahl, rechnen } = simulationsUmfang(b, pool.length)
   const rng = rngMitSeed(Date.now() % 2_147_483_647)
-  const bank = bauePruefung(FRAGEN, b, anzahl - rechnen, rng).map((f) => mitGemischtenOptionen(f, rng))
+  const bank = bauePruefung(FRAGEN, b, anzahl - rechnen, rng, PRUEFUNGSTHEMEN[b]).map((f) => mitGemischtenOptionen(f, rng))
   const generiert = mische(rng, AUFGABENTYPEN)
     .slice(0, rechnen)
     .map((t, i) => alsFrage(t.erzeuge(rng), i, b))
@@ -46,7 +53,7 @@ export function Simulation({ bereich }: { bereich: BereichId }) {
   const { ersetze, zurueck } = useNavigation()
   const info = bereichInfo(bereich)
   const [fragen] = useState(() => stelleZusammen(bereich))
-  const { minuten } = simulationsUmfang(bereich, FRAGEN.filter((f) => f.bereich === bereich).length)
+  const { minuten } = simulationsUmfang(bereich, simulationsPool(bereich).length)
   const [phase, setPhase] = useState<'start' | 'laeuft'>('start')
   const [start, setStart] = useState('')
   const [index, setIndex] = useState(0)

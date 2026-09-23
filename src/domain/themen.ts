@@ -136,3 +136,25 @@ export function thema(id: ThemaId): Thema {
 export function themenVonBereich(b: BereichId): readonly Thema[] {
   return THEMEN.filter((t) => t.bereich === b)
 }
+
+/**
+ * Aus welchen Themen eine Prüfungssimulation zieht. Das ist nicht dasselbe wie
+ * die Zuordnung oben: der Prüfungsbereich Geschäftsprozesse etwa verlangt
+ * Aufgaben aus mindestens zwei der Gebiete Einkauf, Sortimentsgestaltung,
+ * Logistik und Verkauf (§ 27 Abs. 2 VerkEHKflAusbV) — dazu gehört auch
+ * Kalkulation. Und Verkauf und Werbemaßnahmen prüft ausdrücklich auch
+ * verkaufsrelevante Rechtsvorschriften (§ 22).
+ */
+export const PRUEFUNGSTHEMEN: Record<BereichId, readonly ThemaId[]> = {
+  verkauf: ['verkaufsgespraech', 'kundenkommunikation', 'warenpraesentation', 'kasse', 'kaufvertrag'],
+  warenwirtschaft: ['warenannahme', 'bestandsfuehrung', 'beschaffung', 'kalkulation', 'lagerkennzahlen'],
+  wiso: ['kaufvertrag', 'wirtschaftsordnung', 'arbeitsrecht', 'arbeitsschutz'],
+  geschaeftsprozesse: [
+    'geschaeftsprozesse',
+    'beschaffung',
+    'kalkulation',
+    'lagerkennzahlen',
+    'bestandsfuehrung',
+    'warenpraesentation',
+  ],
+}

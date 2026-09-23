@@ -57,3 +57,22 @@ describe('Fragenbank', () => {
     }
   })
 })
+
+describe('Simulationen', () => {
+  it('ziehen jede Simulation aus genug Fragen für die volle Prüfungszeit', async () => {
+    const { PRUEFUNGSTHEMEN } = await import('../../domain/themen')
+    const { FRAGE_BEREICHE, bereich } = await import('../../domain/pruefung')
+    for (const b of FRAGE_BEREICHE) {
+      const pool = FRAGEN.filter((f) => PRUEFUNGSTHEMEN[b].includes(f.thema))
+      // 3 Minuten je Aufgabe, bis zu 4 davon generierte Rechenaufgaben
+      const benoetigt = Math.round(bereich(b).minuten / 3) - (b === 'warenwirtschaft' || b === 'geschaeftsprozesse' ? 4 : 0)
+      expect(pool.length, `Simulation ${b}`).toBeGreaterThanOrEqual(benoetigt)
+    }
+  })
+
+  it('verwendet jedes Thema in mindestens einer Simulation', async () => {
+    const { PRUEFUNGSTHEMEN } = await import('../../domain/themen')
+    const genutzt = new Set(Object.values(PRUEFUNGSTHEMEN).flat())
+    for (const t of THEMEN) expect(genutzt.has(t.id), t.id).toBe(true)
+  })
+})

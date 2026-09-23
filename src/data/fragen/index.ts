@@ -1,9 +1,37 @@
 import type { Frage } from '../../domain/types'
 import type { RechenAufgabe } from '../../engine/rechenaufgaben'
+import { arbeitsrecht } from './arbeitsrecht'
+import { arbeitsschutz } from './arbeitsschutz'
+import { beschaffung } from './beschaffung'
+import { bestandsfuehrung } from './bestandsfuehrung'
 import { geschaeftsprozesse } from './geschaeftsprozesse'
 import { kalkulation } from './kalkulation'
+import { kasse } from './kasse'
+import { kaufvertrag } from './kaufvertrag'
+import { kundenkommunikation } from './kundenkommunikation'
+import { lagerkennzahlen } from './lagerkennzahlen'
+import { verkaufsgespraech } from './verkaufsgespraech'
+import { warenannahme } from './warenannahme'
+import { warenpraesentation } from './warenpraesentation'
+import { wirtschaftsordnung } from './wirtschaftsordnung'
 
-export const FRAGEN: readonly Frage[] = [...kalkulation, ...geschaeftsprozesse]
+// Reihenfolge nach Prüfungsbereich: Teil 2 zuerst, dann Teil 1.
+export const FRAGEN: readonly Frage[] = [
+  ...geschaeftsprozesse,
+  ...kalkulation,
+  ...lagerkennzahlen,
+  ...beschaffung,
+  ...bestandsfuehrung,
+  ...warenannahme,
+  ...verkaufsgespraech,
+  ...kundenkommunikation,
+  ...warenpraesentation,
+  ...kasse,
+  ...kaufvertrag,
+  ...wirtschaftsordnung,
+  ...arbeitsrecht,
+  ...arbeitsschutz,
+]
 
 const nachId = new Map(FRAGEN.map((f) => [f.id, f]))
 

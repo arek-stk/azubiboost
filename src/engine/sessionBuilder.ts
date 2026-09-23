@@ -110,14 +110,18 @@ export function baueSession(w: SessionWunsch): Frage[] {
   return entzerreThemen(auswahl)
 }
 
-/** Fragenauswahl für eine Prüfungssimulation: quer durch den Bereich, gemischte Schwierigkeit. */
+/**
+ * Fragenauswahl für eine Prüfungssimulation: reihum aus den Themen, gemischte Schwierigkeit.
+ * Ohne Themenliste wird nach dem Bereich der Frage gefiltert.
+ */
 export function bauePruefung(
   fragen: readonly Frage[],
   bereich: BereichId,
   anzahl: number,
   rng: Rng = rngMitSeed(Date.now() % 2_147_483_647),
+  themen?: readonly ThemaId[],
 ): Frage[] {
-  const pool = fragen.filter((f) => f.bereich === bereich)
+  const pool = themen === undefined ? fragen.filter((f) => f.bereich === bereich) : fragen.filter((f) => themen.includes(f.thema))
   const nachThema = new Map<ThemaId, Frage[]>()
   for (const f of mische(rng, pool)) {
     const liste = nachThema.get(f.thema) ?? []

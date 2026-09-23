@@ -1,11 +1,10 @@
 import { Icon } from '../components/Icon'
 import { Plakette, stufe } from '../components/ui'
-import { FRAGEN } from '../data/fragen'
 import { FRAGE_BEREICHE, bereich, notenstufe } from '../domain/pruefung'
 import type { BereichId } from '../domain/types'
 import { useNavigation } from '../navigation'
 import { useStore } from '../store/useStore'
-import { simulationsUmfang } from './Simulation'
+import { simulationsPool, simulationsUmfang } from './Simulation'
 
 // Teil 2 zuerst — der steht im dritten Lehrjahr an.
 const REIHENFOLGE: BereichId[] = ['geschaeftsprozesse', ...FRAGE_BEREICHE.filter((b) => b !== 'geschaeftsprozesse')]
@@ -30,7 +29,7 @@ export function Pruefung() {
         <div className="liste">
           {REIHENFOLGE.map((b) => {
             const info = bereich(b)
-            const { anzahl, minuten } = simulationsUmfang(b, FRAGEN.filter((f) => f.bereich === b).length)
+            const { anzahl, minuten } = simulationsUmfang(b, simulationsPool(b).length)
             return (
               <button key={b} className="zeile" onClick={() => gehe({ name: 'simulation', bereich: b })} disabled={anzahl === 0}>
                 <span className="zeile__text">
