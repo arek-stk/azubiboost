@@ -47,6 +47,11 @@ describe('Mathe-Grundlagen', () => {
       'g-abzug': 95,
       'g-herausrechnen': 100,
       'g-runden': 63.08,
+      // 6 × 0,89 + 6 × 0,49 · 50 − 31,01 · 6.868 ÷ 4 · 15 € sind 5 %
+      'g-menge-preis': 8.28,
+      'g-wechselgeld': 18.99,
+      'g-durchschnitt': 1717,
+      'g-grundwert': 300,
     }
     for (const t of GRUNDLAGEN_TYPEN) {
       expect(t.erzeuge(rngMitSeed(1)).loesung.wert, t.id).toBeCloseTo(erwartet[t.id] ?? NaN, 2)

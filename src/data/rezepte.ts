@@ -188,4 +188,107 @@ export const REZEPTE: Record<AufgabentypId, Rezept> = {
     ],
     merke: 'Die Rentabilität zeigt, wie viele Cent Gewinn aus einem Euro Kapital oder Umsatz werden. 3 % Umsatzrentabilität heißt: 3 Cent Gewinn je Euro Umsatz.',
   },
+  'g-menge-preis': {
+    schritte: [
+      'Nimm für jeden Artikel die Stückzahl mal den Preis für ein Stück.',
+      'Schreib die Beträge untereinander, Komma unter Komma.',
+      'Zähl alles zusammen. Das muss die Kundin bezahlen.',
+    ],
+    merke: 'Erst jeden Artikel einzeln ausrechnen, dann zusammenzählen.',
+  },
+  'g-wechselgeld': {
+    schritte: [
+      'Zähl vom Einkaufsbetrag hoch bis zum nächsten vollen Euro. Das sind die Münzen.',
+      'Zähl vom vollen Euro weiter bis zum Schein, den die Kundin gegeben hat.',
+      'Beides zusammen ist das Wechselgeld. Am Taschenrechner geht es auch direkt: Schein minus Einkauf.',
+    ],
+    merke: 'Gegeben minus Einkauf ist das Wechselgeld. Im Kopf zählst du vom Einkauf aus hoch.',
+  },
+  'g-durchschnitt': {
+    schritte: ['Zähl alle Werte zusammen.', 'Teil die Summe durch die Anzahl der Werte.'],
+    merke: 'Zähl nach, wie viele Werte es sind. Durch genau diese Zahl teilst du.',
+  },
+  'g-grundwert': {
+    schritte: [
+      'Teil den Betrag durch die Prozentzahl. Das ist 1 %.',
+      'Nimm das Ergebnis mal 100. Das ist das Ganze, also 100 %.',
+    ],
+    merke: 'Vom Teil aufs Ganze: erst auf 1 % zurück, dann mal 100.',
+  },
+  kassenabrechnung: {
+    schritte: [
+      'Zähl das Wechselgeld vom Morgen und die Bareinnahmen zusammen.',
+      'Zieh die Barauszahlungen ab, zum Beispiel ausgezahlte Pfandbons. Das ist der Soll-Bestand.',
+      'Vergleich den Soll-Bestand mit dem gezählten Geld. Ist weniger da, ist es ein Fehlbetrag. Ist mehr da, ist es ein Überschuss.',
+    ],
+    merke: 'Soll ist, was da sein müsste. Ist ist, was du gezählt hast.',
+  },
+  rohgewinn: {
+    schritte: [
+      'Rechne aus dem Bruttoumsatz die Umsatzsteuer heraus: geteilt durch 1,19 oder 1,07.',
+      'Zieh vom Nettoumsatz den Wareneinsatz ab. Das ist der Rohgewinn.',
+    ],
+    merke: 'Rohgewinn = Nettoumsatz minus Wareneinsatz. Die Handlungskosten sind darin noch nicht abgezogen.',
+  },
+  flaechenkennzahlen: {
+    schritte: [
+      'Für den Umsatz je m²: Umsatz geteilt durch die Verkaufsfläche.',
+      'Für den Umsatz je Arbeitsstunde: erst alle Stunden zusammenrechnen (Personen mal Stunden), dann den Umsatz durch diese Stunden teilen.',
+    ],
+    merke: 'Umsatz je Irgendwas heißt immer: Umsatz geteilt durch dieses Irgendwas.',
+  },
+  angebotsvergleich: {
+    schritte: [
+      'Rechne für jedes Angebot den Listenpreis für die ganze Menge aus: Menge mal Stückpreis.',
+      'Zieh Rabatt und danach Skonto ab, wenn es welche gibt.',
+      'Zähl die Fracht dazu, wenn nicht frei Haus geliefert wird. Das ist der Bezugspreis.',
+      'Vergleich die beiden Bezugspreise. Der kleinere ist das günstigere Angebot.',
+    ],
+    merke: 'Verglichen werden Bezugspreise, nicht Listenpreise.',
+  },
+  kalkulationsfaktor: {
+    schritte: [
+      'Teil beim bekannten Artikel den Nettoverkaufspreis durch den Bezugspreis. Das ist der Kalkulationsfaktor.',
+      'Nimm den Bezugspreis des neuen Artikels mal den Faktor. Das ist sein Nettoverkaufspreis.',
+      'Nimm den Nettoverkaufspreis mal 1,19 oder 1,07. Das ist der Bruttoverkaufspreis.',
+    ],
+    merke: 'Faktor = Nettoverkaufspreis geteilt durch Bezugspreis. Im Faktor stecken Handlungskosten und Gewinn zusammen.',
+  },
+  zahllast: {
+    schritte: [
+      'Rechne die Umsatzsteuer auf die Verkäufe aus: Nettoverkäufe mal Steuersatz, geteilt durch 100.',
+      'Rechne die Vorsteuer auf die Einkäufe aus: Nettoeinkäufe mal Steuersatz, geteilt durch 100.',
+      'Zieh die Vorsteuer von der Umsatzsteuer ab. Das ist die Zahllast.',
+    ],
+    merke: 'Umsatzsteuer minus Vorsteuer gleich Zahllast.',
+  },
+  'rueckwaerts-komplett': {
+    schritte: [
+      'Bruttoverkaufspreis geteilt durch 1,19 (oder 1,07). Das ist der Nettoverkaufspreis.',
+      'Geteilt durch (100 plus Gewinnsatz), mal 100. Das sind die Selbstkosten.',
+      'Geteilt durch (100 plus Handlungskostensatz), mal 100. Das ist der Bezugspreis.',
+      'Minus Bezugskosten. Das ist der Bareinkaufspreis.',
+      'Geteilt durch (100 minus Skontosatz), mal 100. Das ist der Zieleinkaufspreis.',
+      'Geteilt durch (100 minus Rabattsatz), mal 100. Das ist der Listeneinkaufspreis.',
+    ],
+    merke: 'Rückwärts kehrt sich alles um: Aus plus wird minus, aus minus wird plus. Zuschläge rechnest du auf Hundert heraus, Abzüge im Hundert wieder hinein.',
+  },
+  'differenz-komplett': {
+    schritte: [
+      'Von oben: Listenpreis minus Rabatt, minus Skonto, plus Bezugskosten, plus Handlungskosten. Das sind die Selbstkosten.',
+      'Von unten: Bruttoverkaufspreis geteilt durch 1,19 oder 1,07. Das ist der Nettoverkaufspreis.',
+      'Nettoverkaufspreis minus Selbstkosten. Das ist der Gewinn in Euro.',
+      'Gewinn geteilt durch Selbstkosten, mal 100. Das ist der Gewinn in Prozent.',
+    ],
+    merke: 'Bei der Differenzkalkulation rechnest du von beiden Seiten. Der Gewinn ist das, was in der Mitte übrig bleibt.',
+  },
+  'lagerkennzahlen-jahr': {
+    schritte: [
+      'Zähl den Anfangsbestand und die zwölf Monatsendbestände zusammen.',
+      'Teil die Summe durch 13. Das ist der durchschnittliche Lagerbestand.',
+      'Teil den Wareneinsatz durch den durchschnittlichen Lagerbestand. Das ist die Umschlagshäufigkeit.',
+      'Teil 360 durch die Umschlagshäufigkeit. Das ist die durchschnittliche Lagerdauer in Tagen.',
+    ],
+    merke: '13 Werte, also durch 13. Nur wenn Anfangs- und Endbestand gegeben sind, teilst du durch 2.',
+  },
 }

@@ -6,10 +6,10 @@ import { zahl } from './format'
 const SEEDS = Array.from({ length: 30 }, (_, i) => i + 1)
 
 describe('Aufgabengeneratoren', () => {
-  it('bietet achtzehn Aufgabentypen mit eindeutigen Kennungen', () => {
-    expect(AUFGABENTYPEN).toHaveLength(18)
+  it('bietet 27 Aufgabentypen mit eindeutigen Kennungen', () => {
+    expect(AUFGABENTYPEN).toHaveLength(27)
     const ids = AUFGABENTYPEN.map((t) => t.id)
-    expect(new Set(ids).size).toBe(18)
+    expect(new Set(ids).size).toBe(27)
   })
 
   it.each(AUFGABENTYPEN.map((t) => [t.id, t] as const))(
@@ -115,6 +115,24 @@ describe('Von Hand nachgerechnete Aufgaben (Seed 1)', () => {
     'break-even': { titel: 'Break-even-Menge', wert: 1000 },
     // 41.000 ÷ 410.000 × 100
     rentabilitaet: { titel: 'Eigenkapitalrentabilität', wert: 10 },
+    // 250 + 1.209,84 − 70,38 = 1.389,46; gezählt 1.398,71
+    kassenabrechnung: { titel: 'Kassenabrechnung', wert: 9.25 },
+    // 9.520 ÷ 1,19 = 8.000 − 5.600
+    rohgewinn: { titel: 'Rohgewinn', wert: 2400 },
+    // 6 × 38 = 228 Std.; 58.824 ÷ 228
+    flaechenkennzahlen: { titel: 'Umsatz je Arbeitsstunde', wert: 258 },
+    // A: 192,50 − 28,88 = 163,62 − 4,91 = 158,71 + 30; B: 50 × 3,96 = 198
+    angebotsvergleich: { titel: 'Angebotsvergleich', wert: 188.71 },
+    // 8,05 ÷ 4,60 = 1,75; 8,00 × 1,75 = 14,00 × 1,07
+    kalkulationsfaktor: { titel: 'Kalkulationsfaktor', wert: 14.98 },
+    // 20.100 × 19 % = 3.819 − 13.065 × 19 % = 2.482,35
+    zahllast: { titel: 'Zahllast', wert: 1336.65 },
+    // 16,99 ÷ 1,19 = 14,28 ÷ 105 × 100 = 13,60 ÷ 130 × 100 = 10,46 − 0,15 = 10,31 ÷ 97 × 100 = 10,63 ÷ 75 × 100
+    'rueckwaerts-komplett': { titel: 'Rückwärts bis zum Listenpreis', wert: 14.17 },
+    // Selbstkosten 2,44; 3,29 ÷ 1,19 = 2,76; 0,32 ÷ 2,44 × 100
+    'differenz-komplett': { titel: 'Differenzkalkulation', wert: 13.11 },
+    // 585.000 ÷ 13 = 45.000; 450.000 ÷ 45.000 = 10; 360 ÷ 10
+    'lagerkennzahlen-jahr': { titel: 'Lagerkennzahlen aus 13 Beständen', wert: 36 },
   }
 
   it.each(AUFGABENTYPEN.map((t) => [t.id, t] as const))('%s', (id, typ) => {

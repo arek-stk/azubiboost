@@ -7,12 +7,13 @@
 import type { Aufgabentyp } from './rechenaufgaben'
 import { eur, zahl } from './format'
 import { waehle, zwischen } from './zufall'
+import { durchschnitt, grundwert, mengePreis, wechselgeld } from './grundlagen-alltag'
 
 const GRUNDWERTE = [40, 50, 80, 100, 120, 150, 200, 250, 300, 400, 500, 600, 800]
 
 export const prozentwert: Aufgabentyp = {
   id: 'g-prozentwert',
-  name: '1. Prozent von etwas',
+  name: 'Prozent von etwas',
   thema: 'kalkulation',
   schwierigkeit: 1,
   worumGehts: 'Wie viel sind 20 % von 150 €? Erst 1 % ausrechnen, dann malnehmen.',
@@ -53,7 +54,7 @@ export const prozentwert: Aufgabentyp = {
 
 export const prozentsatz: Aufgabentyp = {
   id: 'g-prozentsatz',
-  name: '2. Wie viel Prozent ist das?',
+  name: 'Wie viel Prozent ist das?',
   thema: 'kalkulation',
   schwierigkeit: 1,
   worumGehts: 'Teil durch Ganzes, dann mal 100. Das Ergebnis sind die Prozent.',
@@ -93,7 +94,7 @@ export const prozentsatz: Aufgabentyp = {
 
 export const aufschlag: Aufgabentyp = {
   id: 'g-aufschlag',
-  name: '3. Etwas aufschlagen',
+  name: 'Etwas aufschlagen',
   thema: 'kalkulation',
   schwierigkeit: 1,
   worumGehts: 'Auf den Einkaufspreis kommt etwas drauf. Du rechnest den Aufschlag in Euro aus und zählst ihn dazu.',
@@ -133,7 +134,7 @@ export const aufschlag: Aufgabentyp = {
 
 export const abzug: Aufgabentyp = {
   id: 'g-abzug',
-  name: '4. Etwas abziehen (Rabatt)',
+  name: 'Etwas abziehen (Rabatt)',
   thema: 'kalkulation',
   schwierigkeit: 1,
   worumGehts: 'Rabatt in Euro ausrechnen und vom Preis abziehen.',
@@ -172,7 +173,7 @@ export const abzug: Aufgabentyp = {
 
 export const herausrechnen: Aufgabentyp = {
   id: 'g-herausrechnen',
-  name: '5. Steuer herausrechnen',
+  name: 'Steuer herausrechnen',
   thema: 'kalkulation',
   schwierigkeit: 2,
   worumGehts: 'Wie viel kostet die Ware ohne Steuer? Du teilst durch 1,19 und ziehst nicht 19 % ab.',
@@ -219,7 +220,7 @@ export const herausrechnen: Aufgabentyp = {
 
 export const runden: Aufgabentyp = {
   id: 'g-runden',
-  name: '6. Auf Cent runden',
+  name: 'Auf Cent runden',
   thema: 'kalkulation',
   schwierigkeit: 1,
   worumGehts: 'Nur die dritte Stelle nach dem Komma entscheidet: ab 5 aufrunden.',
@@ -258,4 +259,15 @@ export const runden: Aufgabentyp = {
 }
 
 /** In dieser Reihenfolge lernen: jeder Baustein nutzt den davor. */
-export const GRUNDLAGEN_TYPEN: readonly Aufgabentyp[] = [prozentwert, prozentsatz, aufschlag, abzug, herausrechnen, runden]
+export const GRUNDLAGEN_TYPEN: readonly Aufgabentyp[] = [
+  mengePreis,
+  wechselgeld,
+  durchschnitt,
+  prozentwert,
+  prozentsatz,
+  grundwert,
+  aufschlag,
+  abzug,
+  herausrechnen,
+  runden,
+]

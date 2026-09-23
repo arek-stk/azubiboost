@@ -15,6 +15,7 @@ import { eur, pz, r2, rN, tage, zahl } from './format'
 import { waehle, zwischen, type Rng } from './zufall'
 import { ERWEITERTE_AUFGABENTYPEN } from './rechenaufgaben-erweitert'
 import { GRUNDLAGEN_TYPEN } from './grundlagen'
+import { PLUS_AUFGABENTYPEN } from './rechenaufgaben-plus'
 
 export type AufgabentypId =
   | 'bezugspreis'
@@ -41,6 +42,19 @@ export type AufgabentypId =
   | 'g-abzug'
   | 'g-herausrechnen'
   | 'g-runden'
+  | 'g-menge-preis'
+  | 'g-wechselgeld'
+  | 'g-durchschnitt'
+  | 'g-grundwert'
+  | 'kassenabrechnung'
+  | 'rohgewinn'
+  | 'flaechenkennzahlen'
+  | 'angebotsvergleich'
+  | 'kalkulationsfaktor'
+  | 'zahllast'
+  | 'rueckwaerts-komplett'
+  | 'differenz-komplett'
+  | 'lagerkennzahlen-jahr'
 
 export type RechenAufgabe = {
   typId: AufgabentypId
@@ -1048,6 +1062,7 @@ export const AUFGABENTYPEN: readonly Aufgabentyp[] = [
   skontovergleich,
   inventurdifferenz,
   ...ERWEITERTE_AUFGABENTYPEN,
+  ...PLUS_AUFGABENTYPEN,
 ]
 
 export function aufgabentyp(id: AufgabentypId): Aufgabentyp {

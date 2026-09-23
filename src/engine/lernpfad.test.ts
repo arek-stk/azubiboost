@@ -22,15 +22,15 @@ describe('Lernpfad', () => {
 
   it('beginnt am Anfang mit der ersten Grundlage', () => {
     const p = lernpfad({})
-    expect(p.naechster).toBe('g-prozentwert')
+    expect(p.naechster).toBe('g-menge-preis')
     expect(p.aktuelleStufe).toBe(1)
     expect(p.gemeistert).toBe(0)
     expect(p.knoten.filter((k) => k.jetztDran)).toHaveLength(1)
   })
 
   it('geht erst weiter, wenn die Schwelle ohne Hilfe erreicht ist', () => {
-    expect(lernpfad({ 'g-prozentwert': { richtig: 1 } }).naechster).toBe('g-prozentwert')
-    expect(lernpfad({ 'g-prozentwert': { richtig: 2 } }).naechster).toBe('g-prozentsatz')
+    expect(lernpfad({ 'g-menge-preis': { richtig: 1 } }).naechster).toBe('g-menge-preis')
+    expect(lernpfad({ 'g-menge-preis': { richtig: 2 } }).naechster).toBe('g-wechselgeld')
   })
 
   it('verlangt bei Prüfungsaufgaben mehr Sicherheit als bei Grundlagen', () => {
