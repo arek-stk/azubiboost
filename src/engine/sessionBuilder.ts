@@ -15,6 +15,28 @@ import { mische, rngMitSeed, tagesSeed, type Rng } from './zufall'
 export const ANTEIL_FAELLIG = 0.6
 export const ANTEIL_SCHWACH = 0.25
 
+/** Schwere neue Fragen erst, wenn das Thema sitzt: so viele Antworten mit dieser Quote. */
+export const SCHWER_AB_ANTWORTEN = 5
+export const SCHWER_AB_QUOTE = 0.6
+
+/** Ist ein Thema bereit für schwere neue Fragen? Erst leicht, dann schwerer. */
+export function bereitFuerSchwer(
+  thema: ThemaId,
+  fragen: readonly Frage[],
+  karten: Readonly<Record<string, Kartenstand>>,
+): boolean {
+  let richtig = 0
+  let gesamt = 0
+  for (const f of fragen) {
+    if (f.thema !== thema) continue
+    const k = karten[f.id]
+    if (k === undefined) continue
+    richtig += k.richtig
+    gesamt += k.richtig + k.falsch
+  }
+  return gesamt >= SCHWER_AB_ANTWORTEN && richtig / gesamt >= SCHWER_AB_QUOTE
+}
+
 export type SessionWunsch = {
   fragen: readonly Frage[]
   karten: Readonly<Record<string, Kartenstand>>
@@ -73,10 +95,10 @@ export function baueSession(w: SessionWunsch): Frage[] {
   }
 
   const genommen = new Set<string>()
-  const nimm = (kandidaten: readonly Frage[], wieViele: number): Frage[] => {
+  const nimm = (kandidaten: readonly Frage[], wieViele: number, geordnet = false): Frage[] => {
     if (wieViele <= 0) return []
     const frei = kandidaten.filter((f) => !genommen.has(f.id))
-    const gewaehlt = mische(rng, frei).slice(0, wieViele)
+    const gewaehlt = (geordnet ? frei : mische(rng, frei)).slice(0, wieViele)
     for (const f of gewaehlt) genommen.add(f.id)
     return gewaehlt
   }
@@ -87,10 +109,15 @@ export function baueSession(w: SessionWunsch): Frage[] {
   })
   const schwach =
     w.schwaechstesThema === undefined ? [] : pool.filter((f) => f.thema === w.schwaechstesThema)
-  const neu = pool.filter((f) => {
-    const k = w.karten[f.id]
-    return k === undefined || istNeu(k)
-  })
+  // Neue Fragen: leichte zuerst, schwere erst in Themen, die schon sitzen.
+  const neu = mische(
+    rng,
+    pool.filter((f) => {
+      const k = w.karten[f.id]
+      const istNeueFrage = k === undefined || istNeu(k)
+      return istNeueFrage && (f.schwierigkeit < 3 || bereitFuerSchwer(f.thema, w.fragen, w.karten))
+    }),
+  ).sort((a, b) => a.schwierigkeit - b.schwierigkeit)
 
   const anzahlFaellig = Math.round(w.anzahl * ANTEIL_FAELLIG)
   const anzahlSchwach = Math.round(w.anzahl * ANTEIL_SCHWACH)
@@ -98,14 +125,17 @@ export function baueSession(w: SessionWunsch): Frage[] {
   const auswahl = [
     ...nimm(faellig, anzahlFaellig),
     ...nimm(schwach, anzahlSchwach),
-    ...nimm(neu, w.anzahl - anzahlFaellig - anzahlSchwach),
+    ...nimm(neu, w.anzahl - anzahlFaellig - anzahlSchwach, true),
   ]
 
   // Ist ein Korb zu klein gewesen, wird aus dem restlichen Pool aufgefüllt:
   // eine kurze Sitzung ist besser als eine halb leere.
-  if (auswahl.length < Math.min(w.anzahl, pool.length)) {
-    auswahl.push(...nimm(pool, Math.min(w.anzahl, pool.length) - auswahl.length))
-  }
+  // Zuerst mit den geordneten neuen Fragen auffüllen (leichte zuerst, schwere
+  // nur in sicheren Themen) — sonst kämen am Anfang, wenn noch nichts fällig
+  // ist, doch wieder zufällig schwere Fragen dazu.
+  const ziel = Math.min(w.anzahl, pool.length)
+  if (auswahl.length < ziel) auswahl.push(...nimm(neu, ziel - auswahl.length, true))
+  if (auswahl.length < ziel) auswahl.push(...nimm(pool, ziel - auswahl.length))
 
   return entzerreThemen(auswahl)
 }

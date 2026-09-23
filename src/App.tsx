@@ -10,6 +10,7 @@ import { Fachgespraech } from './screens/Fachgespraech'
 import { Formeln } from './screens/Formeln'
 import { Fortschritt } from './screens/Fortschritt'
 import { Heute } from './screens/Heute'
+import { Hilfe } from './screens/Hilfe'
 import { Lernen } from './screens/Lernen'
 import { Pruefung } from './screens/Pruefung'
 import { Quiz } from './screens/Quiz'
@@ -52,6 +53,8 @@ function Ansicht() {
       return <Fachgespraech />
     case 'einstellungen':
       return <Einstellungen />
+    case 'hilfe':
+      return <Hilfe />
   }
 }
 

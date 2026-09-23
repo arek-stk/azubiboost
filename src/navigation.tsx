@@ -15,6 +15,7 @@ export type Ansicht =
   | { name: 'ergebnis'; versuchId: string }
   | { name: 'fachgespraech' }
   | { name: 'einstellungen' }
+  | { name: 'hilfe' }
 
 type NavKontext = {
   aktuell: Ansicht

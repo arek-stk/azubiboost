@@ -87,6 +87,14 @@ export function Lernen() {
           </span>
           <span className="pfeil"><Icon name="weiter" /></span>
         </button>
+        <button className="zeile" onClick={() => gehe({ name: 'hilfe' })}>
+          <Icon name="sprechblase" />
+          <span className="zeile__text">
+            <span className="zeile__titel">Hilfe & Lernquellen</span>
+            <span className="zeile__info">Videos, Übungen und kostenlose Nachhilfe</span>
+          </span>
+          <span className="pfeil"><Icon name="weiter" /></span>
+        </button>
       </div>
     </>
   )

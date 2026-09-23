@@ -354,3 +354,32 @@ describe('Lerntempo', () => {
     expect(empfohlenesTempo(viele, {}, -1)).toBeNull()
   })
 })
+
+describe('Erst leicht, dann schwerer', () => {
+  const gemischt: Frage[] = [
+    ...Array.from({ length: 6 }, (_, i) => ({ ...frage(`leicht${i}`, 'kalkulation', 'warenwirtschaft'), schwierigkeit: 1 as const })),
+    ...Array.from({ length: 6 }, (_, i) => ({ ...frage(`mittel${i}`, 'kalkulation', 'warenwirtschaft'), schwierigkeit: 2 as const })),
+    ...Array.from({ length: 6 }, (_, i) => ({ ...frage(`schwer${i}`, 'kalkulation', 'warenwirtschaft'), schwierigkeit: 3 as const })),
+  ]
+
+  it('gibt am Anfang keine schweren neuen Fragen und die leichten zuerst', () => {
+    const s = baueSession({ fragen: gemischt, karten: {}, anzahl: 8, datum: TAG, rng: rngMitSeed(3) })
+    expect(s.some((f) => f.id.startsWith('schwer'))).toBe(false)
+    expect(s.filter((f) => f.id.startsWith('leicht'))).toHaveLength(6)
+  })
+
+  it('lässt schwere Fragen zu, sobald das Thema sitzt', () => {
+    const karten: Record<string, Kartenstand> = {}
+    for (let i = 0; i < 6; i++) karten[`leicht${i}`] = { ...neueKarte(`leicht${i}`, TAG), box: 3, faelligAm: '2026-12-01', richtig: 3, falsch: 0 }
+    for (let i = 0; i < 6; i++) karten[`mittel${i}`] = { ...neueKarte(`mittel${i}`, TAG), box: 3, faelligAm: '2026-12-01', richtig: 3, falsch: 1 }
+    const s = baueSession({ fragen: gemischt, karten, anzahl: 6, datum: TAG, rng: rngMitSeed(4) })
+    expect(s.some((f) => f.id.startsWith('schwer'))).toBe(true)
+  })
+
+  it('hält schwere Fragen zurück, solange die Quote unter 60 Prozent liegt', () => {
+    const karten: Record<string, Kartenstand> = {}
+    for (let i = 0; i < 6; i++) karten[`leicht${i}`] = { ...neueKarte(`leicht${i}`, TAG), box: 1, faelligAm: '2026-12-01', richtig: 1, falsch: 2 }
+    const s = baueSession({ fragen: gemischt, karten, anzahl: 6, datum: TAG, rng: rngMitSeed(5) })
+    expect(s.filter((f) => f.id.startsWith('schwer')).length).toBe(0)
+  })
+})

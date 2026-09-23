@@ -16,6 +16,8 @@ import {
   type RechenAufgabe as Aufgabe,
 } from '../engine/rechenaufgaben'
 import { rngMitSeed, waehle } from '../engine/zufall'
+import { lernpfad, meisterSchwelle } from '../engine/lernpfad'
+import { useNavigation } from '../navigation'
 import { useStore } from '../store/useStore'
 
 type Phase = 'lesen' | 'rechnen' | 'ergebnis' | 'gefuehrt' | 'gefuehrt-fertig'
@@ -31,7 +33,8 @@ function loesungText(a: Aufgabe): string {
 }
 
 export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) {
-  const { dispatch } = useStore()
+  const { zustand, dispatch } = useStore()
+  const { ersetze } = useNavigation()
   const [aufgabe, setAufgabe] = useState(() => erzeuge(typId))
   const [phase, setPhase] = useState<Phase>('lesen')
   const [eingabe, setEingabe] = useState('')
@@ -197,9 +200,39 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
 
           <RezeptKarte rezept={rezept} offen={!richtig} />
 
-          <button className="knopf knopf--breit" onClick={neu}>
-            Neue Aufgabe mit anderen Zahlen
-          </button>
+          {(() => {
+            // Fortschritt auf dem Lernpfad: wie oft noch, und wohin es danach geht.
+            const pfad = lernpfad(zustand.rechnen)
+            const knoten = pfad.knoten.find((k) => k.typId === aufgabe.typId)
+            const fehlt = knoten === undefined ? 0 : Math.max(0, meisterSchwelle(aufgabe.typId) - knoten.richtig)
+            const weiterZu = pfad.naechster !== null && pfad.naechster !== aufgabe.typId ? pfad.naechster : null
+            return (
+              <>
+                {richtig && knoten !== undefined && (
+                  <p className="merksatz">
+                    <strong>{fehlt === 0 ? 'Gemeistert' : 'Auf dem Lernpfad'}</strong>
+                    {fehlt === 0
+                      ? 'Diesen Aufgabentyp kannst du jetzt allein. Weiter geht es mit dem nächsten Schritt.'
+                      : `Noch ${fehlt}× ohne Hilfe richtig, dann ist dieser Aufgabentyp gemeistert.`}
+                  </p>
+                )}
+                {typId !== 'gemischt' && fehlt === 0 && weiterZu !== null ? (
+                  <>
+                    <button className="knopf knopf--breit" onClick={() => ersetze({ name: 'rechenaufgabe', typId: weiterZu })}>
+                      Weiter auf dem Lernpfad
+                    </button>
+                    <button className="knopf knopf--zweit knopf--breit" onClick={neu}>
+                      Noch eine zum Festigen
+                    </button>
+                  </>
+                ) : (
+                  <button className="knopf knopf--breit" onClick={neu}>
+                    Neue Aufgabe mit anderen Zahlen
+                  </button>
+                )}
+              </>
+            )
+          })()}
         </>
       )}
     </>

@@ -383,3 +383,13 @@ h1 {
 .aktionsleiste {
   background: linear-gradient(to top, var(--bg) 70%, transparent);
 }
+
+/* Links, die wie Listenzeilen aussehen */
+a.zeile {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.zeile:active {
+  background: var(--bg-gedrueckt);
+}

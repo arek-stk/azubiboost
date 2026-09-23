@@ -7,6 +7,7 @@ import { NACHRICHT_VON, anrede, begruessung, nachrichtFuerTag } from '../data/pe
 import type { BereichId } from '../domain/types'
 import { coachNachricht } from '../engine/coach'
 import { alsDate, heute } from '../engine/datum'
+import { lernpfad } from '../engine/lernpfad'
 import { baueSession } from '../engine/sessionBuilder'
 import { istFaellig, istNeu } from '../engine/srs'
 import {
@@ -149,7 +150,7 @@ export function Heute() {
       </section>
 
       <div className="kacheln">
-        <Kachel icon="stift" titel="Rechnen" info="Auf Papier, mit Hilfe" bereich="warenwirtschaft" onClick={() => gehe({ name: 'rechenaufgabe', typId: 'gemischt' })} />
+        <Kachel icon="stift" titel="Rechnen" info={`Lernpfad · Stufe ${lernpfad(zustand.rechnen).aktuelleStufe} von 4`} bereich="warenwirtschaft" onClick={() => gehe({ name: 'rechenaufgabe', typId: lernpfad(zustand.rechnen).naechster ?? 'gemischt' })} />
         <Kachel icon="pruefung" titel="Probeprüfung" info="Geschäftsprozesse, 120 Min" bereich="geschaeftsprozesse" onClick={() => gehe({ name: 'simulation', bereich: 'geschaeftsprozesse' })} />
         <Kachel icon="sprechblase" titel="Fachgespräch" info="Zählt 40 %" bereich="verkauf" onClick={() => gehe({ name: 'fachgespraech' })} />
         {fehler > 0 ? (
