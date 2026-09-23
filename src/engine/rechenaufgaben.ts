@@ -13,6 +13,7 @@
 import type { RechenSchritt, Schwierigkeit, ThemaId, ZahlLoesung } from '../domain/types'
 import { eur, pz, r2, rN, tage, zahl } from './format'
 import { waehle, zwischen, type Rng } from './zufall'
+import { ERWEITERTE_AUFGABENTYPEN } from './rechenaufgaben-erweitert'
 
 export type AufgabentypId =
   | 'bezugspreis'
@@ -27,6 +28,12 @@ export type AufgabentypId =
   | 'umsatzsteuer'
   | 'skontovergleich'
   | 'inventurdifferenz'
+  | 'grundpreis'
+  | 'handlungskostensatz'
+  | 'prozentveraenderung'
+  | 'dreisatz'
+  | 'break-even'
+  | 'rentabilitaet'
 
 export type RechenAufgabe = {
   typId: AufgabentypId
@@ -1022,6 +1029,7 @@ export const AUFGABENTYPEN: readonly Aufgabentyp[] = [
   umsatzsteuer,
   skontovergleich,
   inventurdifferenz,
+  ...ERWEITERTE_AUFGABENTYPEN,
 ]
 
 export function aufgabentyp(id: AufgabentypId): Aufgabentyp {

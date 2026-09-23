@@ -322,3 +322,103 @@
 .uhr--knapp {
   color: var(--schlecht);
 }
+
+/* ---------- Rezept und geführtes Rechnen ---------- */
+
+.rezept__kopf {
+  font-weight: 650;
+  cursor: pointer;
+  min-height: 28px;
+}
+
+.rezept__liste {
+  margin: 4px 0 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.knopf-klein {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--akzent-weich);
+  color: var(--akzent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gefuehrt {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gefuehrt__schritt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
+  box-shadow: var(--schatten);
+}
+
+.gefuehrt__schritt--spaeter {
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.gefuehrt__schritt--richtig {
+  background: var(--gut-weich);
+  box-shadow: none;
+}
+
+.gefuehrt__schritt--korrigiert {
+  background: var(--mittel-weich);
+  box-shadow: none;
+}
+
+.gefuehrt__schritt--aktuell {
+  outline: 2px solid var(--akzent);
+}
+
+.gefuehrt__marke {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--akzent-weich);
+  color: var(--akzent);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.gefuehrt__schritt--richtig .gefuehrt__marke {
+  background: var(--gut);
+  color: #fff;
+}
+
+.gefuehrt__inhalt {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gefuehrt__titel {
+  font-weight: 650;
+}
+
+.eingabe-anzeige--klein {
+  min-height: 52px;
+  font-size: 26px;
+}

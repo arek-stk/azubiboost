@@ -1,59 +1,88 @@
-/* Design-Tokens. Farben nur hier definieren, nie direkt in Komponenten. */
+/* Design-Tokens. Farben nur hier definieren, nie direkt in Komponenten.
+   Kontraste: Fließtext ≥ 7:1, Sekundärtext ≥ 4,5:1, weiße Schrift auf Akzent ≥ 4,5:1. */
 
 :root {
-  --bg: #f4f5f7;
+  --bg: #f3f4f7;
   --bg-erhoeht: #ffffff;
-  --bg-gedrueckt: #eceef2;
-  --linie: #e1e4ea;
-  --text: #14171f;
-  --text-2: #5a6070;
-  --text-3: #8a90a0;
+  --bg-gedrueckt: #e9ecf1;
+  --linie: #e0e4eb;
+  --text: #101521;
+  --text-2: #4a5263;
+  --text-3: #626a7c;
 
-  --akzent: #0e8a7a;
+  --akzent: #0b7a6c;
+  --akzent-hell: #16a38f;
   --akzent-text: #ffffff;
-  --akzent-weich: #dff3ef;
+  --akzent-weich: #ddf3ee;
+  --verlauf: linear-gradient(135deg, #0a6e62 0%, #129683 55%, #1bb39c 100%);
 
-  --gut: #1f9d55;
-  --gut-weich: #e3f5ea;
-  --mittel: #c77d0a;
-  --mittel-weich: #fdf1dc;
-  --schlecht: #d23f3f;
-  --schlecht-weich: #fbe6e6;
+  --gut: #16834a;
+  --gut-weich: #e1f4e8;
+  --mittel: #a8650a;
+  --mittel-weich: #fcf0da;
+  --schlecht: #c8313a;
+  --schlecht-weich: #fbe4e5;
+  --gold: #f4b63f;
 
-  --schatten: 0 1px 2px rgb(20 23 31 / 0.06), 0 4px 16px rgb(20 23 31 / 0.05);
-  --radius: 16px;
-  --radius-klein: 10px;
+  /* Eine Farbe je Prüfungsbereich — überall gleich, damit man sich orientiert. */
+  --b-geschaeftsprozesse: #6a4bd4;
+  --b-geschaeftsprozesse-weich: #ede8fc;
+  --b-warenwirtschaft: #2463c9;
+  --b-warenwirtschaft-weich: #e3ecfb;
+  --b-verkauf: #d0502f;
+  --b-verkauf-weich: #fbe9e3;
+  --b-wiso: #9a6a10;
+  --b-wiso-weich: #f8eed9;
+
+  --schatten: 0 1px 2px rgb(16 21 33 / 0.05), 0 6px 20px rgb(16 21 33 / 0.06);
+  --schatten-hoch: 0 10px 30px rgb(16 21 33 / 0.12);
+  --radius: 18px;
+  --radius-klein: 12px;
 
   --schrift: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, system-ui,
     sans-serif;
   --schrift-zahl: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
 
-  --tabbar-hoehe: 56px;
+  --tabbar-hoehe: 58px;
   --sicher-oben: env(safe-area-inset-top, 0px);
   --sicher-unten: env(safe-area-inset-bottom, 0px);
+  --federnd: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0b1120;
-    --bg-erhoeht: #151c2e;
+    --bg: #0a0f1c;
+    --bg-erhoeht: #141b2c;
     --bg-gedrueckt: #1d2539;
     --linie: #263049;
     --text: #eef1f7;
-    --text-2: #a3abbd;
-    --text-3: #6f7890;
+    --text-2: #aab2c4;
+    --text-3: #8a93a8;
 
     --akzent: #2cc2ad;
-    --akzent-text: #06201c;
-    --akzent-weich: #103a35;
+    --akzent-hell: #4fd8c3;
+    --akzent-text: #04211c;
+    --akzent-weich: #0f3833;
+    --verlauf: linear-gradient(135deg, #0b4f47 0%, #0f7566 60%, #17937f 100%);
 
-    --gut: #3ccf7c;
+    --gut: #43d17f;
     --gut-weich: #0f3120;
-    --mittel: #f0a93b;
+    --mittel: #f2ad45;
     --mittel-weich: #3a2a0c;
-    --schlecht: #f06c6c;
+    --schlecht: #f47272;
     --schlecht-weich: #3d1717;
+    --gold: #f7c65c;
 
-    --schatten: 0 1px 2px rgb(0 0 0 / 0.3);
+    --b-geschaeftsprozesse: #a58cff;
+    --b-geschaeftsprozesse-weich: #2a2250;
+    --b-warenwirtschaft: #7aa8ff;
+    --b-warenwirtschaft-weich: #17284a;
+    --b-verkauf: #ff8a6b;
+    --b-verkauf-weich: #3d1d14;
+    --b-wiso: #e0b35a;
+    --b-wiso-weich: #36290f;
+
+    --schatten: 0 1px 2px rgb(0 0 0 / 0.35);
+    --schatten-hoch: 0 10px 30px rgb(0 0 0 / 0.5);
   }
 }

@@ -13,6 +13,8 @@ import { leererZustand, type AppZustand, type Einstellungen } from './persist'
 export type Aktion =
   | { typ: 'frageBeantwortet'; frageId: string; richtig: boolean; tag: IsoTag }
   | { typ: 'rechenaufgabeBeantwortet'; typId: AufgabentypId; richtig: boolean; tag: IsoTag }
+  /** Mit Schritt-für-Schritt-Hilfe durchgerechnet: zählt zum Tagesziel, aber nicht zur Trefferquote. */
+  | { typ: 'rechenaufgabeGeuebt'; tag: IsoTag }
   | { typ: 'versuchBeendet'; versuch: Versuch }
   | { typ: 'einstellungenGeaendert'; aenderung: Partial<Einstellungen> }
   | { typ: 'fachgespraechEingeschaetzt'; punkte: number }
@@ -43,6 +45,9 @@ export function reducer(z: AppZustand, a: Aktion): AppZustand {
         : { ...alt, falsch: alt.falsch + 1 }
       return zaehleZumTag({ ...z, rechnen: { ...z.rechnen, [a.typId]: neu } }, a.tag)
     }
+
+    case 'rechenaufgabeGeuebt':
+      return zaehleZumTag(z, a.tag)
 
     case 'versuchBeendet':
       return { ...z, versuche: [...z.versuche, a.versuch] }

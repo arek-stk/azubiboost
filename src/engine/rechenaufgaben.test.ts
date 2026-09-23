@@ -6,10 +6,10 @@ import { zahl } from './format'
 const SEEDS = Array.from({ length: 30 }, (_, i) => i + 1)
 
 describe('Aufgabengeneratoren', () => {
-  it('bietet zwölf Aufgabentypen mit eindeutigen Kennungen', () => {
-    expect(AUFGABENTYPEN).toHaveLength(12)
+  it('bietet achtzehn Aufgabentypen mit eindeutigen Kennungen', () => {
+    expect(AUFGABENTYPEN).toHaveLength(18)
     const ids = AUFGABENTYPEN.map((t) => t.id)
-    expect(new Set(ids).size).toBe(12)
+    expect(new Set(ids).size).toBe(18)
   })
 
   it.each(AUFGABENTYPEN.map((t) => [t.id, t] as const))(
@@ -103,6 +103,18 @@ describe('Von Hand nachgerechnete Aufgaben (Seed 1)', () => {
     skontovergleich: { titel: 'Jahreszinssatz des Skontos', wert: 14.4 },
     // 200 ÷ 820.000 × 100
     inventurdifferenz: { titel: 'Schwundquote', wert: 0.024 },
+    // 1.000 g ÷ 100 g = 10; 5,09 € × 10
+    grundpreis: { titel: 'Grundpreis', wert: 50.9 },
+    // 136.000 ÷ 680.000 × 100
+    handlungskostensatz: { titel: 'Handlungskostenzuschlag', wert: 20 },
+    // (918.000 − 900.000) ÷ 900.000 × 100
+    prozentveraenderung: { titel: 'Umsatzsteigerung', wert: 2 },
+    // 2 × 6 Std. = 12; 12 ÷ 8
+    dreisatz: { titel: 'Dreisatz', wert: 1.5 },
+    // 4,70 − 2,30 = 2,40; 2.400 ÷ 2,40
+    'break-even': { titel: 'Break-even-Menge', wert: 1000 },
+    // 41.000 ÷ 410.000 × 100
+    rentabilitaet: { titel: 'Eigenkapitalrentabilität', wert: 10 },
   }
 
   it.each(AUFGABENTYPEN.map((t) => [t.id, t] as const))('%s', (id, typ) => {

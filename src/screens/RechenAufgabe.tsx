@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
+import { GefuehrtesRechnen } from '../components/GefuehrtesRechnen'
 import { Icon } from '../components/Icon'
+import { RezeptKarte } from '../components/RezeptKarte'
+import { REZEPTE } from '../data/rezepte'
 import { Rechenweg } from '../components/Rechenweg'
 import { Kopf, Plakette } from '../components/ui'
 import { Ziffernblock, eingabeAlsZahl, eingabeAnzeigen } from '../components/Ziffernblock'
@@ -16,7 +19,7 @@ import {
 import { rngMitSeed, waehle } from '../engine/zufall'
 import { useStore } from '../store/useStore'
 
-type Phase = 'lesen' | 'rechnen' | 'ergebnis'
+type Phase = 'lesen' | 'rechnen' | 'ergebnis' | 'gefuehrt' | 'gefuehrt-fertig'
 
 function erzeuge(typId: AufgabentypId | 'gemischt'): Aufgabe {
   const rng = rngMitSeed(Date.now() % 2_147_483_647)
@@ -47,6 +50,19 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
   const [formelOffen, setFormelOffen] = useState(false)
   const sekunden = useStoppuhr(phase === 'rechnen')
   const [richtig, setRichtig] = useState(false)
+  const [ohneFehler, setOhneFehler] = useState(false)
+  const rezept = REZEPTE[aufgabe.typId]
+
+  const starteGefuehrt = () => {
+    setPhase('gefuehrt')
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const gefuehrtFertig = (fehlerfrei: boolean) => {
+    setOhneFehler(fehlerfrei)
+    setPhase('gefuehrt-fertig')
+    dispatch({ typ: 'rechenaufgabeGeuebt', tag: heute() })
+  }
 
   const pruefe = () => {
     const ok = istZahlRichtig(aufgabe.loesung, eingabeAlsZahl(eingabe))
@@ -95,8 +111,12 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
               </p>
             </div>
           </div>
+          <RezeptKarte rezept={rezept} />
           <button className="knopf knopf--breit" onClick={() => setPhase('rechnen')}>
             Ich rechne jetzt
+          </button>
+          <button className="knopf knopf--zweit knopf--breit" onClick={starteGefuehrt}>
+            Schritt für Schritt mit Hilfe
           </button>
         </>
       )}
@@ -118,6 +138,36 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
               Tipp: Formel anzeigen
             </button>
           )}
+          <button className="knopf knopf--zweit knopf--breit" onClick={starteGefuehrt}>
+            Ich komme nicht weiter — zeig es mir Schritt für Schritt
+          </button>
+        </>
+      )}
+
+      {phase === 'gefuehrt' && (
+        <>
+          <RezeptKarte rezept={rezept} offen />
+          <GefuehrtesRechnen schritte={aufgabe.rechenweg} onFertig={gefuehrtFertig} />
+        </>
+      )}
+
+      {phase === 'gefuehrt-fertig' && (
+        <>
+          <section className="rueckmeldung rueckmeldung--richtig">
+            <p className="rueckmeldung__titel">{ohneFehler ? 'Alle Schritte richtig!' : 'Durchgerechnet!'}</p>
+            <p>
+              {ohneFehler
+                ? 'Du hast jeden Zwischenschritt selbst gelöst. Probier die nächste Aufgabe ganz ohne Hilfe.'
+                : 'Die markierten Schritte schau dir noch einmal an. Bei der nächsten Aufgabe erkennst du sie wieder.'}
+            </p>
+            <p>
+              Ergebnis: <strong className="zahl">{loesungText(aufgabe)}</strong>
+            </p>
+          </section>
+          <p className="formel">{aufgabe.formel}</p>
+          <button className="knopf knopf--breit" onClick={neu}>
+            Neue Aufgabe mit anderen Zahlen
+          </button>
         </>
       )}
 
@@ -143,7 +193,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
             <Rechenweg schritte={aufgabe.rechenweg} alleOffen={!richtig} />
           </section>
 
-          <p className="formel">{aufgabe.formel}</p>
+          <RezeptKarte rezept={rezept} offen={!richtig} />
 
           <button className="knopf knopf--breit" onClick={neu}>
             Neue Aufgabe mit anderen Zahlen
