@@ -218,3 +218,27 @@
 .abzeichen--gesperrt .abzeichen__titel {
   color: var(--text-3);
 }
+
+/* ---------- Aufnahme ---------- */
+
+.aufnahme-laeuft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.aufnahme-punkt {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--schlecht);
+  animation: blinken 1.2s ease-in-out infinite;
+}
+
+@keyframes blinken {
+  50% {
+    opacity: 0.25;
+  }
+}

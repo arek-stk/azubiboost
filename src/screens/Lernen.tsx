@@ -37,6 +37,19 @@ export function Lernen() {
         <h1>Lernen</h1>
       </header>
 
+      <div className="liste">
+        <button className="zeile" onClick={() => gehe({ name: 'lernplan' })}>
+          <span className="symbol symbol--klein">
+            <Icon name="kalender" groesse={20} />
+          </span>
+          <span className="zeile__text">
+            <span className="zeile__titel">Lernplan</span>
+            <span className="zeile__info">Was diese Woche dran ist, mit Erinnerung</span>
+          </span>
+          <span className="pfeil"><Icon name="weiter" /></span>
+        </button>
+      </div>
+
       {anzahlFehler > 0 && (
         <button className="knopf knopf--breit" onClick={fehlerUeben}>
           {anzahlFehler} unsichere Fragen wiederholen

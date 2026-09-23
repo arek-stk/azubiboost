@@ -41,11 +41,14 @@ export function FrageKarte({
   antwort,
   onAntwort,
   aufgedeckt,
+  optionenVerdeckt = false,
 }: {
   frage: Frage
   antwort: Antwort
   onAntwort: (a: Antwort) => void
   aufgedeckt: boolean
+  /** Die Antwortmöglichkeiten bleiben verdeckt, bis sie selbst überlegt hat. */
+  optionenVerdeckt?: boolean
 }) {
   const [eingabe, setEingabe] = useState(
     antwort.typ === 'zahl' && antwort.eingabe !== null ? String(antwort.eingabe).replace('.', ',') : '',
@@ -77,7 +80,16 @@ export function FrageKarte({
 
       <p className="frage-text">{frage.frage}</p>
 
-      {frage.typ !== 'zahl' && (
+      {frage.typ !== 'zahl' && optionenVerdeckt && (
+        <div className="karte ueberlegen">
+          <p>
+            <strong>Erst selbst überlegen.</strong> Was würdest du antworten? Sag es dir leise vor oder schreib ein
+            Stichwort auf. Danach zeigt die App die Möglichkeiten.
+          </p>
+        </div>
+      )}
+
+      {frage.typ !== 'zahl' && !optionenVerdeckt && (
         <div className="optionen" role={frage.typ === 'single' ? 'radiogroup' : 'group'}>
           {(frage.optionen ?? []).map((o, i) => (
             <button

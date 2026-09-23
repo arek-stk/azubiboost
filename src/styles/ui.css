@@ -450,3 +450,39 @@ select.feld-inline {
 .merkmale strong {
   font-weight: 600;
 }
+
+/* Schalter wie in den iOS-Einstellungen */
+.schalter {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  flex-shrink: 0;
+  width: 51px;
+  height: 31px;
+  margin: 0;
+  border-radius: 16px;
+  background: var(--bg-gedrueckt);
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.schalter::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.2);
+  transition: transform 200ms var(--weich);
+}
+
+.schalter:checked {
+  background: var(--akzent);
+}
+
+.schalter:checked::before {
+  transform: translateX(20px);
+}

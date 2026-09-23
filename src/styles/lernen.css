@@ -485,3 +485,7 @@
   background: var(--akzent);
   color: var(--akzent-text);
 }
+
+.ueberlegen {
+  background: var(--akzent-weich);
+}

@@ -184,3 +184,35 @@ describe('Einrichtung und Erfolge', () => {
     expect(migriere({ erfolge: ['start', 'start', 42, 'serie-3'] }, TAG).erfolge).toEqual(['start', 'serie-3'])
   })
 })
+
+describe('neue Felder: Karteikarten, Fallaufgaben, Erst-überlegen', () => {
+  it('füllt sie bei altem Speicherstand mit Standardwerten', () => {
+    const z = migriere({ einstellungen: { name: 'Mia' }, karten: {} }, '2026-10-01')
+    expect(z.einstellungen.erstUeberlegen).toBe(true)
+    expect(z.einstellungen.erinnerungUm).toBe('18:00')
+    expect(z.begriffe).toEqual({})
+    expect(z.faelle).toEqual({})
+  })
+
+  it('übernimmt gültige Werte und verwirft kaputte', () => {
+    const z = migriere(
+      {
+        einstellungen: { erstUeberlegen: false, erinnerungUm: '25:99' },
+        begriffe: {
+          skonto: { frageId: 'skonto', box: 2, faelligAm: '2026-10-03', richtig: 2, falsch: 0 },
+          kaputt: { box: 1 },
+        },
+        faelle: {
+          'fa-01': { letztePunkte: 40, bestePunkte: 55, maxPunkte: 50, versuche: 2, zuletztAm: '2026-10-01' },
+          'fa-02': { letztePunkte: 10 },
+        },
+      },
+      '2026-10-01',
+    )
+    expect(z.einstellungen.erstUeberlegen).toBe(false)
+    expect(z.einstellungen.erinnerungUm).toBe('18:00')
+    expect(Object.keys(z.begriffe)).toEqual(['skonto'])
+    expect(z.faelle['fa-01']).toEqual({ letztePunkte: 40, bestePunkte: 50, maxPunkte: 50, versuche: 2, zuletztAm: '2026-10-01' })
+    expect(z.faelle['fa-02']).toBeUndefined()
+  })
+})

@@ -30,6 +30,8 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
   const [index, setIndex] = useState(0)
   const [antwort, setAntwort] = useState<Antwort | null>(null)
   const [geprueft, setGeprueft] = useState(false)
+  // Erst selbst überlegen: die Antwortmöglichkeiten erscheinen erst nach einem Tipp.
+  const [gezeigt, setGezeigt] = useState(false)
   const [ergebnisse, setErgebnisse] = useState<Bewertet[]>([])
 
   if (fragen.length === 0) {
@@ -119,8 +121,11 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
     setIndex((i) => i + 1)
     setAntwort(null)
     setGeprueft(false)
+    setGezeigt(false)
     window.scrollTo({ top: 0 })
   }
+
+  const verdeckt = zustand.einstellungen.erstUeberlegen && !gezeigt && !geprueft && f.typ !== 'zahl'
 
   return (
     <>
@@ -138,12 +143,17 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
         antwort={aktuelleAntwort}
         onAntwort={setAntwort}
         aufgedeckt={geprueft}
+        optionenVerdeckt={verdeckt}
       />
 
       {geprueft && <Rueckmeldung frage={f} richtig={richtig} />}
 
       <div className="aktionsleiste">
-        {!geprueft ? (
+        {verdeckt ? (
+          <button className="knopf knopf--breit" onClick={() => setGezeigt(true)}>
+            Antworten zeigen
+          </button>
+        ) : !geprueft ? (
           <button className="knopf knopf--breit" onClick={pruefe} disabled={!istBeantwortet(aktuelleAntwort)}>
             Antwort prüfen
           </button>

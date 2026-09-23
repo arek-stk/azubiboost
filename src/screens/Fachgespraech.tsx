@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Icon } from '../components/Icon'
 import { Kopf, Plakette } from '../components/ui'
+import { useAufnahme } from '../components/useAufnahme'
 import { uhrzeit, useCountdown } from '../components/useCountdown'
 import { LEITFADEN, WAHLQUALIFIKATIONEN, type Fachaufgabe } from '../data/fachgespraech'
 import { FACHGESPRAECH_VORBEREITUNG_MINUTEN, bereich, notenstufe } from '../domain/pruefung'
@@ -10,6 +11,60 @@ import { useStore } from '../store/useStore'
 type Phase = 'wahl' | 'ziehen' | 'vorbereitung' | 'gespraech' | 'einschaetzung'
 
 const GESPRAECH_MINUTEN = bereich('fachgespraech').minuten
+
+function AufnahmeKarte({ a, nachher = false }: { a: ReturnType<typeof useAufnahme>; nachher?: boolean }) {
+  if (a.status === 'nichtMoeglich') return null
+  if (a.status === 'gesperrt') {
+    return (
+      <section className="karte">
+        <p className="untertitel">
+          Das Mikrofon ist gesperrt. Du kannst es in den iPhone-Einstellungen unter Safari bei Mikrofon erlauben.
+        </p>
+      </section>
+    )
+  }
+  if (a.status === 'nimmtAuf') {
+    return (
+      <section className="karte">
+        <p className="aufnahme-laeuft">
+          <span className="aufnahme-punkt" aria-hidden="true" /> Aufnahme läuft · {uhrzeit(a.sekunden)}
+        </p>
+        <button className="knopf knopf--zweit knopf--breit" onClick={a.stoppe}>
+          Aufnahme beenden
+        </button>
+      </section>
+    )
+  }
+  if (a.status === 'fertig' && a.url !== null) {
+    return (
+      <section className="karte">
+        <h3>Deine Aufnahme</h3>
+        {nachher && (
+          <p className="untertitel">
+            Hör sie dir an, bevor du dich einschätzt. Hast du die Situation erklärt, dein Vorgehen begründet und
+            Fachbegriffe benutzt?
+          </p>
+        )}
+        <audio controls src={a.url} style={{ width: '100%' }} />
+        <button className="knopf-klein" onClick={a.verwirf}>
+          Löschen
+        </button>
+      </section>
+    )
+  }
+  if (nachher) return null
+  return (
+    <section className="karte">
+      <p className="untertitel">
+        Nimm dein Gespräch auf und hör es dir danach an. Die Aufnahme bleibt nur auf diesem Handy und ist weg, sobald
+        du die Seite verlässt.
+      </p>
+      <button className="knopf knopf--zweit knopf--breit" onClick={() => void a.starte()}>
+        <Icon name="mikrofon" /> Aufnahme starten
+      </button>
+    </section>
+  )
+}
 
 export function Fachgespraech() {
   const { zustand, dispatch } = useStore()
@@ -21,11 +76,15 @@ export function Fachgespraech() {
   const [frageIndex, setFrageIndex] = useState(0)
   const [selbst, setSelbst] = useState(zustand.fachgespraechSelbst ?? 60)
   const [gespeichert, setGespeichert] = useState(false)
+  const aufnahme = useAufnahme()
 
   const vorbereitung = useCountdown(FACHGESPRAECH_VORBEREITUNG_MINUTEN * 60, phase === 'vorbereitung', () =>
     setPhase('gespraech'),
   )
-  const gespraech = useCountdown(GESPRAECH_MINUTEN * 60, phase === 'gespraech', () => setPhase('einschaetzung'))
+  const gespraech = useCountdown(GESPRAECH_MINUTEN * 60, phase === 'gespraech', () => {
+    aufnahme.stoppe()
+    setPhase('einschaetzung')
+  })
 
   const ziehe = () => {
     if (wq === undefined) return
@@ -158,6 +217,7 @@ export function Fachgespraech() {
         <section className="karte">
           <p className="untertitel">Erzähl zuerst frei: Situation, Ziel, Vorgehen. Danach fragt der Prüfer nach.</p>
         </section>
+        <AufnahmeKarte a={aufnahme} />
         <section className="karte karte--akzent">
           {frage !== undefined ? (
             <>
@@ -175,7 +235,13 @@ export function Fachgespraech() {
             Nächste Prüferfrage
           </button>
         )}
-        <button className="knopf knopf--breit" onClick={() => setPhase('einschaetzung')}>
+        <button
+          className="knopf knopf--breit"
+          onClick={() => {
+            aufnahme.stoppe()
+            setPhase('einschaetzung')
+          }}
+        >
           Gespräch beenden
         </button>
       </>
@@ -186,6 +252,7 @@ export function Fachgespraech() {
   return (
     <>
       <Kopf titel="Wie lief es?" klein />
+      <AufnahmeKarte a={aufnahme} nachher />
       <section className="karte">
         <p>
           Schätz dich ehrlich ein. Das fließt als <strong>Selbsteinschätzung</strong> in die Notenprognose ein. Eine echte
@@ -222,6 +289,7 @@ export function Fachgespraech() {
       <button
         className="knopf knopf--zweit knopf--breit"
         onClick={() => {
+          aufnahme.verwirf()
           setGezogen([])
           setPhase('ziehen')
         }}

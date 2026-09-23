@@ -157,6 +157,25 @@ export function Einstellungen() {
       </section>
 
       <section className="abschnitt">
+        <h2>Lernen</h2>
+        <div className="liste">
+          <label className="zeile">
+            <span className="zeile__text">
+              <span className="zeile__titel">Erst selbst überlegen</span>
+              <span className="zeile__info">Im Quiz erscheinen die Antworten erst nach einem Tipp.</span>
+            </span>
+            <input
+              className="schalter"
+              type="checkbox"
+              role="switch"
+              checked={e.erstUeberlegen}
+              onChange={(ev) => dispatch({ typ: 'einstellungenGeaendert', aenderung: { erstUeberlegen: ev.target.checked } })}
+            />
+          </label>
+        </div>
+      </section>
+
+      <section className="abschnitt">
         <h2>Sicherung</h2>
         <div className="karte">
           <p className="untertitel">

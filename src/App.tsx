@@ -12,6 +12,7 @@ import { Fortschritt } from './screens/Fortschritt'
 import { Heute } from './screens/Heute'
 import { Hilfe } from './screens/Hilfe'
 import { Lernen } from './screens/Lernen'
+import { Lernplan } from './screens/Lernplan'
 import { Pruefung } from './screens/Pruefung'
 import { Quiz } from './screens/Quiz'
 import { RechenAufgabe } from './screens/RechenAufgabe'
@@ -55,6 +56,8 @@ function Ansicht() {
       return <Einstellungen />
     case 'hilfe':
       return <Hilfe />
+    case 'lernplan':
+      return <Lernplan />
   }
 }
 

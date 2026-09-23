@@ -63,3 +63,25 @@ describe('reducer', () => {
     expect(z.einstellungen.name).toBe('Mia')
   })
 })
+
+describe('reducer: Karteikarten und Fallaufgaben', () => {
+  const tag = '2026-10-01'
+
+  it('schiebt einen gewussten Begriff eine Box weiter, ohne das Tagesziel zu zählen', () => {
+    const z = reducer(leererZustand(tag), { typ: 'begriffBewertet', begriffId: 'skonto', gewusst: true, tag })
+    expect(z.begriffe.skonto?.box).toBe(1)
+    expect(z.begriffe.skonto?.faelligAm).toBe('2026-10-02')
+    expect(z.heute.beantwortet).toBe(0)
+  })
+
+  it('merkt sich bei Fallaufgaben das letzte und das beste Ergebnis', () => {
+    let z = reducer(leererZustand(tag), { typ: 'fallBewertet', fallId: 'fa-01', punkte: 30, maxPunkte: 50, tag })
+    z = reducer(z, { typ: 'fallBewertet', fallId: 'fa-01', punkte: 20, maxPunkte: 50, tag })
+    expect(z.faelle['fa-01']).toEqual({ letztePunkte: 20, bestePunkte: 30, maxPunkte: 50, versuche: 2, zuletztAm: tag })
+  })
+
+  it('begrenzt Fallpunkte auf 0 bis Maximum', () => {
+    const z = reducer(leererZustand(tag), { typ: 'fallBewertet', fallId: 'fa-01', punkte: 99, maxPunkte: 50, tag })
+    expect(z.faelle['fa-01']?.letztePunkte).toBe(50)
+  })
+})

@@ -16,6 +16,7 @@ export type Ansicht =
   | { name: 'fachgespraech' }
   | { name: 'einstellungen' }
   | { name: 'hilfe' }
+  | { name: 'lernplan' }
 
 type NavKontext = {
   aktuell: Ansicht

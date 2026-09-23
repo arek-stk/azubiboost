@@ -20,6 +20,7 @@ export const SPEICHER_SCHLUESSEL = 'azubiboost:zustand'
  */
 export const STANDARD_PRUEFUNGSTERMIN: IsoTag = '2027-04-28'
 export const STANDARD_TAGESZIEL = 20
+export const STANDARD_ERINNERUNG = '18:00'
 
 /** So viele Versuche bleiben gespeichert; nur die jüngsten behalten Einzelantworten. */
 export const MAX_VERSUCHE = 300
@@ -32,9 +33,22 @@ export type Einstellungen = {
   wahlqualifikation: string | null
   /** Einrichtung beim ersten Start abgeschlossen. */
   onboardingFertig: boolean
+  /** Im Quiz erst selbst überlegen, dann die Antwortmöglichkeiten zeigen. */
+  erstUeberlegen: boolean
+  /** Uhrzeit der täglichen Lernerinnerung im Kalender, "HH:MM". */
+  erinnerungUm: string
 }
 
 export type RechenStand = { richtig: number; falsch: number }
+
+/** Ergebnis einer selbst bewerteten Fallaufgabe. */
+export type FallStand = {
+  letztePunkte: number
+  bestePunkte: number
+  maxPunkte: number
+  versuche: number
+  zuletztAm: IsoTag
+}
 
 export type AppZustand = {
   schemaVersion: number
@@ -48,6 +62,10 @@ export type AppZustand = {
   fachgespraechSelbst: number | null
   /** IDs der bereits freigeschalteten Erfolge. */
   erfolge: string[]
+  /** Karteikarten aus dem Fachbegriffe-Lexikon, mit derselben Wiederholungslogik wie die Fragen. */
+  begriffe: Record<string, Kartenstand>
+  /** Selbst bewertete Fallaufgaben für Teil 2. */
+  faelle: Record<string, FallStand>
 }
 
 export function leererZustand(tag: IsoTag = heute()): AppZustand {
@@ -59,6 +77,8 @@ export function leererZustand(tag: IsoTag = heute()): AppZustand {
       tagesziel: STANDARD_TAGESZIEL,
       wahlqualifikation: null,
       onboardingFertig: false,
+      erstUeberlegen: true,
+      erinnerungUm: STANDARD_ERINNERUNG,
     },
     karten: {},
     versuche: [],
@@ -67,6 +87,8 @@ export function leererZustand(tag: IsoTag = heute()): AppZustand {
     rechnen: {},
     fachgespraechSelbst: null,
     erfolge: [],
+    begriffe: {},
+    faelle: {},
   }
 }
 
@@ -119,6 +141,11 @@ export function migriere(roh: unknown, tag: IsoTag = heute()): AppZustand {
       typeof e.onboardingFertig === 'boolean'
         ? e.onboardingFertig
         : (istObjekt(roh.karten) && Object.keys(roh.karten).length > 0) || typeof e.name === 'string',
+    erstUeberlegen: typeof e.erstUeberlegen === 'boolean' ? e.erstUeberlegen : true,
+    erinnerungUm:
+      typeof e.erinnerungUm === 'string' && /^([01]d|2[0-3]):[0-5]d$/.test(e.erinnerungUm)
+        ? e.erinnerungUm
+        : STANDARD_ERINNERUNG,
   }
 
   if (istObjekt(roh.karten)) {
@@ -157,6 +184,28 @@ export function migriere(roh: unknown, tag: IsoTag = heute()): AppZustand {
 
   if (Array.isArray(roh.erfolge)) {
     z.erfolge = [...new Set(roh.erfolge.filter((x): x is string => typeof x === 'string'))]
+  }
+
+  if (istObjekt(roh.begriffe)) {
+    for (const [id, wert] of Object.entries(roh.begriffe)) {
+      const k = pruefeKarte(wert)
+      if (k !== null && k.frageId === id) z.begriffe[id] = k
+    }
+  }
+
+  if (istObjekt(roh.faelle)) {
+    for (const [id, wert] of Object.entries(roh.faelle)) {
+      if (!istObjekt(wert) || !istIsoTag(wert.zuletztAm)) continue
+      const max = Math.max(1, Math.round(zahl(wert.maxPunkte, 1)))
+      const punkte = (x: unknown) => Math.min(max, Math.max(0, Math.round(zahl(x, 0))))
+      z.faelle[id] = {
+        letztePunkte: punkte(wert.letztePunkte),
+        bestePunkte: punkte(wert.bestePunkte),
+        maxPunkte: max,
+        versuche: Math.max(1, Math.round(zahl(wert.versuche, 1))),
+        zuletztAm: wert.zuletztAm,
+      }
+    }
   }
 
   return z

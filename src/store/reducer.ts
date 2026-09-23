@@ -19,6 +19,8 @@ export type Aktion =
   | { typ: 'einstellungenGeaendert'; aenderung: Partial<Einstellungen> }
   | { typ: 'fachgespraechEingeschaetzt'; punkte: number }
   | { typ: 'erfolgeFreigeschaltet'; ids: string[] }
+  | { typ: 'begriffBewertet'; begriffId: string; gewusst: boolean; tag: IsoTag }
+  | { typ: 'fallBewertet'; fallId: string; punkte: number; maxPunkte: number; tag: IsoTag }
   | { typ: 'ersetzen'; zustand: AppZustand }
   | { typ: 'zuruecksetzen'; tag: IsoTag }
 
@@ -59,6 +61,23 @@ export function reducer(z: AppZustand, a: Aktion): AppZustand {
     case 'fachgespraechEingeschaetzt':
       return { ...z, fachgespraechSelbst: Math.min(100, Math.max(0, Math.round(a.punkte))) }
 
+    case 'begriffBewertet': {
+      const alt = z.begriffe[a.begriffId] ?? neueKarte(a.begriffId, a.tag)
+      return { ...z, begriffe: { ...z.begriffe, [a.begriffId]: nachAntwort(alt, a.gewusst, a.tag) } }
+    }
+    case 'fallBewertet': {
+      const max = Math.max(1, Math.round(a.maxPunkte))
+      const punkte = Math.min(max, Math.max(0, Math.round(a.punkte)))
+      const alt = z.faelle[a.fallId]
+      const neu = {
+        letztePunkte: punkte,
+        bestePunkte: Math.max(punkte, alt?.bestePunkte ?? 0),
+        maxPunkte: max,
+        versuche: (alt?.versuche ?? 0) + 1,
+        zuletztAm: a.tag,
+      }
+      return { ...z, faelle: { ...z.faelle, [a.fallId]: neu } }
+    }
     case 'erfolgeFreigeschaltet':
       return { ...z, erfolge: [...new Set([...z.erfolge, ...a.ids])] }
 
