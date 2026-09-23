@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Icon } from '../components/Icon'
 import { Kopf } from '../components/ui'
+import { APP_NAME } from '../data/persoenlich'
 import { deutschesDatum, heute } from '../engine/datum'
 import { eur, zahl } from '../engine/format'
 import { AUFGABENTYPEN, type RechenAufgabe } from '../engine/rechenaufgaben'
@@ -29,8 +30,8 @@ export function Uebungszettel() {
       <div className="nicht-drucken">
         <Kopf titel="Übungszettel" klein />
         <p className="untertitel">
-          {ANZAHL} Aufgaben zum Rechnen am Tisch. Beim Drucken landen die Lösungen auf einer eigenen Seite — erst
-          umdrehen, wenn alles gerechnet ist.
+          {ANZAHL} Aufgaben zum Rechnen am Tisch. Die Lösungen kommen beim Drucken auf eine eigene
+          Seite. Dreh sie erst um, wenn alles gerechnet ist.
         </p>
         <div className="knopf-reihe" style={{ marginTop: 12 }}>
           <button className="knopf" onClick={() => window.print()}>
@@ -44,7 +45,7 @@ export function Uebungszettel() {
 
       <article className="zettel">
         <header className="zettel__kopf">
-          <strong>AzubiBoost · Übungszettel Kalkulation und Warenwirtschaft</strong>
+          <strong>{APP_NAME} · Übungszettel Kalkulation und Warenwirtschaft</strong>
           <span>{deutschesDatum(heute())} · Nr. {seed % 10000}</span>
         </header>
         <ol className="zettel__liste">

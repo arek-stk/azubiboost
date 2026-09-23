@@ -26,7 +26,7 @@
 .optionen {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .option {
@@ -34,35 +34,39 @@
   align-items: flex-start;
   gap: 12px;
   width: 100%;
-  min-height: 56px;
+  min-height: 52px;
   padding: 14px 16px;
-  text-align: left;
-  border-radius: 14px;
+  border: 1.5px solid transparent;
+  border-radius: 12px;
   background: var(--bg-erhoeht);
-  box-shadow: var(--schatten);
-  border: 2px solid transparent;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  text-align: left;
+  transition: background-color 150ms ease, border-color 150ms ease;
 }
 
 .option:active:not(:disabled) {
   background: var(--bg-gedrueckt);
 }
 
+.option:disabled {
+  cursor: default;
+}
+
 .option__marke {
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  border: 1.5px solid var(--text-leise);
   border-radius: 50%;
-  border: 2px solid var(--linie);
-  font-size: 13px;
-  font-weight: 700;
   color: var(--text-2);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .option--mehrfach .option__marke {
-  border-radius: 7px;
+  border-radius: 6px;
 }
 
 .option--gewaehlt {
@@ -70,8 +74,8 @@
 }
 
 .option--gewaehlt .option__marke {
-  background: var(--akzent);
   border-color: var(--akzent);
+  background: var(--akzent);
   color: var(--akzent-text);
 }
 
@@ -81,8 +85,8 @@
 }
 
 .option--richtig .option__marke {
-  background: var(--gut);
   border-color: var(--gut);
+  background: var(--gut);
   color: #fff;
 }
 
@@ -92,37 +96,26 @@
 }
 
 .option--falsch .option__marke {
-  background: var(--schlecht);
   border-color: var(--schlecht);
+  background: var(--schlecht);
   color: #fff;
-}
-
-.option:disabled {
-  cursor: default;
 }
 
 /* ---------- Rückmeldung nach der Antwort ---------- */
 
 .rueckmeldung {
-  border-radius: var(--radius);
-  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  animation: einblenden 0.25s ease;
-}
-
-.rueckmeldung--richtig {
-  background: var(--gut-weich);
-}
-
-.rueckmeldung--falsch {
-  background: var(--schlecht-weich);
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
+  animation: einblenden 200ms ease-out;
 }
 
 .rueckmeldung__titel {
+  font-size: 17px;
   font-weight: 700;
-  font-size: 18px;
 }
 
 .rueckmeldung--richtig .rueckmeldung__titel {
@@ -134,10 +127,18 @@
 }
 
 .merksatz {
-  padding: 10px 12px;
+  padding: 12px 14px;
   border-radius: var(--radius-klein);
-  background: var(--bg-erhoeht);
-  font-weight: 550;
+  background: var(--bg);
+  font-size: 16px;
+}
+
+.merksatz strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--text-2);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .rechtsbezug {
@@ -148,7 +149,7 @@
 @keyframes einblenden {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
 }
 
@@ -157,7 +158,8 @@
 .gegeben {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 6px 16px;
+  gap: 8px 16px;
+  margin: 0;
   font-size: 16px;
 }
 
@@ -187,16 +189,23 @@
   gap: 8px;
   min-height: 64px;
   padding: 12px 16px;
-  border-radius: 14px;
+  border-radius: 12px;
   background: var(--bg-erhoeht);
-  box-shadow: var(--schatten);
-  font-family: var(--schrift-zahl);
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.eingabe-anzeige--klein {
+  min-height: 52px;
+  font-size: 26px;
+  background: var(--bg);
 }
 
 .eingabe-anzeige__leer {
   color: var(--text-3);
+  font-size: 17px;
+  font-weight: 400;
 }
 
 .eingabe-anzeige__einheit {
@@ -204,55 +213,68 @@
   color: var(--text-2);
 }
 
+/* Ziffernblock wie die iOS-Tastatur: helle Tasten mit feiner Unterkante */
 .ziffernblock {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 7px;
+  padding: 7px;
+  border-radius: var(--radius);
+  background: var(--bg-gedrueckt);
 }
 
 .ziffer {
-  min-height: 56px;
-  border-radius: 12px;
+  min-height: 50px;
+  border-radius: 9px;
   background: var(--bg-erhoeht);
-  box-shadow: var(--schatten);
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.18);
   font-size: 24px;
-  font-weight: 550;
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
 }
 
 .ziffer:active {
-  background: var(--bg-gedrueckt);
+  background: var(--linie);
 }
 
 .ziffer--neben {
-  background: var(--bg-gedrueckt);
-  box-shadow: none;
+  background: color-mix(in srgb, var(--linie) 70%, var(--bg-erhoeht));
   font-size: 18px;
 }
 
 .rechenweg {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
   counter-reset: schritt;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
+  overflow: hidden;
 }
 
 .schritt {
+  position: relative;
   counter-increment: schritt;
-  border-radius: var(--radius-klein);
-  background: var(--bg-erhoeht);
-  overflow: hidden;
+}
+
+.schritt:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 50px;
+  right: 0;
+  bottom: 0;
+  border-bottom: 0.5px solid var(--linie);
 }
 
 .schritt summary {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 10px 14px;
+  gap: 12px;
+  min-height: 50px;
+  padding: 10px 16px;
   font-weight: 600;
   cursor: pointer;
   list-style: none;
@@ -264,6 +286,7 @@
 
 .schritt summary::before {
   content: counter(schritt);
+  flex-shrink: 0;
   display: grid;
   place-items: center;
   width: 24px;
@@ -272,27 +295,26 @@
   background: var(--akzent-weich);
   color: var(--akzent);
   font-size: 13px;
-  flex-shrink: 0;
 }
 
 .schritt__inhalt {
-  padding: 0 14px 14px 48px;
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding: 0 16px 14px 52px;
 }
 
 .schritt__rechnung {
-  font-family: var(--schrift-zahl);
   font-size: 15px;
   color: var(--text-2);
+  font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
 
 .schritt__ergebnis {
-  font-family: var(--schrift-zahl);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
 
@@ -302,21 +324,20 @@
 }
 
 .formel {
-  font-family: var(--schrift-zahl);
-  font-size: 14px;
-  line-height: 1.6;
-  padding: 12px;
+  padding: 12px 14px;
   border-radius: var(--radius-klein);
-  background: var(--bg-gedrueckt);
+  background: var(--bg);
+  font-size: 15px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
 
 /* ---------- Timer ---------- */
 
 .uhr {
-  font-family: var(--schrift-zahl);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
 }
 
 .uhr--knapp {
@@ -326,79 +347,66 @@
 /* ---------- Rezept und geführtes Rechnen ---------- */
 
 .rezept__kopf {
-  font-weight: 650;
-  cursor: pointer;
   min-height: 28px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .rezept__liste {
-  margin: 4px 0 0;
-  padding-left: 22px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-}
-
-.knopf-klein {
-  align-self: flex-start;
-  min-height: 36px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: var(--akzent-weich);
-  color: var(--akzent);
-  font-size: 14px;
-  font-weight: 600;
+  margin: 4px 0 0;
+  padding-left: 22px;
 }
 
 .gefuehrt {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .gefuehrt__schritt {
   display: flex;
-  gap: 12px;
   align-items: flex-start;
-  padding: 14px;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid transparent;
   border-radius: var(--radius);
   background: var(--bg-erhoeht);
-  box-shadow: var(--schatten);
+  transition: background-color 150ms ease;
 }
 
 .gefuehrt__schritt--spaeter {
-  opacity: 0.5;
-  box-shadow: none;
+  opacity: 0.45;
+}
+
+.gefuehrt__schritt--aktuell {
+  border-color: var(--akzent);
 }
 
 .gefuehrt__schritt--richtig {
   background: var(--gut-weich);
-  box-shadow: none;
 }
 
 .gefuehrt__schritt--korrigiert {
   background: var(--mittel-weich);
-  box-shadow: none;
-}
-
-.gefuehrt__schritt--aktuell {
-  outline: 2px solid var(--akzent);
 }
 
 .gefuehrt__marke {
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--akzent-weich);
   color: var(--akzent);
-  font-weight: 700;
   font-size: 14px;
+  font-weight: 600;
 }
 
 .gefuehrt__schritt--richtig .gefuehrt__marke {
@@ -415,12 +423,7 @@
 }
 
 .gefuehrt__titel {
-  font-weight: 650;
-}
-
-.eingabe-anzeige--klein {
-  min-height: 52px;
-  font-size: 26px;
+  font-weight: 600;
 }
 
 /* ---------- Taschenrechner-Tasten ---------- */
@@ -430,16 +433,14 @@
   flex-direction: column;
   gap: 10px;
   padding: 14px;
-  border-radius: 16px;
+  border-radius: 12px;
   background: var(--bg);
 }
 
 .tasten-box__titel {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
 }
 
 .tasten-box__hinweis {
@@ -455,40 +456,32 @@
 }
 
 .tasten-zeile__nr {
+  min-width: 36px;
   font-size: 13px;
   font-weight: 600;
   color: var(--text-2);
-  min-width: 36px;
 }
 
 .taste {
   min-width: 38px;
-  padding: 8px 10px;
-  border-radius: 10px;
+  padding: 7px 10px;
+  border-radius: 8px;
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
 .taste--zahl {
   background: var(--bg-erhoeht);
-  border: 1px solid var(--linie);
-  box-shadow: 0 2px 0 var(--linie);
+  box-shadow: 0 1px 0 rgb(0 0 0 / 0.18);
 }
 
 .taste--op {
-  background: var(--text);
-  color: var(--bg-erhoeht);
+  background: var(--bg-gedrueckt);
+  color: var(--text);
 }
 
 .taste--gleich {
   background: var(--akzent);
   color: var(--akzent-text);
-}
-
-/* Der Platzhalter soll einladen, nicht wie ein Ergebnis aussehen. */
-.eingabe-anzeige__leer {
-  font-family: var(--schrift);
-  font-size: 17px;
-  font-weight: 500;
 }

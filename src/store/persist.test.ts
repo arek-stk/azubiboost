@@ -161,7 +161,7 @@ describe('Backup', () => {
 
   it('lehnt fremde Dateien mit verständlicher Meldung ab', () => {
     expect(() => ausBackup('kein json')).toThrow('kein gültiges Backup')
-    expect(() => ausBackup('{"app":"andere"}')).toThrow('nicht aus AzubiBoost')
+    expect(() => ausBackup('{"app":"andere"}')).toThrow('kein Backup dieser LernApp')
   })
 })
 

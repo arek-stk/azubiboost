@@ -83,8 +83,7 @@ export function Fortschritt() {
         <div className="karte">
           {prognose.abgedeckteGewichtung === 0 ? (
             <p>
-              Noch keine Prognose möglich. Mach eine Prüfungssimulation — am besten zuerst Geschäftsprozesse, das ist
-              dein Teil 2.
+              Für eine Prognose fehlt noch eine Probeprüfung. Fang mit Geschäftsprozessen an, das ist dein Teil 2.
             </p>
           ) : (
             <>
@@ -93,7 +92,7 @@ export function Fortschritt() {
               </p>
               <p className="untertitel">
                 Grundlage: {prognose.abgedeckteGewichtung} % der Gesamtgewichtung
-                {prognose.vollstaendig ? '' : ' — die übrigen Bereiche fehlen noch'}.
+                {prognose.vollstaendig ? '.' : '. Die übrigen Bereiche fehlen noch.'}
                 {zustand.fachgespraechSelbst !== null ? ' Das Fachgespräch ist eine Selbsteinschätzung.' : ''}
               </p>
             </>
@@ -174,7 +173,7 @@ export function Fortschritt() {
       </section>
 
       <section className="abschnitt">
-        <h2>Alle Themen — schwächste zuerst</h2>
+        <h2>Nach Thema</h2>
         <div className="liste">
           {[...themen]
             .sort((a, b) => (a.quote ?? 2) - (b.quote ?? 2))

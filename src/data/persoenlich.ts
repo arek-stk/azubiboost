@@ -26,7 +26,7 @@ const NACHRICHTEN = (text(import.meta.env.VITE_NACHRICHTEN) ?? '')
 export const NACHRICHT_VON = text(import.meta.env.VITE_NACHRICHT_VON)
 export const VORNAME_VORBELEGUNG = text(import.meta.env.VITE_VORNAME)
 export const KOSENAME = text(import.meta.env.VITE_KOSENAME)
-export const APP_NAME = text(import.meta.env.VITE_APP_NAME) ?? 'AzubiBoost'
+export const APP_NAME = text(import.meta.env.VITE_APP_NAME) ?? 'Deine LernApp'
 
 /** Wie sie angesprochen wird: Kosename, sonst Vorname, sonst gar nicht. */
 export function anrede(name: string | null): string | null {

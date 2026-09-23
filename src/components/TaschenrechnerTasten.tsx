@@ -1,7 +1,7 @@
 import type { RechenSchritt } from '../domain/types'
 import { taschenrechnerZeilen } from '../engine/taschenrechner'
 
-/** Zeigt, was genau in den Taschenrechner getippt wird — als Tasten zum Nachtippen. */
+/** Zeigt als Tasten zum Nachtippen, was in den Taschenrechner getippt wird. */
 export function TaschenrechnerTasten({ schritt }: { schritt: RechenSchritt }) {
   const zeilen = taschenrechnerZeilen(schritt)
   if (zeilen.length === 0) return null

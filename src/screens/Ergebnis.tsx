@@ -52,7 +52,7 @@ export function Ergebnis({ versuchId }: { versuchId: string }) {
         <Plakette art={bestanden ? 'gut' : 'schlecht'}>
           {bestanden ? 'Mit diesem Ergebnis bestanden' : 'Mit diesem Ergebnis nicht bestanden'}
         </Plakette>
-        {v.zeitAbgelaufen === true && <p className="schritt__hinweis">Die Zeit ist abgelaufen — es wurde automatisch abgegeben.</p>}
+        {v.zeitAbgelaufen === true && <p className="schritt__hinweis">Die Zeit war um. Die Prüfung wurde automatisch abgegeben.</p>}
         {info?.sperrfach === true && !bestanden && (
           <p className="schritt__hinweis">
             {info.kurz} ist ein Sperrfach: unter 50 Punkten ist die gesamte Prüfung nicht bestanden. Hier lohnt sich jede

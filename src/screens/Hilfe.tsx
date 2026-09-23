@@ -44,7 +44,7 @@ export function Hilfe() {
         <h3>Frag die Menschen um dich herum</h3>
         <p>
           Deine Ausbilderin oder dein Ausbilder und die Lehrkräfte in der Berufsschule wissen, was in der Prüfung
-          drankommt — und dürfen dir helfen. Frag konkret: „Können wir die Kalkulation einmal gemeinsam an einem echten
+          drankommt, und dürfen dir helfen. Frag konkret: „Können wir die Kalkulation einmal gemeinsam an einem echten
           Artikel aus dem Markt durchrechnen?"
         </p>
       </section>

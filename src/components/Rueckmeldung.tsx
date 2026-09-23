@@ -12,17 +12,20 @@ export function loesungAlsText(frage: Frage): string {
   return idx.map((i) => o[i]).join(' · ')
 }
 
-/** Sofort-Erklärung nach der Antwort — hier passiert das eigentliche Lernen. */
+/** Sofort-Erklärung nach der Antwort. Hier passiert das eigentliche Lernen. */
 export function Rueckmeldung({ frage, richtig }: { frage: Frage; richtig: boolean }) {
   return (
     <section
       className={richtig ? 'rueckmeldung rueckmeldung--richtig' : 'rueckmeldung rueckmeldung--falsch'}
       aria-live="polite"
     >
-      <p className="rueckmeldung__titel">{richtig ? 'Richtig!' : 'Nicht schlimm — hier ist der wichtige Punkt.'}</p>
+      <p className="rueckmeldung__titel">{richtig ? 'Richtig' : 'Nicht ganz'}</p>
       {!richtig && (
         <p>
-          <strong>Richtig wäre:</strong> {loesungAlsText(frage)}
+          <span className="untertitel" style={{ display: 'block', fontSize: 13 }}>
+            Richtig wäre
+          </span>
+          <strong>{loesungAlsText(frage)}</strong>
         </p>
       )}
       <p>{frage.erklaerung}</p>

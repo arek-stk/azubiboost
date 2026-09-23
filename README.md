@@ -1,4 +1,4 @@
-# AzubiBoost Einzelhandel
+# Deine LernApp
 
 Prüfungs-App für die **Abschlussprüfung Kauffrau/Kaufmann im Einzelhandel** — lernen,
 rechnen, Prüfung simulieren, Fortschritt sehen. Läuft als PWA auf dem iPhone, offline,
@@ -15,7 +15,7 @@ ohne Konto und ohne Server: der Lernfortschritt bleibt auf dem Gerät.
 2. Unten auf **Teilen** tippen.
 3. **„Zum Home-Bildschirm"** wählen, dann **Hinzufügen**.
 
-Danach liegt AzubiBoost mit eigenem Icon auf dem Home-Bildschirm, startet im Vollbild
+Danach liegt die App mit eigenem Icon auf dem Home-Bildschirm, startet im Vollbild
 ohne Browserleiste und funktioniert **ohne Internet**.
 
 > **Wichtig:** Erst als installierte App bleibt der Lernfortschritt dauerhaft erhalten.
@@ -118,4 +118,4 @@ den Projekteinstellungen von Vercel:
 | `VITE_NACHRICHT_VON` | Absender der persönlichen Nachricht |
 | `VITE_NACHRICHTEN` | Eine oder mehrere Nachrichten, getrennt durch `\|` — jeden Tag eine andere |
 
-Ohne diese Variablen läuft die App neutral als „AzubiBoost".
+Ohne diese Variablen läuft die App neutral als „Deine LernApp".

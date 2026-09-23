@@ -92,8 +92,8 @@ export function bereichsStatistik(themen: readonly ThemaStatistik[]): BereichSta
 /**
  * Themen mit der schlechtesten Quote, absteigend nach Dringlichkeit.
  * Themen mit zu wenig Antworten werden nur berücksichtigt, wenn es sonst
- * keine Kandidaten gibt — sonst schlägt die App nach einer einzigen falschen
- * Antwort schon Alarm.
+ * keine Kandidaten gibt. Andernfalls würde die App schon nach einer einzigen
+ * falschen Antwort Alarm schlagen.
  */
 export function schwaechsteThemen(
   themen: readonly ThemaStatistik[],
@@ -133,8 +133,8 @@ export function punkteProBereich(versuche: readonly Versuch[]): Partial<Record<B
 
 /**
  * Notenschätzung nach echter Gewichtung. Das Fachgespräch kann nicht
- * automatisch bewertet werden — deshalb kommt es nur herein, wenn sie sich
- * selbst eingeschätzt hat, und wird in der Anzeige als Selbsteinschätzung
+ * automatisch bewertet werden. Es zählt deshalb nur mit, wenn sie sich selbst
+ * eingeschätzt hat, und wird in der Anzeige als Selbsteinschätzung
  * gekennzeichnet.
  */
 export function notenschaetzung(
@@ -182,9 +182,9 @@ export function verlauf(
 }
 
 /**
- * Lernstreak in Tagen. Ein einzelner verpasster Tag wird verziehen —
- * wer zweimal hintereinander aussetzt, fängt neu an. Ohne diesen Karenztag
- * zerstört ein voller Arbeitstag die Motivation von drei Wochen.
+ * Lernstreak in Tagen. Ein einzelner verpasster Tag wird verziehen. Wer zwei
+ * Tage hintereinander aussetzt, fängt neu an. Ohne diesen Karenztag würde ein
+ * langer Arbeitstag eine Serie von drei Wochen beenden.
  */
 export function streak(tageMitZiel: readonly IsoTag[], bis: IsoTag = heute()): number {
   const tage = new Set(tageMitZiel)
@@ -199,7 +199,7 @@ export function streak(tageMitZiel: readonly IsoTag[], bis: IsoTag = heute()): n
       laenge++
       continue
     }
-    // Der heutige Tag zählt noch nicht als Lücke — der Tag ist ja noch nicht um.
+    // Der heutige Tag zählt noch nicht als Lücke, weil er noch nicht vorbei ist.
     if (i === 0) continue
     if (!verzeihenGenutzt) {
       verzeihenGenutzt = true

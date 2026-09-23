@@ -2,9 +2,9 @@
  * Rechenaufgaben zum Rechnen auf Papier.
  *
  * Jeder Generator erzeugt aus einem Seed eine Aufgabe mit neuen Zahlen, der
- * Lösung und dem vollständigen Rechenweg. Es gibt keine Antwortauswahl — sie
- * rechnet auf dem Blatt und tippt nur das Ergebnis ein. Der Lerneffekt steckt
- * im Rechenweg, der erst danach aufgedeckt wird.
+ * Lösung und dem vollständigen Rechenweg. Es gibt keine Antwortauswahl: Sie
+ * rechnet auf dem Blatt und tippt nur das Ergebnis ein. Den Rechenweg sieht
+ * sie erst danach, und aus ihm lernt sie am meisten.
  *
  * Kaufmännische Grundlagen: Handelskalkulation (Listeneinkaufspreis bis
  * Bruttoverkaufspreis), Lagerkennzahlen, Bestellrechnung, Umsatzsteuer.
@@ -79,7 +79,7 @@ const bezugspreis: Aufgabentyp = {
   name: 'Bezugspreis berechnen',
   thema: 'kalkulation',
   schwierigkeit: 1,
-  worumGehts: 'Vom Listenpreis des Lieferanten zum Preis, den die Ware dich wirklich kostet.',
+  worumGehts: 'Vom Listenpreis des Lieferanten zu dem, was die Ware den Markt am Ende kostet.',
   erzeuge: (r) => {
     const lep = zwischen(r, 200, 900, 10)
     const rabatt = waehle(r, [10, 15, 20, 25])
@@ -97,9 +97,7 @@ const bezugspreis: Aufgabentyp = {
       titel: 'Bezugspreis',
       thema: 'kalkulation',
       schwierigkeit: 1,
-      frage:
-        'Ein Lieferant stellt Ware mit dem folgenden Listeneinkaufspreis in Rechnung. ' +
-        'Wie hoch ist der Bezugspreis?',
+      frage: 'Dein Markt bestellt Ware bei einem Lieferanten. Wie hoch ist der Bezugspreis?',
       gegeben: [
         { label: 'Listeneinkaufspreis', wert: eur(lep) },
         { label: 'Liefererrabatt', wert: pz(rabatt) },
@@ -115,19 +113,21 @@ const bezugspreis: Aufgabentyp = {
           label: 'Liefererrabatt abziehen',
           rechnung: `${eur(lep)} × ${pz(rabatt)} = ${eur(rabattBetrag)}`,
           ergebnis: `Zieleinkaufspreis = ${eur(lep)} − ${eur(rabattBetrag)} = ${eur(zep)}`,
-          hinweis: 'Der Rabatt wird vom Listenpreis gerechnet — „vom Hundert".',
+          hinweis: 'Den Rabatt rechnest du vom Listeneinkaufspreis. Das ist eine Rechnung „vom Hundert".',
         },
         {
           label: 'Liefererskonto abziehen',
           rechnung: `${eur(zep)} × ${pz(skonto)} = ${eur(skontoBetrag)}`,
           ergebnis: `Bareinkaufspreis = ${eur(zep)} − ${eur(skontoBetrag)} = ${eur(bep)}`,
-          hinweis: 'Achtung: Skonto immer vom Zieleinkaufspreis, nicht vom Listenpreis.',
+          hinweis:
+            'Den Skonto rechnest du vom Zieleinkaufspreis. Das ist der Preis, nachdem der Rabatt ' +
+            'schon abgezogen ist.',
         },
         {
           label: 'Bezugskosten addieren',
           rechnung: `${eur(bep)} + ${eur(bezugskosten)}`,
           ergebnis: `Bezugspreis = ${eur(bzp)}`,
-          hinweis: 'Fracht, Verpackung und Transportversicherung gehören dazu.',
+          hinweis: 'Zu den Bezugskosten gehören Fracht, Verpackung und Transportversicherung.',
         },
       ],
     }
@@ -143,7 +143,7 @@ const verkaufspreis: Aufgabentyp = {
   name: 'Verkaufspreis vorwärts',
   thema: 'kalkulation',
   schwierigkeit: 1,
-  worumGehts: 'Vom Bezugspreis zum Preis am Regal — mit Handlungskosten, Gewinn und Umsatzsteuer.',
+  worumGehts: 'Vom Bezugspreis zum Preis am Regal. Handlungskosten, Gewinn und Umsatzsteuer kommen dazu.',
   erzeuge: (r) => {
     const bzp = zwischen(r, 10, 240, 1)
     const handlungskosten = waehle(r, [25, 30, 35, 40, 45])
@@ -162,7 +162,9 @@ const verkaufspreis: Aufgabentyp = {
       titel: 'Verkaufspreis',
       thema: 'kalkulation',
       schwierigkeit: 1,
-      frage: 'Kalkuliere den Bruttoverkaufspreis, also den Preis, der am Regal ausgezeichnet wird.',
+      frage:
+        'Ein neuer Artikel kommt ins Sortiment. Welchen Preis zeichnest du am Regal aus ' +
+        '(Bruttoverkaufspreis)?',
       gegeben: [
         { label: 'Bezugspreis', wert: eur(bzp) },
         { label: 'Handlungskostenzuschlag', wert: pz(handlungskosten) },
@@ -178,13 +180,15 @@ const verkaufspreis: Aufgabentyp = {
           label: 'Handlungskosten aufschlagen',
           rechnung: `${eur(bzp)} × ${pz(handlungskosten)} = ${eur(hkBetrag)}`,
           ergebnis: `Selbstkosten = ${eur(bzp)} + ${eur(hkBetrag)} = ${eur(selbstkosten)}`,
-          hinweis: 'Handlungskosten sind Miete, Personal, Energie — alles, was der Laden kostet.',
+          hinweis:
+            'Handlungskosten sind die Kosten für den laufenden Betrieb, zum Beispiel Miete, ' +
+            'Personal und Energie.',
         },
         {
           label: 'Gewinn aufschlagen',
           rechnung: `${eur(selbstkosten)} × ${pz(gewinn)} = ${eur(gewinnBetrag)}`,
           ergebnis: `Nettoverkaufspreis = ${eur(selbstkosten)} + ${eur(gewinnBetrag)} = ${eur(netto)}`,
-          hinweis: 'Der Gewinnzuschlag rechnet sich von den Selbstkosten, nicht vom Bezugspreis.',
+          hinweis: 'Den Gewinnzuschlag rechnest du von den Selbstkosten, nicht vom Bezugspreis.',
         },
         {
           label: 'Umsatzsteuer aufschlagen',
@@ -192,8 +196,8 @@ const verkaufspreis: Aufgabentyp = {
           ergebnis: `Bruttoverkaufspreis = ${eur(netto)} + ${eur(ustBetrag)} = ${eur(brutto)}`,
           hinweis:
             ust === 7
-              ? 'Grundnahrungsmittel wie Brot, Milch oder Obst haben 7 %.'
-              : 'Der Regelsatz von 19 % gilt für alles, was nicht ausdrücklich begünstigt ist.',
+              ? 'Für die meisten Lebensmittel wie Brot, Milch oder Obst gilt der ermäßigte Satz von 7 %.'
+              : 'Der Regelsatz von 19 % gilt für alle Waren, die keinen ermäßigten Satz haben.',
         },
       ],
     }
@@ -209,7 +213,8 @@ const verkaufspreisKomplett: Aufgabentyp = {
   name: 'Verkaufspreis mit Skonto und Rabatt',
   thema: 'kalkulation',
   schwierigkeit: 3,
-  worumGehts: 'Das vollständige Kalkulationsschema — hier stolpern die meisten über „im Hundert".',
+  worumGehts:
+    'Das ganze Kalkulationsschema mit Kundenskonto und Kundenrabatt. Beide rechnest du „im Hundert" ein.',
   erzeuge: (r) => {
     const bzp = zwischen(r, 40, 300, 2)
     const handlungskosten = waehle(r, [30, 35, 40])
@@ -230,8 +235,8 @@ const verkaufspreisKomplett: Aufgabentyp = {
       thema: 'kalkulation',
       schwierigkeit: 3,
       frage:
-        `Der Kunde soll ${kundenskonto} % Skonto und ${kundenrabatt} % Rabatt erhalten und der ` +
-        'Gewinn soll trotzdem erreicht werden. Wie hoch ist der Bruttoverkaufspreis?',
+        `Ein Großkunde soll ${kundenskonto} % Skonto und ${kundenrabatt} % Rabatt bekommen. ` +
+        'Der geplante Gewinn soll trotzdem erreicht werden. Wie hoch ist der Bruttoverkaufspreis?',
       gegeben: [
         { label: 'Bezugspreis', wert: eur(bzp) },
         { label: 'Handlungskostenzuschlag', wert: pz(handlungskosten) },
@@ -261,8 +266,9 @@ const verkaufspreisKomplett: Aufgabentyp = {
           rechnung: `${eur(barverkaufspreis)} ÷ ${zahl(100 - kundenskonto, 0)} × 100`,
           ergebnis: `Zielverkaufspreis = ${eur(zielverkaufspreis)}`,
           hinweis:
-            'Der Barverkaufspreis ist die Zahl, die nach dem Skontoabzug übrig bleiben muss — ' +
-            'deshalb durch (100 − Skonto), nicht mal (100 + Skonto).',
+            'Der Barverkaufspreis muss übrig bleiben, wenn der Kunde den Skonto abzieht. Er ' +
+            `entspricht ${100 - kundenskonto} % vom Zielverkaufspreis. Deshalb teilst du durch ` +
+            `${100 - kundenskonto} und nimmst mal 100.`,
         },
         {
           label: 'Kundenrabatt einrechnen (im Hundert)',
@@ -288,7 +294,7 @@ const rueckwaerts: Aufgabentyp = {
   name: 'Rückwärtskalkulation',
   thema: 'kalkulation',
   schwierigkeit: 2,
-  worumGehts: 'Der Marktpreis steht fest — wie teuer darf die Ware im Einkauf höchstens sein?',
+  worumGehts: 'Der Preis im Laden steht fest. Wie viel darf die Ware im Einkauf höchstens kosten?',
   erzeuge: (r) => {
     const brutto = zwischen(r, 1000, 9000, 50) / 100
     const ust = 19
@@ -305,9 +311,9 @@ const rueckwaerts: Aufgabentyp = {
       thema: 'kalkulation',
       schwierigkeit: 2,
       frage:
-        'Der Wettbewerb verkauft den Artikel zu diesem Preis, mehr ist am Markt nicht ' +
-        'durchsetzbar. Wie hoch darf der Bezugspreis höchstens sein, damit der Gewinnzuschlag ' +
-        'noch erreicht wird?',
+        'Die Konkurrenz verkauft den Artikel zu diesem Preis. Teurer kann dein Markt ihn nicht ' +
+        'anbieten. Wie hoch darf der Bezugspreis höchstens sein, damit der Gewinnzuschlag ' +
+        'erreicht wird?',
       gegeben: [
         { label: 'Bruttoverkaufspreis (Marktpreis)', wert: eur(brutto) },
         { label: 'Umsatzsteuer', wert: pz(ust) },
@@ -324,19 +330,22 @@ const rueckwaerts: Aufgabentyp = {
           rechnung: `${eur(brutto)} ÷ 1,19`,
           ergebnis: `Nettoverkaufspreis = ${eur(netto)}`,
           hinweis:
-            'Nicht 19 % abziehen! Die Umsatzsteuer steckt im Bruttopreis — das ist eine Rechnung ' +
-            '„im Hundert".',
+            'Nicht 19 % abziehen. Die Umsatzsteuer steckt schon im Bruttopreis, er entspricht ' +
+            '119 %. Das ist eine Rechnung „auf Hundert".',
         },
         {
           label: 'Gewinn herausrechnen',
           rechnung: `${eur(netto)} ÷ ${zahl(100 + gewinn, 0)} × 100`,
           ergebnis: `Selbstkosten = ${eur(selbstkosten)}`,
+          hinweis:
+            `Die Selbstkosten sind 100 %, der Nettoverkaufspreis ist ${100 + gewinn} %. Auch das ` +
+            'ist eine Rechnung „auf Hundert".',
         },
         {
           label: 'Handlungskosten herausrechnen',
           rechnung: `${eur(selbstkosten)} ÷ ${zahl(100 + handlungskosten, 0)} × 100`,
           ergebnis: `höchster Bezugspreis = ${eur(bzp)}`,
-          hinweis: 'Liegt der Lieferant darüber, lohnt der Artikel zu diesem Marktpreis nicht.',
+          hinweis: 'Verlangt der Lieferant mehr, lohnt sich der Artikel zu diesem Marktpreis nicht.',
         },
       ],
     }
@@ -352,7 +361,7 @@ const differenz: Aufgabentyp = {
   name: 'Differenzkalkulation',
   thema: 'kalkulation',
   schwierigkeit: 2,
-  worumGehts: 'Einkaufspreis und Ladenpreis stehen fest — wie viel Gewinn bleibt tatsächlich?',
+  worumGehts: 'Einkaufspreis und Ladenpreis stehen fest. Wie viel Gewinn bleibt übrig?',
   erzeuge: (r) => {
     const bzp = zwischen(r, 20, 150, 1)
     const handlungskosten = waehle(r, [30, 35, 40])
@@ -369,7 +378,9 @@ const differenz: Aufgabentyp = {
       titel: 'Differenzkalkulation',
       thema: 'kalkulation',
       schwierigkeit: 2,
-      frage: 'Wie hoch ist der Gewinn je Stück in Euro?',
+      frage:
+        'Der Bezugspreis und der Preis im Laden sind vorgegeben. Wie hoch ist der Gewinn je ' +
+        'Stück in Euro?',
       gegeben: [
         { label: 'Bezugspreis', wert: eur(bzp) },
         { label: 'Handlungskostenzuschlag', wert: pz(handlungskosten) },
@@ -410,7 +421,8 @@ const handelsspanne: Aufgabentyp = {
   thema: 'kalkulation',
   schwierigkeit: 2,
   worumGehts:
-    'Dieselbe Marge, drei Zahlen: Spanne rechnet vom Verkaufspreis, Zuschlag vom Einkaufspreis.',
+    'Spanne, Zuschlag oder Faktor aus Einkaufs- und Verkaufspreis. Die Spanne rechnest du vom ' +
+    'Verkaufspreis, den Zuschlag vom Einkaufspreis.',
   erzeuge: (r) => {
     const bzp = zwischen(r, 20, 200, 1)
     const aufschlag = waehle(r, [50, 60, 75, 80, 100])
@@ -445,8 +457,8 @@ const handelsspanne: Aufgabentyp = {
             rechnung: `${eur(rohgewinn)} ÷ ${eur(netto)} × 100`,
             ergebnis: `Handelsspanne = ${pz(wert)}`,
             hinweis:
-              'Merksatz: Die Spanne rechnet vom Verkaufspreis. Sie ist deshalb immer kleiner als ' +
-              'der Kalkulationszuschlag.',
+              'Die Spanne rechnest du vom Verkaufspreis. Der ist höher als der Bezugspreis, ' +
+              'deshalb ist die Spanne immer kleiner als der Kalkulationszuschlag.',
           },
         ],
       }
@@ -473,7 +485,7 @@ const handelsspanne: Aufgabentyp = {
             label: 'Anteil am Einkaufspreis',
             rechnung: `${eur(rohgewinn)} ÷ ${eur(bzp)} × 100`,
             ergebnis: `Kalkulationszuschlag = ${pz(wert)}`,
-            hinweis: 'Merksatz: Der Zuschlag rechnet vom Bezugspreis.',
+            hinweis: 'Den Kalkulationszuschlag rechnest du vom Bezugspreis.',
           },
         ],
       }
@@ -495,8 +507,7 @@ const handelsspanne: Aufgabentyp = {
           rechnung: `${eur(netto)} ÷ ${eur(bzp)}`,
           ergebnis: `Kalkulationsfaktor = ${zahl(wert, 3)}`,
           hinweis:
-            'Mit dem Faktor kalkulierst du im Laden blitzschnell: Bezugspreis × Faktor = ' +
-            'Nettoverkaufspreis.',
+            'Mit dem Faktor kalkulierst du schnell: Bezugspreis × Faktor = Nettoverkaufspreis.',
         },
       ],
     }
@@ -512,7 +523,7 @@ const lagerkennzahlen: Aufgabentyp = {
   name: 'Lagerkennzahlen',
   thema: 'lagerkennzahlen',
   schwierigkeit: 2,
-  worumGehts: 'Was die Zahlen über das Lager sagen: wie oft dreht die Ware, wie lange liegt sie?',
+  worumGehts: 'Wie oft wird der Bestand im Jahr verkauft und ersetzt, und wie lange liegt die Ware?',
   erzeuge: (r) => {
     const anfang = zwischen(r, 8000, 20000, 500)
     const q: [number, number, number, number] = [
@@ -541,7 +552,7 @@ const lagerkennzahlen: Aufgabentyp = {
       rechnung: `(${zahl(anfang, 0)} + ${q.map((x) => zahl(x, 0)).join(' + ')}) ÷ 5`,
       ergebnis: `Ø Lagerbestand = ${eur(durchschnitt)}`,
       hinweis:
-        'Geteilt wird durch die Anzahl der Werte: Anfangsbestand plus vier Quartalsbestände sind ' +
+        'Du teilst durch die Anzahl der Werte. Anfangsbestand und vier Quartalsbestände sind ' +
         'fünf Werte.',
     }
 
@@ -577,7 +588,7 @@ const lagerkennzahlen: Aufgabentyp = {
             label: 'Umschlagshäufigkeit',
             rechnung: `${eur(wareneinsatz)} ÷ ${eur(durchschnitt)}`,
             ergebnis: `Umschlagshäufigkeit = ${zahl(uh)} mal im Jahr`,
-            hinweis: 'Je höher, desto besser: das Kapital steckt kürzer in der Ware.',
+            hinweis: 'Ein hoher Wert ist gut. Dann steckt das Geld nur kurz in der Ware.',
           },
         ],
       }
@@ -603,7 +614,7 @@ const lagerkennzahlen: Aufgabentyp = {
           label: 'Lagerdauer',
           rechnung: `360 ÷ ${zahl(uh)}`,
           ergebnis: `Lagerdauer = ${tage(lagerdauer)}`,
-          hinweis: 'Im Rechnungswesen wird mit 360 Tagen gerechnet, nicht mit 365.',
+          hinweis: 'Im kaufmännischen Rechnen hat das Jahr 360 Tage.',
         },
       ],
     }
@@ -619,7 +630,7 @@ const lagerzinsen: Aufgabentyp = {
   name: 'Lagerzinsen',
   thema: 'lagerkennzahlen',
   schwierigkeit: 3,
-  worumGehts: 'Was es kostet, dass Geld als Ware im Regal liegt statt auf dem Konto.',
+  worumGehts: 'Ware im Lager bindet Geld. Die Lagerzinsen zeigen, was das kostet.',
   erzeuge: (r) => {
     const durchschnitt = zwischen(r, 10000, 60000, 500)
     const marktzins = waehle(r, [4, 5, 6, 8])
@@ -639,8 +650,8 @@ const lagerzinsen: Aufgabentyp = {
       rechnung: `${pz(marktzins)} × ${zahl(lagerdauer, 0)} ÷ 360`,
       ergebnis: `Lagerzinssatz = ${pz(lagerzinssatz, 3)}`,
       hinweis:
-        'Der Jahreszinssatz gilt für 360 Tage. Liegt die Ware kürzer, fällt nur der entsprechende ' +
-        'Anteil an.',
+        'Der Marktzinssatz gilt für ein ganzes Jahr mit 360 Tagen. Liegt die Ware kürzer, fällt ' +
+        'nur der passende Anteil an.',
     }
 
     if (waehle(r, ['satz', 'zinsen'] as const) === 'satz') {
@@ -672,7 +683,7 @@ const lagerzinsen: Aufgabentyp = {
           label: 'Lagerzinsen',
           rechnung: `${eur(durchschnitt)} × ${pz(lagerzinssatz, 3)}`,
           ergebnis: `Lagerzinsen = ${eur(zinsen)}`,
-          hinweis: 'Das ist echtes Geld, das der Laden verliert, wenn Ware zu lange liegt.',
+          hinweis: 'So viel kostet es den Markt, dass sein Geld in der Ware gebunden ist.',
         },
       ],
     }
@@ -719,8 +730,8 @@ const meldebestand: Aufgabentyp = {
             rechnung: `${zahl(tagesverbrauch, 0)} × ${zahl(sicherheitstage, 0)}`,
             ergebnis: `Mindestbestand = ${zahl(mindestbestand, 0)} Stück`,
             hinweis:
-              'Der Mindestbestand ist der Puffer für Lieferverzug oder plötzlich höhere ' +
-              'Nachfrage — im Normalbetrieb wird er nicht angetastet.',
+              'Der Mindestbestand ist der Puffer, falls eine Lieferung zu spät kommt oder ' +
+              'plötzlich mehr verkauft wird. Im normalen Betrieb bleibt er unangetastet.',
           },
         ],
       }
@@ -731,7 +742,7 @@ const meldebestand: Aufgabentyp = {
       titel: 'Meldebestand',
       thema: 'beschaffung',
       schwierigkeit: 1,
-      frage: 'Bei welchem Bestand muss bestellt werden?',
+      frage: 'Bei welchem Bestand muss der Markt neu bestellen (Meldebestand)?',
       gegeben,
       loesung: { wert: meldebestandWert, toleranz: 0, einheit: 'Stück' },
       formel: 'Meldebestand = Tagesverbrauch × Lieferzeit + Mindestbestand',
@@ -767,7 +778,7 @@ const umsatzsteuer: Aufgabentyp = {
   name: 'Umsatzsteuer',
   thema: 'kasse',
   schwierigkeit: 1,
-  worumGehts: 'Brutto, Netto und Steuerbetrag sicher auseinanderhalten.',
+  worumGehts: 'Preis mit Steuer, Preis ohne Steuer und die Steuer selbst: Brutto, Netto und Steuerbetrag.',
   erzeuge: (r) => {
     const satz = waehle(r, [19, 7])
     const netto = zwischen(r, 500, 25000, 5) / 100
@@ -825,8 +836,8 @@ const umsatzsteuer: Aufgabentyp = {
             ergebnis: `Netto = ${eur(netto)}`,
             hinweis:
               satz === 19
-                ? 'Häufigster Fehler: 19 % vom Bruttopreis abziehen. Richtig ist ÷ 1,19.'
-                : 'Häufigster Fehler: 7 % vom Bruttopreis abziehen. Richtig ist ÷ 1,07.',
+                ? 'Der häufigste Fehler ist, 19 % vom Bruttopreis abzuziehen. Richtig ist ÷ 1,19.'
+                : 'Der häufigste Fehler ist, 7 % vom Bruttopreis abzuziehen. Richtig ist ÷ 1,07.',
           },
         ],
       }
@@ -837,7 +848,7 @@ const umsatzsteuer: Aufgabentyp = {
       titel: 'Steuerbetrag',
       thema: 'kasse',
       schwierigkeit: 1,
-      frage: 'Wie hoch ist die im Bruttobetrag enthaltene Umsatzsteuer?',
+      frage: `Wie viel Umsatzsteuer steckt im Bruttobetrag für ${warengruppe}?`,
       gegeben: [
         { label: 'Bruttobetrag', wert: eur(brutto) },
         { label: 'Umsatzsteuersatz', wert: pz(satz) },
@@ -895,7 +906,7 @@ const skontovergleich: Aufgabentyp = {
         titel: 'Skontobetrag',
         thema: 'beschaffung',
         schwierigkeit: 3,
-        frage: 'Wie hoch ist der Skontobetrag in Euro?',
+        frage: 'Dein Markt bezahlt die Rechnung innerhalb der Skontofrist. Wie hoch ist der Skontobetrag in Euro?',
         gegeben,
         loesung: { wert: skontobetrag, toleranz: EUR_TOLERANZ, einheit: '€' },
         formel: 'Skontobetrag = Rechnungsbetrag × Skontosatz ÷ 100',
@@ -904,7 +915,7 @@ const skontovergleich: Aufgabentyp = {
             label: 'Skonto berechnen',
             rechnung: `${eur(rechnungsbetrag)} × ${pz(skonto)}`,
             ergebnis: `Skontobetrag = ${eur(skontobetrag)}`,
-            hinweis: `Zu zahlen wären dann ${eur(r2(rechnungsbetrag - skontobetrag))}.`,
+            hinweis: `Überwiesen werden dann ${eur(r2(rechnungsbetrag - skontobetrag))}.`,
           },
         ],
       }
@@ -916,8 +927,8 @@ const skontovergleich: Aufgabentyp = {
       thema: 'beschaffung',
       schwierigkeit: 3,
       frage:
-        'Wie hoch ist der Jahreszinssatz, der dem Skonto entspricht? Damit entscheidest du, ob ' +
-        'sich das Ziehen des Skontos lohnt.',
+        'Um mit Skonto zu zahlen, müsste dein Markt den Kontokorrentkredit nutzen. Welchem ' +
+        'Jahreszinssatz entspricht der Skonto?',
       gegeben,
       loesung: { wert: jahreszins, toleranz: 0.1, einheit: '%' },
       formel: 'Jahreszinssatz = Skontosatz × 360 ÷ (Zahlungsziel − Skontofrist)',
@@ -926,7 +937,7 @@ const skontovergleich: Aufgabentyp = {
           label: 'Zinstage bestimmen',
           rechnung: `${zahlungsziel} − ${skontofrist}`,
           ergebnis: `${zinstage} Tage`,
-          hinweis: 'Nur für diese Tage nimmst du Geld auf. Nicht das ganze Zahlungsziel rechnen.',
+          hinweis: 'Nur für diese Tage leihst du dir Geld. Rechne nicht mit dem ganzen Zahlungsziel.',
         },
         {
           label: 'Auf das Jahr hochrechnen',
@@ -938,10 +949,10 @@ const skontovergleich: Aufgabentyp = {
           rechnung: `${pz(jahreszins)} gegen ${pz(kreditzins)} Kreditzins`,
           ergebnis:
             jahreszins > kreditzins
-              ? 'Skonto ziehen und dafür den Kredit nutzen — das ist günstiger.'
-              : 'Skonto nicht ziehen — der Kredit wäre teurer als der Vorteil.',
+              ? 'Skonto ziehen und dafür den Kredit nutzen. Das ist günstiger.'
+              : 'Skonto nicht ziehen. Der Kredit kostet mehr, als der Skonto bringt.',
           hinweis:
-            'Der höhere Zinssatz gewinnt: Skonto ziehen, wenn es mehr bringt als der Kredit kostet.',
+            'Liegt der Zinssatz des Skontos über dem Kreditzins, lohnt sich das Skontoziehen.',
         },
       ],
     }
@@ -957,7 +968,7 @@ const inventurdifferenz: Aufgabentyp = {
   name: 'Inventurdifferenz',
   thema: 'bestandsfuehrung',
   schwierigkeit: 2,
-  worumGehts: 'Was fehlt zwischen System und Regal — und wie viel das vom Umsatz ausmacht.',
+  worumGehts: 'Im System steht mehr Ware, als im Regal liegt. Wie groß ist die Lücke im Verhältnis zum Umsatz?',
   erzeuge: (r) => {
     const sollbestand = zwischen(r, 40000, 120000, 500)
     const differenzWert = zwischen(r, 200, 2500, 50)
@@ -978,7 +989,9 @@ const inventurdifferenz: Aufgabentyp = {
         titel: 'Inventurdifferenz',
         thema: 'bestandsfuehrung',
         schwierigkeit: 2,
-        frage: 'Wie hoch ist die Inventurdifferenz in Euro?',
+        frage:
+          'Bei der Inventur zählt ihr weniger Ware, als im Warenwirtschaftssystem steht. Wie ' +
+          'hoch ist die Inventurdifferenz in Euro?',
         gegeben,
         loesung: { wert: differenzWert, toleranz: EUR_TOLERANZ, einheit: '€' },
         formel: 'Inventurdifferenz = Sollbestand − Istbestand',
@@ -987,9 +1000,7 @@ const inventurdifferenz: Aufgabentyp = {
             label: 'Soll und Ist vergleichen',
             rechnung: `${eur(sollbestand)} − ${eur(istbestand)}`,
             ergebnis: `Inventurdifferenz = ${eur(differenzWert)}`,
-            hinweis:
-              'Ursachen sind Diebstahl, Verderb, Bruch oder Fehlbuchungen — nicht automatisch ' +
-              'Diebstahl.',
+            hinweis: 'Mögliche Ursachen sind Diebstahl, Verderb, Bruch oder Fehlbuchungen.',
           },
         ],
       }

@@ -50,10 +50,10 @@ export const grundpreis: Aufgabentyp = {
           hinweis: `1 ${einheitGross} sind 1.000 ${einheitKlein}.`,
         },
         {
-          label: 'Preis entsprechend oft nehmen',
+          label: 'Preis mit dieser Zahl malnehmen',
           rechnung: `${eur(preis)} × ${zahl(faktor, 2)}`,
           ergebnis: `Grundpreis = ${eur(grund)} je ${einheitGross}`,
-          hinweis: 'Seit 2022 gilt immer 1 kg bzw. 1 l als Bezugsgröße, nicht mehr 100 g.',
+          hinweis: 'Seit 2022 ist die Bezugsgröße immer 1 kg oder 1 l. Die Angabe je 100 g reicht nicht mehr.',
         },
       ],
     }
@@ -69,7 +69,7 @@ export const handlungskostensatz: Aufgabentyp = {
   name: 'Handlungskostenzuschlag ermitteln',
   thema: 'kalkulation',
   schwierigkeit: 2,
-  worumGehts: 'Woher kommen die Prozent für die Handlungskosten? Aus den Zahlen des Vorjahres.',
+  worumGehts: 'Den Prozentsatz für die Handlungskosten ermittelst du aus den Zahlen des Vorjahres.',
   erzeuge: (r) => {
     const wareneinsatz = zwischen(r, 30, 90, 1) * 10000
     const satz = waehle(r, [20, 25, 30, 35, 40, 45])
@@ -95,7 +95,7 @@ export const handlungskostensatz: Aufgabentyp = {
           label: 'Handlungskosten durch Wareneinsatz teilen',
           rechnung: `${eur(hk)} ÷ ${eur(wareneinsatz)}`,
           ergebnis: `${zahl(quote, 2)}`,
-          hinweis: 'Heraus kommt der Anteil als Dezimalzahl.',
+          hinweis: 'Das Ergebnis ist der Anteil als Kommazahl.',
         },
         {
           label: 'In Prozent umrechnen',
@@ -116,7 +116,7 @@ export const prozentveraenderung: Aufgabentyp = {
   name: 'Veränderung in Prozent',
   thema: 'geschaeftsprozesse',
   schwierigkeit: 1,
-  worumGehts: 'Um wie viel Prozent ist der Umsatz gestiegen? Die häufigste Rechnung im Controlling.',
+  worumGehts: 'Um wie viel Prozent ist der Umsatz gestiegen? Diese Rechnung brauchst du im Controlling oft.',
   erzeuge: (r) => {
     const vorjahr = zwischen(r, 40, 120, 1) * 10000
     const prozent = waehle(r, [2, 3, 4, 5, 6, 8, 10, 12, 15])
@@ -146,7 +146,7 @@ export const prozentveraenderung: Aufgabentyp = {
           label: 'Steigerung durch den alten Wert teilen',
           rechnung: `${eur(differenz)} ÷ ${eur(vorjahr)}`,
           ergebnis: `${zahl(anteil, 2)}`,
-          hinweis: 'Immer durch den Ausgangswert teilen — also durch das Vorjahr, nicht durch das neue Jahr.',
+          hinweis: 'Du teilst immer durch den Ausgangswert. Das ist hier der Umsatz des Vorjahres.',
         },
         {
           label: 'In Prozent umrechnen',
@@ -167,7 +167,7 @@ export const dreisatz: Aufgabentyp = {
   name: 'Dreisatz',
   thema: 'geschaeftsprozesse',
   schwierigkeit: 1,
-  worumGehts: 'Erst auf eins, dann auf viele — das Werkzeug für fast jede Mengenrechnung.',
+  worumGehts: 'Erst auf eine Einheit rechnen, dann auf die gesuchte Menge. So löst du fast jede Mengenrechnung.',
   erzeuge: (r) => {
     if (r() < 0.5) {
       // proportional: mehr Kisten → mehr Gewicht
@@ -289,7 +289,7 @@ export const breakEven: Aufgabentyp = {
           label: 'Fixkosten durch Deckungsbeitrag',
           rechnung: `${eur(fixkosten)} ÷ ${eur(db)}`,
           ergebnis: `Break-even-Menge = ${zahl(menge, 0)} Stück`,
-          hinweis: 'Jede Schale darüber ist Gewinn.',
+          hinweis: 'Ab der nächsten Schale macht der Markt Gewinn.',
         },
       ],
     }
@@ -305,7 +305,7 @@ export const rentabilitaet: Aufgabentyp = {
   name: 'Rentabilität',
   thema: 'geschaeftsprozesse',
   schwierigkeit: 2,
-  worumGehts: 'Lohnt sich das eingesetzte Geld? Gewinn im Verhältnis zu Kapital oder Umsatz.',
+  worumGehts: 'Wie viel Gewinn bringt das eingesetzte Geld? Du setzt den Gewinn ins Verhältnis zum Kapital oder zum Umsatz.',
   erzeuge: (r) => {
     const gewinn = zwischen(r, 10, 60, 1) * 1000
     if (r() < 0.5) {
@@ -363,7 +363,7 @@ export const rentabilitaet: Aufgabentyp = {
           label: 'In Prozent umrechnen',
           rechnung: `${zahl(prozent / 100, 3)} × 100`,
           ergebnis: `Umsatzrentabilität = ${pz(prozent)}`,
-          hinweis: 'Im Lebensmittelhandel sind 1 bis 3 % üblich — von jedem Euro Umsatz bleiben nur wenige Cent Gewinn.',
+          hinweis: 'Im Lebensmittelhandel sind 1 bis 3 % üblich. Von jedem Euro Umsatz bleiben nur wenige Cent Gewinn.',
         },
       ],
     }

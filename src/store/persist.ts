@@ -215,7 +215,7 @@ export function ausBackup(text: string): AppZustand {
     throw new Error('Die Datei ist kein gültiges Backup.')
   }
   if (!istObjekt(daten) || daten.app !== 'azubiboost' || !istObjekt(daten.zustand)) {
-    throw new Error('Die Datei stammt nicht aus AzubiBoost.')
+    throw new Error('Die Datei ist kein Backup dieser LernApp.')
   }
   return migriere(daten.zustand)
 }

@@ -7,8 +7,8 @@ import { fileURLToPath, URL } from 'node:url'
 // App-Name aus der Umgebung: das öffentliche Repo bleibt neutral, der eigene Build
 // kann einen persönlichen Namen tragen (lokal .env.local, beim Hosting die Projekteinstellungen).
 const env = loadEnv(process.env.NODE_ENV === 'production' ? 'production' : 'development', process.cwd(), 'VITE_')
-const APP_NAME = env.VITE_APP_NAME?.trim() || 'AzubiBoost Einzelhandel'
-const APP_KURZNAME = env.VITE_APP_KURZNAME?.trim() || 'AzubiBoost'
+const APP_NAME = env.VITE_APP_NAME?.trim() || 'Deine LernApp'
+const APP_KURZNAME = env.VITE_APP_KURZNAME?.trim() || 'Deine LernApp'
 
 export default defineConfig({
   plugins: [
@@ -31,7 +31,7 @@ export default defineConfig({
         scope: '/',
         display: 'standalone',
         orientation: 'portrait',
-        background_color: '#fbf8f3',
+        background_color: '#f2f2f7',
         theme_color: '#8c2f45',
         categories: ['education'],
         icons: [
@@ -47,7 +47,7 @@ export default defineConfig({
       },
       workbox: {
         // Offline nur die lateinischen Schriftschnitte — Deutsch samt € braucht keine anderen.
-        globPatterns: ['**/*.{js,css,html,svg,png}', '**/*-latin-wght-normal-*.woff2'],
+        globPatterns: ['**/*.{js,css,html,svg,png}'],
         cleanupOutdatedCaches: true,
         navigateFallback: '/index.html',
       },

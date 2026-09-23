@@ -23,7 +23,7 @@ const ABSCHNITTE: { titel: string; formeln: { name: string; formel: string; hinw
       {
         name: 'Im Hundert einrechnen',
         formel: 'Wert ÷ (100 − Prozentsatz) × 100',
-        hinweis: 'Für Kundenskonto und Kundenrabatt — der bekannte Wert ist schon der verminderte.',
+        hinweis: 'Für Kundenskonto und Kundenrabatt. Der Wert, den du kennst, ist schon der verminderte.',
       },
       {
         name: 'Rückwärts',

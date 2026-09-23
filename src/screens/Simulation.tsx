@@ -105,7 +105,7 @@ export function Simulation({ bereich }: { bereich: BereichId }) {
             {fragen.length} Aufgaben in {minuten} Minuten. Du kannst vor und zurück springen und Antworten ändern,
             bis du abgibst. Läuft die Zeit ab, wird automatisch abgegeben.
           </p>
-          <p>Leg Blatt und Stift bereit — einige Aufgaben sind Rechenaufgaben.</p>
+          <p>Leg Blatt, Stift und Taschenrechner bereit. Einige Aufgaben sind Rechenaufgaben.</p>
           {info.sperrfach && (
             <p className="schritt__hinweis">
               Sperrfach: unter 50 Punkten ist die ganze Prüfung nicht bestanden, egal wie gut der Rest ist.

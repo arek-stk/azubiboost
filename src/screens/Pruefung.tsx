@@ -20,8 +20,8 @@ export function Pruefung() {
         <h1>Prüfung</h1>
       </header>
       <p className="untertitel">
-        Simulationen mit Zeitlimit, bewertet nach dem IHK-Notenschlüssel. Während der Prüfung gibt es keine
-        Erklärungen — die kommen in der Auswertung.
+        Simulationen mit Zeitlimit, bewertet nach dem IHK-Notenschlüssel. Die Erklärungen siehst du erst in der
+        Auswertung.
       </p>
 
       <section className="abschnitt">

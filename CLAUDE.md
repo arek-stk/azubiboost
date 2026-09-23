@@ -1,4 +1,4 @@
-# AzubiBoost — Hinweise für Claude Code
+# Deine LernApp: Hinweise für Claude Code
 
 ## Was das ist
 

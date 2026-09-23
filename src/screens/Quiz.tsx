@@ -64,7 +64,7 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
               ? 'Richtig stark. Das Thema sitzt.'
               : punkte >= 50
                 ? 'Gute Grundlage. Die Fehler kommen in den nächsten Tagen automatisch wieder.'
-                : 'Das war noch holprig — genau dafür ist Üben da. Lies dir die Erklärungen in Ruhe durch.'}
+                : 'Das war noch nicht so gut. Lies dir die Erklärungen in Ruhe durch, morgen kommen die Fragen wieder.'}
           </p>
         </div>
         {fehlerIds.length > 0 && (
@@ -90,7 +90,7 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
     const ok = istRichtig(f, aktuelleAntwort)
     const tag = heute()
     if (heuteBeantwortet(zustand) + 1 === zustand.einstellungen.tagesziel) {
-      feiere({ symbol: 'pokal', titel: 'Tagesziel geschafft!', text: 'Alles, was jetzt noch kommt, ist ein Bonus.' })
+      feiere({ symbol: 'pokal', titel: 'Tagesziel geschafft', text: 'Was jetzt noch kommt, ist extra.' })
     }
     dispatch({ typ: 'frageBeantwortet', frageId: f.id, richtig: ok, tag })
     const neu = [

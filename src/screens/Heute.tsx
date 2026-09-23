@@ -58,7 +58,8 @@ export function Heute() {
   const datum = alsDate(tag).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })
 
   const coach = coachNachricht({
-    name: anrede(e.name),
+    // Die Begrüßung oben nennt sie schon beim Namen.
+    name: null,
     heuteBeantwortet: beantwortet,
     tagesziel: e.tagesziel,
     streak: serie,
@@ -101,7 +102,7 @@ export function Heute() {
       <section className="held">
         <Ring wert={beantwortet / e.tagesziel} groesse={96} dicke={10}>
           <span className="zahl" style={{ fontSize: 24, fontWeight: 800 }}>
-            {Math.min(100, Math.round((beantwortet / e.tagesziel) * 100))}%
+            {Math.min(100, Math.round((beantwortet / e.tagesziel) * 100))} %
           </span>
         </Ring>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0, position: 'relative', zIndex: 1 }}>
@@ -151,7 +152,7 @@ export function Heute() {
 
       <div className="kacheln">
         <Kachel icon="stift" titel="Rechnen" info={`Lernpfad · Stufe ${lernpfad(zustand.rechnen).aktuelleStufe} von 4`} bereich="warenwirtschaft" onClick={() => gehe({ name: 'rechenaufgabe', typId: lernpfad(zustand.rechnen).naechster ?? 'gemischt' })} />
-        <Kachel icon="pruefung" titel="Probeprüfung" info="Geschäftsprozesse, 120 Min" bereich="geschaeftsprozesse" onClick={() => gehe({ name: 'simulation', bereich: 'geschaeftsprozesse' })} />
+        <Kachel icon="pruefung" titel="Probeprüfung" info="Teil 2 · 120 Minuten" bereich="geschaeftsprozesse" onClick={() => gehe({ name: 'simulation', bereich: 'geschaeftsprozesse' })} />
         <Kachel icon="sprechblase" titel="Fachgespräch" info="Zählt 40 %" bereich="verkauf" onClick={() => gehe({ name: 'fachgespraech' })} />
         {fehler > 0 ? (
           <Kachel icon="kreuz" titel="Fehler wiederholen" info={`${fehler} unsichere Fragen`} bereich="wiso" onClick={fehlerUeben} />

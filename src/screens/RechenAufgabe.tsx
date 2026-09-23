@@ -96,7 +96,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
             <div className="papier-hinweis">
               <Icon name="stift" />
               <p>
-                Nimm Blatt und Stift. Schreib die gegebenen Werte ab und rechne Schritt für Schritt — genau
+                Nimm Blatt und Stift. Schreib die gegebenen Werte ab und rechne Schritt für Schritt, so
                 wie in der Prüfung. Hier tippst du nur das Ergebnis ein.
               </p>
             </div>
@@ -131,7 +131,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
             <span className="eingabe-anzeige__einheit">{aufgabe.loesung.einheit}</span>
           </div>
           <Ziffernblock wert={eingabe} onAendern={setEingabe} />
-          <p className="untertitel" style={{ textAlign: 'center' }}>Keine Eile — hier läuft keine Uhr.</p>
+          <p className="untertitel" style={{ textAlign: 'center' }}>Hier läuft keine Uhr. Lass dir Zeit.</p>
           <button className="knopf knopf--breit" onClick={pruefe} disabled={eingabeAlsZahl(eingabe) === null}>
             Ergebnis prüfen
           </button>
@@ -143,7 +143,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
             </button>
           )}
           <button className="knopf knopf--zweit knopf--breit" onClick={starteGefuehrt}>
-            Ich komme nicht weiter — zeig es mir Schritt für Schritt
+            Zeig mir den Weg Schritt für Schritt
           </button>
         </>
       )}
@@ -158,7 +158,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
       {phase === 'gefuehrt-fertig' && (
         <>
           <section className="rueckmeldung rueckmeldung--richtig">
-            <p className="rueckmeldung__titel">{ohneFehler ? 'Alle Schritte richtig!' : 'Durchgerechnet!'}</p>
+            <p className="rueckmeldung__titel">{ohneFehler ? 'Alle Schritte richtig' : 'Durchgerechnet'}</p>
             <p>
               {ohneFehler
                 ? 'Du hast jeden Zwischenschritt selbst gelöst. Probier die nächste Aufgabe ganz ohne Hilfe.'
@@ -178,7 +178,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
       {phase === 'ergebnis' && (
         <>
           <section className={richtig ? 'rueckmeldung rueckmeldung--richtig' : 'rueckmeldung rueckmeldung--falsch'}>
-            <p className="rueckmeldung__titel">{richtig ? 'Richtig gerechnet!' : 'Fast! Lass uns schauen, wo es hakt.'}</p>
+            <p className="rueckmeldung__titel">{richtig ? 'Richtig gerechnet' : 'Das stimmt noch nicht. Schau dir den Rechenweg an.'}</p>
             <p>
               Dein Ergebnis: <strong className="zahl">{eingabeAnzeigen(eingabe)} {aufgabe.loesung.einheit}</strong>
               <br />

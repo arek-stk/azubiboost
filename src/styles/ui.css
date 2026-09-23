@@ -4,10 +4,10 @@
   max-width: 640px;
   margin: 0 auto;
   padding: calc(var(--sicher-oben) + 12px) 16px
-    calc(var(--tabbar-hoehe) + var(--sicher-unten) + 24px);
+    calc(var(--tabbar-hoehe) + var(--sicher-unten) + 28px);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .seite--ohne-tabbar {
@@ -22,26 +22,24 @@
 }
 
 .kopf h1 {
-  font-size: 28px;
-  font-weight: 750;
   flex: 1;
+  font-size: 34px;
+  font-weight: 700;
 }
 
 .kopf--klein h1 {
-  font-size: 20px;
-  font-weight: 650;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .zurueck {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
   min-width: 44px;
   min-height: 44px;
-  margin-left: -8px;
-  padding: 0 8px;
+  margin-left: -10px;
+  padding: 0 6px;
   color: var(--akzent);
-  font-weight: 500;
 }
 
 .icon-knopf {
@@ -49,12 +47,13 @@
   place-items: center;
   width: 44px;
   height: 44px;
+  margin-right: -8px;
   border-radius: 50%;
-  color: var(--text-2);
+  color: var(--akzent);
 }
 
 .icon-knopf:active {
-  background: var(--bg-gedrueckt);
+  opacity: 0.5;
 }
 
 .untertitel {
@@ -69,61 +68,72 @@
 }
 
 .abschnitt > h2 {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--text-3);
   padding: 0 4px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 /* ---------- Karten ---------- */
 
 .karte {
-  background: var(--bg-erhoeht);
-  border: 1px solid color-mix(in srgb, var(--linie) 55%, transparent);
-  border-radius: var(--radius);
-  box-shadow: var(--schatten);
-  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
 }
 
 .karte--akzent {
   background: var(--akzent-weich);
-  box-shadow: none;
 }
 
 .karte h3 {
   font-size: 17px;
-  font-weight: 650;
+  font-weight: 600;
 }
 
+/* ---------- Listen wie in den iOS-Einstellungen ---------- */
+
 .liste {
-  background: var(--bg-erhoeht);
-  border-radius: var(--radius);
-  box-shadow: var(--schatten);
   overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
 }
 
 .zeile {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
   width: 100%;
-  min-height: 56px;
-  padding: 12px 16px;
+  min-height: 52px;
+  padding: 11px 16px;
   text-align: left;
-  border-bottom: 1px solid var(--linie);
 }
 
-.zeile:last-child {
-  border-bottom: 0;
+/* Trennlinie ab dem Text, nicht über die ganze Breite */
+.zeile:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 0;
+  bottom: 0;
+  border-bottom: 0.5px solid var(--linie);
 }
 
-button.zeile:active {
+.zeile:has(> .symbol):not(:last-child)::after {
+  left: 62px;
+}
+
+button.zeile:active,
+a.zeile:active {
   background: var(--bg-gedrueckt);
+}
+
+a.zeile {
+  color: inherit;
+  text-decoration: none;
 }
 
 .zeile__text {
@@ -131,21 +141,21 @@ button.zeile:active {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
 .zeile__titel {
-  font-weight: 550;
+  font-weight: 400;
 }
 
 .zeile__info {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-2);
 }
 
 .pfeil {
-  color: var(--text-3);
   flex-shrink: 0;
+  color: var(--text-leise);
 }
 
 /* ---------- Knöpfe ---------- */
@@ -157,20 +167,20 @@ button.zeile:active {
   gap: 8px;
   min-height: 50px;
   padding: 0 20px;
-  border-radius: 14px;
-  font-weight: 650;
+  border-radius: 12px;
   background: var(--akzent);
   color: var(--akzent-text);
-  transition: transform 0.1s ease, opacity 0.1s ease;
+  font-size: 17px;
+  font-weight: 600;
+  transition: opacity 120ms ease;
 }
 
 .knopf:active {
-  transform: scale(0.98);
+  opacity: 0.75;
 }
 
 .knopf:disabled {
-  opacity: 0.4;
-  transform: none;
+  opacity: 0.35;
 }
 
 .knopf--breit {
@@ -178,13 +188,31 @@ button.zeile:active {
 }
 
 .knopf--zweit {
+  background: var(--bg-erhoeht);
+  color: var(--akzent);
+}
+
+.karte .knopf--zweit,
+.liste .knopf--zweit {
   background: var(--bg-gedrueckt);
-  color: var(--text);
 }
 
 .knopf--gefahr {
-  background: var(--schlecht-weich);
+  background: var(--bg-erhoeht);
   color: var(--schlecht);
+  font-weight: 400;
+}
+
+.knopf--gross {
+  flex-direction: column;
+  gap: 0;
+  min-height: 56px;
+}
+
+.knopf--gross small {
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 0.85;
 }
 
 .knopf-reihe {
@@ -196,20 +224,40 @@ button.zeile:active {
   flex: 1;
 }
 
+.knopf-klein {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--akzent-weich);
+  color: var(--akzent);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.knopf-klein:active {
+  opacity: 0.6;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--akzent) 55%, transparent);
+  outline-offset: 2px;
+}
+
 /* ---------- Fortschritt ---------- */
 
 .balken {
-  height: 8px;
-  border-radius: 4px;
+  height: 6px;
+  border-radius: 3px;
   background: var(--bg-gedrueckt);
   overflow: hidden;
 }
 
 .balken__fuellung {
   height: 100%;
-  border-radius: 4px;
+  border-radius: 3px;
   background: var(--akzent);
-  transition: width 0.4s ease;
+  transition: width 400ms var(--weich);
 }
 
 .balken__fuellung--gut {
@@ -224,6 +272,10 @@ button.zeile:active {
   background: var(--schlecht);
 }
 
+.balken--bereich .balken__fuellung {
+  background: var(--farbe);
+}
+
 .ring {
   display: block;
 }
@@ -234,19 +286,19 @@ button.zeile:active {
 
 .ring__wert {
   stroke: var(--akzent);
-  transition: stroke-dashoffset 0.5s ease;
+  transition: stroke-dashoffset 500ms var(--weich);
 }
 
 .plakette {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 10px;
+  padding: 2px 9px;
   border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
   background: var(--bg-gedrueckt);
   color: var(--text-2);
+  font-size: 13px;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -274,10 +326,10 @@ button.zeile:active {
   display: flex;
   justify-content: center;
   padding-bottom: var(--sicher-unten);
-  background: color-mix(in srgb, var(--bg-erhoeht) 88%, transparent);
+  background: color-mix(in srgb, var(--bg-erhoeht) 85%, transparent);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-top: 1px solid var(--linie);
+  border-top: 0.5px solid var(--linie);
 }
 
 .tabbar__innen {
@@ -294,11 +346,107 @@ button.zeile:active {
   align-items: center;
   justify-content: center;
   gap: 2px;
-  font-size: 11px;
-  font-weight: 550;
   color: var(--text-3);
+  font-size: 10px;
+  font-weight: 500;
 }
 
 .tab[aria-current='page'] {
   color: var(--akzent);
+}
+
+/* ---------- Formulare ---------- */
+
+/* Eingabe rechts in einer Listenzeile, wie in den iOS-Einstellungen */
+.feld-inline {
+  min-height: 34px;
+  max-width: 60%;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  text-align: right;
+}
+
+.feld-inline:focus {
+  outline: none;
+  color: var(--akzent);
+}
+
+select.feld-inline {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.feld {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: var(--radius-klein);
+  background: var(--bg-erhoeht);
+}
+
+/* Umschalter mit festen Werten (Segmented Control) */
+.segmente {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--bg-gedrueckt);
+}
+
+.segment {
+  flex: 1;
+  min-height: 36px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background-color 150ms ease;
+}
+
+.segment--aktiv {
+  background: var(--bg-erhoeht);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.12);
+  font-weight: 600;
+}
+
+/* ---------- Willkommen ---------- */
+
+.willkommen {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 24px;
+}
+
+.willkommen h1 {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.merkmale {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin: 12px 0 0;
+  padding: 0 4px;
+  list-style: none;
+}
+
+.merkmale li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.merkmale li > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.merkmale strong {
+  font-weight: 600;
 }

@@ -22,7 +22,7 @@ export function Rechnen() {
         <h1>Rechnen</h1>
       </header>
       <p className="untertitel">
-        Keine Angst vor Zahlen: Du fängst mit leichten Aufgaben an, und erst wenn du sie allein kannst, wird es schwerer.
+        Du fängst mit leichten Aufgaben an. Erst wenn du sie allein kannst, wird es schwerer.
         Zu jedem Schritt gibt es einen Tipp und die Tasten für den Taschenrechner.
       </p>
 
@@ -30,8 +30,8 @@ export function Rechnen() {
         <span className="untertitel" style={{ fontSize: 13, fontWeight: 600 }}>
           Stufe {pfad.aktuelleStufe} von 4 · {stufe?.name}
         </span>
-        <h3 className="titel-serif" style={{ fontSize: 22 }}>
-          {naechster === undefined ? 'Alles gemeistert!' : `Jetzt dran: ${naechster.name.replace(/^\d+\.\s*/, '')}`}
+        <h3 style={{ fontSize: 22 }}>
+          {naechster === undefined ? 'Alles geschafft' : `Jetzt dran: ${naechster.name.replace(/^\d+\.\s*/, '')}`}
         </h3>
         <Balken wert={pfad.gemeistert / pfad.gesamt} />
         <span className="untertitel" style={{ fontSize: 14 }}>

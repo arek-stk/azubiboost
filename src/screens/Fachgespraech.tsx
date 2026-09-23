@@ -81,7 +81,7 @@ export function Fachgespraech() {
             Der Ausschuss legt dir zwei Aufgaben vor, du wählst eine. Dann hast du {FACHGESPRAECH_VORBEREITUNG_MINUTEN}{' '}
             Minuten Vorbereitung und höchstens {GESPRAECH_MINUTEN} Minuten Gespräch.
           </p>
-          <p className="untertitel">Am besten übst du laut — allein oder mit jemandem, der die Prüferfragen stellt.</p>
+          <p className="untertitel">Übe laut. Am besten mit jemandem, der dir die Fragen der Prüfer stellt.</p>
         </section>
 
         {gezogen.length === 0 ? (
@@ -140,7 +140,7 @@ export function Fachgespraech() {
           </div>
         </section>
         <button className="knopf knopf--breit" onClick={() => setPhase('gespraech')}>
-          Fertig vorbereitet — Gespräch beginnen
+          Gespräch beginnen
         </button>
       </>
     )
@@ -188,8 +188,8 @@ export function Fachgespraech() {
       <Kopf titel="Wie lief es?" klein />
       <section className="karte">
         <p>
-          Schätz dich ehrlich ein. Das fließt als <strong>Selbsteinschätzung</strong> in die Notenprognose ein — es ist
-          keine echte Bewertung.
+          Schätz dich ehrlich ein. Das fließt als <strong>Selbsteinschätzung</strong> in die Notenprognose ein. Eine echte
+          Bewertung ist es nicht.
         </p>
         <label htmlFor="selbst" className="untertitel">
           {selbst} Punkte · Note {note.note} ({note.wort})

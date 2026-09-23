@@ -1,101 +1,91 @@
-/* Design-Tokens nach dem Designkonzept „persönliches Notizbuch":
-   warmes Off-White, Weinrot als Akzent — ihre Lieblingsfarbe, gedämpfte Bereichsfarben.
-   Fehler werden nicht rot bestraft, sondern als korrigierbare Lernmomente gezeigt.
-   Kontraste u. a.: #263238 auf #FBF8F3 ≈ 13:1, #FFFFFF auf #8C2F45 ≈ 8,1:1. */
+/* Design-Tokens im Stil der iOS-Systemapps: grauer Hintergrund, weiße Karten,
+   Systemschrift. Weinrot ist der einzige Akzent.
+   Kontraste u. a.: #1c1c1e auf #f2f2f7 ≈ 15:1, #ffffff auf #8c2f45 ≈ 8,1:1,
+   #5c5c61 auf #ffffff ≈ 6,6:1. */
 
 :root {
   color-scheme: light;
 
-  --bg: #fbf8f3;
+  --bg: #f2f2f7;
   --bg-erhoeht: #ffffff;
-  --bg-gedrueckt: #f1ece4;
-  --linie: #ddd5ca;
+  --bg-gedrueckt: #e9e9ee;
+  --linie: #d1d1d6;
 
-  --text: #263238;
-  --text-2: #596168;
-  --text-3: #727a7f;
+  --text: #1c1c1e;
+  --text-2: #5c5c61;
+  --text-3: #6e6e73;
+  --text-leise: #aeaeb2;
 
   --akzent: #8c2f45;
-  --akzent-hell: #b4566b;
   --akzent-text: #ffffff;
-  --akzent-weich: #f5e3e7;
+  --akzent-weich: #f7e9ec;
 
-  --pfirsich: #e9bcc5;
-  --gold: #b08a35;
+  --gut: #1f7a37;
+  --gut-weich: #e4f3e8;
+  --mittel: #935400;
+  --mittel-weich: #fcefdc;
+  --schlecht: #c4262e;
+  --schlecht-weich: #fce9e9;
 
-  --gut: #35665a;
-  --gut-weich: #dcebe6;
-  --mittel: #715a20;
-  --mittel-weich: #f3e9c9;
-  --schlecht: #9b5548;
-  --schlecht-weich: #f4e0da;
+  --b-geschaeftsprozesse: #0a64c2;
+  --b-geschaeftsprozesse-weich: #e4eefa;
+  --b-warenwirtschaft: #1f7a37;
+  --b-warenwirtschaft-weich: #e4f3e8;
+  --b-verkauf: #b64d00;
+  --b-verkauf-weich: #fcecde;
+  --b-wiso: #5a4fcf;
+  --b-wiso-weich: #ecebfb;
 
-  --b-geschaeftsprozesse: #536b80;
-  --b-geschaeftsprozesse-weich: #e2e9ee;
-  --b-warenwirtschaft: #527363;
-  --b-warenwirtschaft-weich: #e0ebe5;
-  --b-verkauf: #a95f48;
-  --b-verkauf-weich: #f1e2dc;
-  --b-wiso: #75624b;
-  --b-wiso-weich: #eee7dd;
+  --schatten: none;
+  --schatten-hoch: 0 8px 28px rgb(0 0 0 / 0.12), 0 1px 3px rgb(0 0 0 / 0.08);
+  --radius: 14px;
+  --radius-klein: 10px;
 
-  /* Nur noch als sanfter Hintergrund der Kopfkarte, nie hinter weißer Schrift. */
-  --verlauf: linear-gradient(135deg, var(--akzent-weich), var(--bg-erhoeht));
+  --schrift: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --schrift-titel: var(--schrift);
+  --schrift-zahl: var(--schrift);
 
-  --schatten: 0 2px 8px rgb(38 50 56 / 0.06), 0 1px 2px rgb(38 50 56 / 0.04);
-  --schatten-hoch: 0 12px 32px rgb(38 50 56 / 0.1), 0 3px 8px rgb(38 50 56 / 0.06);
-  --radius: 20px;
-  --radius-klein: 12px;
-
-  --schrift: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --schrift-titel: 'Fraunces Variable', 'Fraunces', Georgia, serif;
-  --schrift-zahl: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-  --tabbar-hoehe: 58px;
+  --tabbar-hoehe: 52px;
   --sicher-oben: env(safe-area-inset-top, 0px);
   --sicher-unten: env(safe-area-inset-bottom, 0px);
-  --weich: cubic-bezier(0.22, 0.8, 0.25, 1);
-  --federnd: var(--weich);
+  --weich: cubic-bezier(0.25, 0.8, 0.3, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
 
-    --bg: #181716;
-    --bg-erhoeht: #242220;
-    --bg-gedrueckt: #302d29;
-    --linie: #403c37;
+    --bg: #000000;
+    --bg-erhoeht: #1c1c1e;
+    --bg-gedrueckt: #2c2c2e;
+    --linie: #38383a;
 
-    --text: #f3eee7;
-    --text-2: #c8c1b8;
-    --text-3: #9d9891;
+    --text: #ffffff;
+    --text-2: #aeaeb2;
+    --text-3: #98989d;
+    --text-leise: #636366;
 
-    --akzent: #e38da0;
-    --akzent-hell: #eeaab8;
-    --akzent-text: #2a0e15;
-    --akzent-weich: #3f1f27;
+    --akzent: #c2566f;
+    --akzent-text: #ffffff;
+    --akzent-weich: #3a1a22;
 
-    --pfirsich: #6b3441;
-    --gold: #d2af5b;
+    --gut: #4cc76a;
+    --gut-weich: #16301d;
+    --mittel: #f0a33a;
+    --mittel-weich: #3a2a12;
+    --schlecht: #ff6961;
+    --schlecht-weich: #3b1716;
 
-    --gut: #75b09b;
-    --gut-weich: #233a32;
-    --mittel: #d2b35d;
-    --mittel-weich: #40381f;
-    --schlecht: #db8a78;
-    --schlecht-weich: #402823;
+    --b-geschaeftsprozesse: #5aa9ff;
+    --b-geschaeftsprozesse-weich: #14283f;
+    --b-warenwirtschaft: #4cc76a;
+    --b-warenwirtschaft-weich: #16301d;
+    --b-verkauf: #ff9f45;
+    --b-verkauf-weich: #3a2513;
+    --b-wiso: #a29bff;
+    --b-wiso-weich: #25233f;
 
-    --b-geschaeftsprozesse: #91afc4;
-    --b-geschaeftsprozesse-weich: #27343d;
-    --b-warenwirtschaft: #88b5a0;
-    --b-warenwirtschaft-weich: #25372f;
-    --b-verkauf: #d7977f;
-    --b-verkauf-weich: #3d2c27;
-    --b-wiso: #c5ad8c;
-    --b-wiso-weich: #393229;
-
-    --schatten: 0 2px 8px rgb(0 0 0 / 0.22), 0 1px 2px rgb(0 0 0 / 0.18);
-    --schatten-hoch: 0 16px 36px rgb(0 0 0 / 0.3), 0 4px 10px rgb(0 0 0 / 0.2);
+    --schatten-hoch: 0 8px 28px rgb(0 0 0 / 0.5);
   }
 }

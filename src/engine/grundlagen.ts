@@ -1,7 +1,7 @@
 /**
- * Mathe-Grundlagen vor der Kalkulation — für alle, denen Rechnen schwerfällt.
- * Runde, freundliche Zahlen und die kleinsten möglichen Schritte. Jede
- * Kalkulationsaufgabe baut auf genau diesen Bausteinen auf.
+ * Mathe-Grundlagen vor der Kalkulation, für alle, denen Rechnen schwerfällt.
+ * Runde Zahlen und möglichst kleine Schritte. Jede Kalkulationsaufgabe baut
+ * auf diesen Bausteinen auf.
  */
 
 import type { Aufgabentyp } from './rechenaufgaben'
@@ -38,7 +38,7 @@ export const prozentwert: Aufgabentyp = {
           label: '1 % ausrechnen',
           rechnung: `${eur(g)} ÷ 100`,
           ergebnis: `1 % = ${eur(eins)}`,
-          hinweis: 'Prozent heißt „von Hundert". 1 % ist der hundertste Teil — also durch 100 teilen.',
+          hinweis: 'Prozent heißt „von Hundert". 1 % ist der hundertste Teil, deshalb teilst du durch 100.',
         },
         {
           label: `Mal ${p} nehmen`,
@@ -56,7 +56,7 @@ export const prozentsatz: Aufgabentyp = {
   name: '2. Wie viel Prozent ist das?',
   thema: 'kalkulation',
   schwierigkeit: 1,
-  worumGehts: 'Der Teil geteilt durchs Ganze, dann mal 100 — schon hast du die Prozent.',
+  worumGehts: 'Teil durch Ganzes, dann mal 100. Das Ergebnis sind die Prozent.',
   erzeuge: (r) => {
     const g = waehle(r, GRUNDWERTE)
     const p = waehle(r, [5, 10, 20, 25, 50])
@@ -66,7 +66,7 @@ export const prozentsatz: Aufgabentyp = {
       titel: 'Wie viel Prozent?',
       thema: 'kalkulation',
       schwierigkeit: 1,
-      frage: `Von ${eur(g)} Tagesumsatz an einer Theke waren ${eur(w)} Brötchen. Wie viel Prozent sind das?`,
+      frage: `Die Backtheke hat heute ${eur(g)} Umsatz gemacht, davon ${eur(w)} mit Brötchen. Wie viel Prozent sind das?`,
       gegeben: [
         { label: 'Das Ganze', wert: eur(g) },
         { label: 'Der Teil', wert: eur(w) },
@@ -96,7 +96,7 @@ export const aufschlag: Aufgabentyp = {
   name: '3. Etwas aufschlagen',
   thema: 'kalkulation',
   schwierigkeit: 1,
-  worumGehts: 'Auf den Einkaufspreis kommt etwas drauf: Aufschlag ausrechnen, dazuzählen.',
+  worumGehts: 'Auf den Einkaufspreis kommt etwas drauf. Du rechnest den Aufschlag in Euro aus und zählst ihn dazu.',
   erzeuge: (r) => {
     const n = waehle(r, [20, 40, 50, 80, 100, 120, 160, 200, 250])
     const p = waehle(r, [10, 20, 25, 30, 40, 50])
@@ -118,7 +118,7 @@ export const aufschlag: Aufgabentyp = {
           label: 'Aufschlag in Euro',
           rechnung: `${eur(n)} × ${p} %`,
           ergebnis: `Aufschlag = ${eur(a)}`,
-          hinweis: '„× 10 %" tippst du als „× 10 ÷ 100".',
+          hinweis: `„× ${p} %" tippst du als „× ${p} ÷ 100".`,
         },
         {
           label: 'Dazuzählen',
@@ -175,7 +175,7 @@ export const herausrechnen: Aufgabentyp = {
   name: '5. Steuer herausrechnen',
   thema: 'kalkulation',
   schwierigkeit: 2,
-  worumGehts: 'Wie viel kostet es ohne Steuer? Durch 1,19 teilen — nie 19 % abziehen.',
+  worumGehts: 'Wie viel kostet die Ware ohne Steuer? Du teilst durch 1,19 und ziehst nicht 19 % ab.',
   erzeuge: (r) => {
     const netto = waehle(r, [10, 20, 40, 50, 80, 100, 150, 200])
     const satz = waehle(r, [19, 7])
@@ -210,7 +210,7 @@ export const herausrechnen: Aufgabentyp = {
           label: 'Durch diese Zahl teilen',
           rechnung: `${eur(brutto)} ÷ ${zahl(faktor, 2)}`,
           ergebnis: `Ohne Steuer = ${eur(netto)}`,
-          hinweis: `Nicht ${satz} % abziehen — das ergibt einen falschen Wert, weil die Steuer vom Nettopreis berechnet wurde.`,
+          hinweis: `Nicht ${satz} % abziehen. Die Steuer wurde vom Nettopreis berechnet, deshalb wäre das Ergebnis zu niedrig.`,
         },
       ],
     }
@@ -240,14 +240,14 @@ export const runden: Aufgabentyp = {
       rechenweg: [
         {
           label: 'Welche Ziffer steht an der 3. Stelle nach dem Komma?',
-          rechnung: `${zahl(wert, 3)} — die letzte Ziffer`,
+          rechnung: `${zahl(wert, 3)}: die letzte Ziffer`,
           ergebnis: `Dritte Stelle: ${dritte}`,
           hinweis: 'Nur diese eine Ziffer entscheidet.',
           toleranz: 0,
         },
         {
           label: dritte >= 5 ? 'Aufrunden' : 'Abrunden',
-          rechnung: dritte >= 5 ? `${dritte} ist 5 oder mehr — die Cent-Stelle wird eins größer` : `${dritte} ist kleiner als 5 — die Cent bleiben`,
+          rechnung: dritte >= 5 ? `${dritte} ist 5 oder mehr, deshalb wird die Cent-Stelle um eins größer` : `${dritte} ist kleiner als 5, deshalb bleiben die Cent gleich`,
           ergebnis: `Gerundet = ${eur(gerundet)}`,
           hinweis: 'Ab 5 wird aufgerundet, darunter abgerundet.',
           toleranz: 0.001,

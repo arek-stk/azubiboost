@@ -2,9 +2,10 @@
  * Lernpfad fürs Rechnen: erst leicht, dann schwerer.
  *
  * Die Aufgabentypen sind in vier Stufen geordnet. Ein Typ gilt als gemeistert,
- * wenn er oft genug OHNE Hilfe richtig gelöst wurde — mit Hilfe durchgerechnete
- * Aufgaben zählen bewusst nicht, damit „gemeistert" wirklich „kann ich allein"
- * heißt. Gesperrt wird nichts: der Pfad empfiehlt, sie darf aber alles öffnen.
+ * wenn er oft genug ohne Hilfe richtig gelöst wurde. Aufgaben, die sie mit Hilfe
+ * durchgerechnet hat, zählen nicht, damit „gemeistert" heißt: kann ich allein.
+ * Gesperrt wird nichts. Der Pfad gibt eine Empfehlung, sie darf aber jede
+ * Aufgabe öffnen.
  */
 
 import type { AufgabentypId } from './rechenaufgaben'
@@ -15,19 +16,19 @@ export const STUFEN: readonly Stufe[] = [
   {
     nr: 1,
     name: 'Grundlagen',
-    beschreibung: 'Prozent, Aufschlag, Rabatt, Steuer und Runden — mit einfachen Zahlen.',
+    beschreibung: 'Prozent, Aufschlag, Rabatt, Steuer und Runden mit einfachen Zahlen.',
     typen: ['g-prozentwert', 'g-prozentsatz', 'g-aufschlag', 'g-abzug', 'g-herausrechnen', 'g-runden'],
   },
   {
     nr: 2,
     name: 'Einstieg',
-    beschreibung: 'Die ersten echten Prüfungsaufgaben — kurz, mit wenigen Schritten.',
+    beschreibung: 'Die ersten Prüfungsaufgaben. Sie sind kurz und haben wenige Schritte.',
     typen: ['dreisatz', 'umsatzsteuer', 'grundpreis', 'meldebestand', 'prozentveraenderung', 'bezugspreis', 'verkaufspreis'],
   },
   {
     nr: 3,
     name: 'Sicher werden',
-    beschreibung: 'Mehr Schritte und mehr Überlegen, aber nichts Neues mehr.',
+    beschreibung: 'Mehr Schritte und neue Themen wie Handelsspanne, Lagerkennzahlen und Rentabilität.',
     typen: [
       'differenz',
       'handelsspanne',
@@ -42,7 +43,7 @@ export const STUFEN: readonly Stufe[] = [
   {
     nr: 4,
     name: 'Prüfungsniveau',
-    beschreibung: 'Die schwierigsten Rechnungen aus Teil 2.',
+    beschreibung: 'Die Rechnungen mit den meisten Schritten. So schwer wird es in der Prüfung.',
     typen: ['verkaufspreis-komplett', 'lagerzinsen', 'skontovergleich'],
   },
 ]

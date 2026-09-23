@@ -2,19 +2,22 @@
  * Fachgespräch in der Wahlqualifikation (§ 28 VerkEHKflAusbV).
  * Der Prüfungsausschuss legt zwei praxisbezogene Aufgaben vor, der Prüfling wählt
  * eine, bereitet sich 15 Minuten vor und führt dann ein Gespräch von höchstens
- * 20 Minuten. Die Aufgaben hier sind eigene Übungsfälle, keine IHK-Aufgaben.
+ * 20 Minuten. Außerdem kann nach dem Warenbereich gefragt werden, der im
+ * Ausbildungsnachweis dokumentiert ist. Die Aufgaben hier sind eigene Übungsfälle,
+ * keine IHK-Aufgaben. Situationen und Prüferfragen stehen in der Sie-Form, wie in
+ * der echten Prüfung.
  */
 
 export type Fachaufgabe = { titel: string; situation: string; leitfragen: string[] }
 export type Wahlqualifikation = { id: string; name: string; aufgaben: Fachaufgabe[] }
 
 export const LEITFADEN = [
-  { schritt: 'Situation', frage: 'Was ist los? Fasse den Fall in zwei Sätzen mit eigenen Worten zusammen.' },
-  { schritt: 'Ziel', frage: 'Was soll am Ende erreicht sein — für Kunden, Markt und Team?' },
+  { schritt: 'Situation', frage: 'Worum geht es? Fasse den Fall in zwei Sätzen mit eigenen Worten zusammen.' },
+  { schritt: 'Ziel', frage: 'Was soll am Ende erreicht sein? Denk an die Kunden, den Markt und das Team.' },
   { schritt: 'Vorgehen', frage: 'Welche Schritte gehst du in welcher Reihenfolge? Wer ist beteiligt?' },
-  { schritt: 'Begründung', frage: 'Warum genau so? Nenne Zahlen, Regeln oder Erfahrungen aus deinem Betrieb.' },
-  { schritt: 'Alternativen', frage: 'Was wäre ein anderer Weg — und warum hast du dich dagegen entschieden?' },
-  { schritt: 'Kontrolle', frage: 'Woran merkst du, ob es funktioniert hat? Welche Kennzahl schaust du dir an?' },
+  { schritt: 'Begründung', frage: 'Warum gehst du so vor? Nenne Zahlen, Vorschriften oder Erfahrungen aus deinem Betrieb.' },
+  { schritt: 'Alternativen', frage: 'Welchen anderen Weg gäbe es? Warum hast du dich dagegen entschieden?' },
+  { schritt: 'Kontrolle', frage: 'Woran erkennst du, ob es funktioniert hat? Welche Kennzahl schaust du dir an?' },
 ]
 
 export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
@@ -24,18 +27,33 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Allergiker an der Frischetheke',
-        situation: 'Eine Kundin mit Nussallergie möchte für eine Feier eine Käseplatte zusammenstellen und fragt nach verborgenen Allergenen.',
-        leitfragen: ['Welche Informationen brauchst du zuerst?', 'Wo findest du verlässliche Allergenangaben bei loser Ware?', 'Was tust du, wenn du dir nicht sicher bist?'],
+        situation:
+          'Sie arbeiten an der Käsetheke. Eine Kundin mit Nussallergie möchte für eine Feier eine Käseplatte zusammenstellen. Sie fragt, in welchen Produkten Nüsse oder Spuren davon enthalten sein können.',
+        leitfragen: [
+          'Welche Informationen brauchen Sie zuerst von der Kundin?',
+          'Wo finden Sie bei loser Ware verlässliche Angaben zu Allergenen?',
+          'Wie reagieren Sie, wenn Sie sich bei einem Produkt nicht sicher sind?',
+        ],
       },
       {
         titel: 'Unentschlossener Kunde beim Wein',
-        situation: 'Ein Kunde sucht einen Wein als Geschenk für seinen Chef, kennt sich nicht aus und hat Angst, etwas falsch zu machen.',
-        leitfragen: ['Mit welchen Fragen ermittelst du den Bedarf?', 'Wie argumentierst du mit dem Nutzen statt mit Fachbegriffen?', 'Wie bringst du ihn zur Entscheidung, ohne zu drängen?'],
+        situation:
+          'Ein Kunde sucht in der Weinabteilung ein Geschenk für seinen Chef. Er kennt sich mit Wein nicht aus und hat Sorge, etwas Falsches zu kaufen.',
+        leitfragen: [
+          'Mit welchen Fragen ermitteln Sie den Bedarf des Kunden?',
+          'Wie argumentieren Sie mit dem Nutzen, ohne Fachbegriffe zu verwenden?',
+          'Wie führen Sie den Kunden zu einer Entscheidung, ohne ihn zu drängen?',
+        ],
       },
       {
         titel: 'Reklamation mit Vorgeschichte',
-        situation: 'Ein Stammkunde reklamiert zum dritten Mal in einem Monat Brot vom Vortag und wird an der Kasse laut.',
-        leitfragen: ['Wie beruhigst du die Situation?', 'Welche Rechte hat der Kunde?', 'Wie verhinderst du, dass es ein viertes Mal passiert?'],
+        situation:
+          'Ein Stammkunde reklamiert an der Kasse zum dritten Mal in diesem Monat, dass sein Brot vom Vortag ist. Er wird laut, hinter ihm warten weitere Kunden.',
+        leitfragen: [
+          'Wie beruhigen Sie die Situation?',
+          'Welche Rechte hat der Kunde in diesem Fall?',
+          'Was unternehmen Sie, damit es nicht ein viertes Mal passiert?',
+        ],
       },
     ],
   },
@@ -45,13 +63,23 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Neuer Lieferant für regionales Obst',
-        situation: 'Der Markt möchte mehr regionale Äpfel anbieten. Zwei Höfe haben Angebote geschickt, einer billiger, einer zuverlässiger.',
-        leitfragen: ['Welche Kriterien vergleichst du außer dem Preis?', 'Wie baust du eine Entscheidungsbewertungstabelle auf?', 'Welche Risiken hat der günstigere Anbieter?'],
+        situation:
+          'Ihr Markt möchte mehr Äpfel aus der Region anbieten. Zwei Obsthöfe haben Angebote geschickt. Hof A ist günstiger, Hof B ist teurer, gilt aber als zuverlässiger.',
+        leitfragen: [
+          'Welche Kriterien vergleichen Sie neben dem Preis?',
+          'Wie bauen Sie eine Entscheidungsbewertungstabelle auf?',
+          'Welche Risiken sehen Sie beim günstigeren Anbieter?',
+        ],
       },
       {
         titel: 'Lieferung kommt nicht',
-        situation: 'Die Aktionsware für das Wochenende ist am Donnerstag noch nicht da, obwohl der Termin fest vereinbart war.',
-        leitfragen: ['Welche Rechte hat der Markt beim Lieferungsverzug?', 'Was tust du kurzfristig für das Wochenende?', 'Was änderst du für die Zukunft?'],
+        situation:
+          'Für das Wochenende ist eine Aktion beworben. Es ist Donnerstag, und die Aktionsware ist noch nicht eingetroffen, obwohl der Liefertermin fest vereinbart war.',
+        leitfragen: [
+          'Welche Rechte hat der Markt bei einem Lieferungsverzug?',
+          'Was tun Sie kurzfristig, damit die Aktion am Wochenende stattfinden kann?',
+          'Welche Konsequenzen ziehen Sie für künftige Bestellungen?',
+        ],
       },
     ],
   },
@@ -61,13 +89,22 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Hohe Abschriften bei Molkereiprodukten',
-        situation: 'Im Kühlregal werden jede Woche viele Joghurts wegen abgelaufenem MHD abgeschrieben.',
-        leitfragen: ['Wie findest du die Ursache?', 'Welche Kennzahlen ziehst du heran?', 'Welche Maßnahmen senken die Abschriften?'],
+        situation:
+          'Im Kühlregal werden jede Woche viele Joghurts abgeschrieben, weil das MHD abgelaufen ist. Die Abschriften in der Warengruppe liegen deutlich über dem Vorjahr.',
+        leitfragen: [
+          'Wie finden Sie die Ursache heraus?',
+          'Welche Kennzahlen ziehen Sie heran?',
+          'Mit welchen Maßnahmen senken Sie die Abschriften?',
+        ],
       },
       {
         titel: 'Inventurdifferenz in der Drogerie',
-        situation: 'Die Inventur zeigt in der Drogerieabteilung eine deutlich höhere Differenz als im Vorjahr.',
-        leitfragen: ['Welche Ursachen kommen infrage?', 'Wie grenzt du die Ursache ein?', 'Welche Maßnahmen schlägst du vor und was kosten sie?'],
+        situation: 'Die Inventur zeigt in der Drogerieabteilung eine deutlich höhere Inventurdifferenz als im Vorjahr.',
+        leitfragen: [
+          'Welche Ursachen kommen infrage?',
+          'Wie grenzen Sie die Ursache ein?',
+          'Welche Maßnahmen schlagen Sie vor, und was kosten sie?',
+        ],
       },
     ],
   },
@@ -77,13 +114,22 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Personalkosten zu hoch',
-        situation: 'Der Umsatz je Mitarbeiterstunde ist im letzten Quartal gesunken, die Personalkosten sind gestiegen.',
-        leitfragen: ['Welche Zahlen schaust du dir genau an?', 'Wie passt du die Einsatzplanung an die Kundenfrequenz an?', 'Wie redest du mit dem Team darüber?'],
+        situation:
+          'Im letzten Quartal ist der Umsatz je Mitarbeiterstunde gesunken, gleichzeitig sind die Personalkosten gestiegen. Die Marktleitung bittet Sie um eine Analyse.',
+        leitfragen: [
+          'Welche Zahlen sehen Sie sich im Einzelnen an?',
+          'Wie passen Sie die Einsatzplanung an die Kundenfrequenz an?',
+          'Wie sprechen Sie das Thema im Team an?',
+        ],
       },
       {
         titel: 'Aktionsartikel ohne Gewinn',
-        situation: 'Ein beworbener Artikel verkauft sich gut, bringt aber keinen Deckungsbeitrag.',
-        leitfragen: ['Warum kann sich die Aktion trotzdem lohnen?', 'Wie misst du den Erfolg der Aktion?', 'Wann würdest du sie nicht wiederholen?'],
+        situation: 'Ein Artikel aus der Wochenwerbung verkauft sich sehr gut, bringt aber keinen Deckungsbeitrag.',
+        leitfragen: [
+          'Warum kann sich die Aktion trotzdem lohnen?',
+          'Woran messen Sie den Erfolg der Aktion?',
+          'Unter welchen Umständen würden Sie die Aktion nicht wiederholen?',
+        ],
       },
     ],
   },
@@ -93,13 +139,22 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Grillsaison vorbereiten',
-        situation: 'Der Markt will in der Grillsaison mehr junge Kunden gewinnen und hat ein kleines Werbebudget.',
-        leitfragen: ['Welche Zielgruppe sprichst du wie an?', 'Welche Maßnahmen im Laden und außerhalb planst du?', 'Wie überprüfst du den Erfolg?'],
+        situation: 'Ihr Markt möchte in der Grillsaison mehr junge Kunden gewinnen. Das Werbebudget ist klein.',
+        leitfragen: [
+          'Welche Zielgruppe sprechen Sie wie an?',
+          'Welche Maßnahmen planen Sie im Markt und außerhalb?',
+          'Wie überprüfen Sie den Erfolg?',
+        ],
       },
       {
         titel: 'Neuer Wettbewerber',
-        situation: 'Ein Discounter eröffnet 300 Meter entfernt. Die Filialleitung fragt nach Ideen.',
-        leitfragen: ['Wo ist dein Markt stärker als der Discounter?', 'Welche Instrumente des Marketing-Mix setzt du ein?', 'Was solltest du nicht tun?'],
+        situation:
+          'In 300 Metern Entfernung eröffnet ein Discounter. Die Marktleitung bittet Sie um Vorschläge, wie der Markt darauf reagieren soll.',
+        leitfragen: [
+          'Worin ist Ihr Markt stärker als der Discounter?',
+          'Welche Instrumente des Marketing-Mix setzen Sie ein?',
+          'Von welchen Reaktionen raten Sie ab?',
+        ],
       },
     ],
   },
@@ -109,13 +164,22 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Click & Collect einführen',
-        situation: 'Der Markt möchte Online-Bestellungen zur Abholung anbieten.',
-        leitfragen: ['Welche Abläufe im Markt ändern sich?', 'Welche rechtlichen Pflichten gelten beim Onlinekauf?', 'Wie gehst du mit fehlenden Artikeln um?'],
+        situation: 'Ihr Markt möchte Online-Bestellungen anbieten, die die Kunden im Markt abholen (Click & Collect).',
+        leitfragen: [
+          'Welche Abläufe im Markt ändern sich dadurch?',
+          'Welche rechtlichen Pflichten gelten beim Verkauf über das Internet?',
+          'Wie gehen Sie vor, wenn bestellte Artikel fehlen?',
+        ],
       },
       {
         titel: 'Schlechte Bewertungen',
-        situation: 'Im Onlineshop häufen sich Ein-Stern-Bewertungen wegen zerdrückter Ware bei der Lieferung.',
-        leitfragen: ['Wie antwortest du öffentlich auf die Bewertungen?', 'Wo im Ablauf entsteht der Schaden vermutlich?', 'Wie misst du, ob es besser wird?'],
+        situation:
+          'Im Onlineshop Ihres Marktes häufen sich Bewertungen mit einem Stern, weil Ware bei der Lieferung zerdrückt ankommt.',
+        leitfragen: [
+          'Wie antworten Sie öffentlich auf diese Bewertungen?',
+          'An welcher Stelle im Ablauf entsteht der Schaden vermutlich?',
+          'Woran messen Sie, ob sich die Lage verbessert?',
+        ],
       },
     ],
   },
@@ -125,13 +189,23 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Neue Aushilfe einarbeiten',
-        situation: 'Eine neue Aushilfe beginnt nächste Woche an der Kasse und im Obst- und Gemüsebereich.',
-        leitfragen: ['Wie planst du die ersten Tage?', 'Welche Vorschriften muss sie kennen?', 'Wie gibst du Rückmeldung?'],
+        situation:
+          'Nächste Woche fängt eine neue Aushilfe an. Sie wird an der Kasse und in der Obst- und Gemüseabteilung eingesetzt. Die Marktleitung überträgt Ihnen die Einarbeitung.',
+        leitfragen: [
+          'Wie planen Sie die ersten Arbeitstage?',
+          'Welche Vorschriften muss die Aushilfe kennen?',
+          'Wie geben Sie ihr Rückmeldung?',
+        ],
       },
       {
         titel: 'Konflikt im Team',
-        situation: 'Zwei Kolleginnen streiten sich regelmäßig über die Verteilung der Spätschichten.',
-        leitfragen: ['Wie bereitest du das Gespräch vor?', 'Welcher Führungsstil passt hier?', 'Wie sieht eine faire Lösung aus?'],
+        situation:
+          'Zwei Kolleginnen streiten regelmäßig darüber, wer die Spätschichten übernimmt. Die Stimmung im Team leidet darunter.',
+        leitfragen: [
+          'Wie bereiten Sie das Gespräch mit den beiden vor?',
+          'Welcher Führungsstil passt in dieser Situation?',
+          'Wie sieht eine faire Lösung aus?',
+        ],
       },
     ],
   },
@@ -141,13 +215,22 @@ export const WAHLQUALIFIKATIONEN: Wahlqualifikation[] = [
     aufgaben: [
       {
         titel: 'Einen eigenen Markt übernehmen',
-        situation: 'Du überlegst, in einigen Jahren einen eigenen Lebensmittelmarkt zu übernehmen.',
-        leitfragen: ['Welche Rechtsform kommt infrage und warum?', 'Welche Zahlen brauchst du für den Businessplan?', 'Welche Risiken musst du absichern?'],
+        situation: 'Sie überlegen, in einigen Jahren als selbstständige Kauffrau einen Lebensmittelmarkt zu übernehmen.',
+        leitfragen: [
+          'Welche Rechtsform kommt infrage, und warum?',
+          'Welche Zahlen brauchen Sie für den Businessplan?',
+          'Gegen welche Risiken müssen Sie sich absichern?',
+        ],
       },
       {
         titel: 'Standort prüfen',
-        situation: 'Für einen möglichen eigenen Markt stehen zwei Standorte zur Wahl: Innenstadt oder Neubaugebiet am Stadtrand.',
-        leitfragen: ['Welche Standortfaktoren vergleichst du?', 'Welche Daten brauchst du dafür und woher bekommst du sie?', 'Wie triffst du am Ende die Entscheidung?'],
+        situation:
+          'Für einen eigenen Markt stehen zwei Standorte zur Auswahl: einer in der Innenstadt und einer in einem Neubaugebiet am Stadtrand.',
+        leitfragen: [
+          'Welche Standortfaktoren vergleichen Sie?',
+          'Welche Daten brauchen Sie dafür, und woher bekommen Sie sie?',
+          'Wie treffen Sie am Ende die Entscheidung?',
+        ],
       },
     ],
   },

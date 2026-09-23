@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { Kopf } from '../components/ui'
 import { WAHLQUALIFIKATIONEN } from '../data/fachgespraech'
+import { VORNAME_VORBELEGUNG } from '../data/persoenlich'
 import { heute } from '../engine/datum'
 import { alsBackup, ausBackup } from '../store/persist'
 import { useStore } from '../store/useStore'
@@ -18,7 +19,7 @@ async function teileOderLadeHerunter(inhalt: string, dateiname: string) {
   // Auf dem iPhone öffnet das Teilen-Menü — von dort in Dateien, Mail oder AirDrop.
   if (navigator.canShare?.({ files: [datei] })) {
     try {
-      await navigator.share({ files: [datei], title: 'AzubiBoost Backup' })
+      await navigator.share({ files: [datei], title: 'Lern-Backup' })
       return
     } catch {
       // Abgebrochen oder nicht erlaubt: auf Download ausweichen.
@@ -39,7 +40,7 @@ export function Einstellungen() {
   const dateiEingabe = useRef<HTMLInputElement>(null)
 
   const exportieren = () => {
-    void teileOderLadeHerunter(alsBackup(zustand), `azubiboost-backup-${heute()}.json`)
+    void teileOderLadeHerunter(alsBackup(zustand), `lernapp-backup-${heute()}.json`)
   }
 
   const importieren = async (datei: File | undefined) => {
@@ -66,39 +67,43 @@ export function Einstellungen() {
       <Kopf titel="Einstellungen" klein />
 
       {!istInstalliert() && (
-        <section className="karte" style={{ background: 'var(--mittel-weich)', boxShadow: 'none' }}>
+        <section className="karte">
           <h3>Zum Home-Bildschirm hinzufügen</h3>
           <p>
-            In Safari unten auf <strong>Teilen</strong> tippen und <strong>„Zum Home-Bildschirm"</strong> wählen. Erst
-            dann bleibt dein Fortschritt dauerhaft gespeichert — im normalen Browser-Tab löscht iOS die Daten nach
-            einer Woche ohne Nutzung.
+            In Safari unten auf <strong>Teilen</strong> tippen und <strong>„Zum Home-Bildschirm"</strong> wählen. Nur dann bleibt
+            dein Fortschritt dauerhaft gespeichert. In einem normalen Browser-Tab löscht iOS die Daten nach einer Woche
+            ohne Nutzung.
           </p>
         </section>
       )}
 
       <section className="abschnitt">
         <h2>Persönlich</h2>
-        <div className="karte">
-          <label className="abschnitt" style={{ gap: 4 }}>
-            <span className="untertitel">Vorname (für den Lerncoach)</span>
-            <input
-              type="text"
-              value={e.name ?? ''}
-              autoComplete="given-name"
-              maxLength={30}
-              onChange={(ev) =>
-                dispatch({
-                  typ: 'einstellungenGeaendert',
-                  aenderung: { name: ev.target.value.trim() === '' ? null : ev.target.value },
-                })
-              }
-              style={feldStil}
-            />
-          </label>
+        <div className="liste">
+          {VORNAME_VORBELEGUNG === null && (
+            <label className="zeile">
+              <span className="zeile__text">Vorname</span>
+              <input
+                className="feld-inline"
+                type="text"
+                value={e.name ?? ''}
+                placeholder="optional"
+                autoComplete="given-name"
+                maxLength={30}
+                onChange={(ev) =>
+                  dispatch({
+                    typ: 'einstellungenGeaendert',
+                    aenderung: { name: ev.target.value.trim() === '' ? null : ev.target.value },
+                  })
+                }
+              />
+            </label>
+          )}
 
-          <label className="abschnitt" style={{ gap: 4 }}>
-            <span className="untertitel">Termin der schriftlichen Prüfung</span>
+          <label className="zeile">
+            <span className="zeile__text">Schriftliche Prüfung</span>
             <input
+              className="feld-inline"
               type="date"
               value={e.pruefungstermin ?? ''}
               onChange={(ev) =>
@@ -107,31 +112,28 @@ export function Einstellungen() {
                   aenderung: { pruefungstermin: ev.target.value === '' ? null : ev.target.value },
                 })
               }
-              style={feldStil}
             />
-            <span className="untertitel" style={{ fontSize: 13 }}>
-              Voreingestellt ist Teil 2 bei der IHK Niederbayern: 28. April 2027. Die mündliche Prüfung folgt Mitte Juni bis Juli.
-            </span>
           </label>
 
-          <label className="abschnitt" style={{ gap: 4 }}>
-            <span className="untertitel">Tagesziel</span>
+          <label className="zeile">
+            <span className="zeile__text">Tagesziel</span>
             <select
+              className="feld-inline"
               value={e.tagesziel}
               onChange={(ev) => dispatch({ typ: 'einstellungenGeaendert', aenderung: { tagesziel: Number(ev.target.value) } })}
-              style={feldStil}
             >
               {TAGESZIELE.map((z) => (
                 <option key={z} value={z}>
-                  {z} Fragen am Tag
+                  {z} Fragen
                 </option>
               ))}
             </select>
           </label>
 
-          <label className="abschnitt" style={{ gap: 4 }}>
-            <span className="untertitel">Wahlqualifikation fürs Fachgespräch</span>
+          <label className="zeile">
+            <span className="zeile__text">Wahlqualifikation</span>
             <select
+              className="feld-inline"
               value={e.wahlqualifikation ?? ''}
               onChange={(ev) =>
                 dispatch({
@@ -139,9 +141,8 @@ export function Einstellungen() {
                   aenderung: { wahlqualifikation: ev.target.value === '' ? null : ev.target.value },
                 })
               }
-              style={feldStil}
             >
-              <option value="">Noch nicht gewählt</option>
+              <option value="">Nicht gewählt</option>
               {WAHLQUALIFIKATIONEN.map((w) => (
                 <option key={w.id} value={w.id}>
                   {w.name}
@@ -150,6 +151,9 @@ export function Einstellungen() {
             </select>
           </label>
         </div>
+        <p className="untertitel" style={{ fontSize: 13, padding: '0 4px' }}>
+          Teil 2 bei der IHK Niederbayern ist am 28. April 2027. Die mündliche Prüfung folgt zwischen Mitte Juni und Juli.
+        </p>
       </section>
 
       <section className="abschnitt">
@@ -181,7 +185,7 @@ export function Einstellungen() {
         <div className="karte">
           <p>
             Die Fragen sind <strong>eigene Übungsaufgaben</strong>, ausgerichtet an der Ausbildungsordnung
-            (VerkEHKflAusbV 2017) — keine echten IHK-Prüfungsaufgaben. Prüfungszeiten, Gewichtung, Notenschlüssel und
+            (VerkEHKflAusbV 2017). Echte IHK-Prüfungsaufgaben sind es nicht. Prüfungszeiten, Gewichtung, Notenschlüssel und
             Bestehensregeln entsprechen der Verordnung.
           </p>
           <p className="untertitel" style={{ fontSize: 13 }}>
@@ -196,12 +200,3 @@ export function Einstellungen() {
     </>
   )
 }
-
-const feldStil = {
-  width: '100%',
-  minHeight: 48,
-  padding: '10px 12px',
-  borderRadius: 10,
-  border: '1px solid var(--linie)',
-  background: 'var(--bg)',
-} as const

@@ -2,7 +2,7 @@
 
 ## Was diese App speichert
 
-AzubiBoost hat **kein Backend und keine Benutzerkonten**. Der gesamte Lernfortschritt
+Deine LernApp hat **kein Backend und keine Benutzerkonten**. Der gesamte Lernfortschritt
 liegt ausschließlich im `localStorage` des Geräts, auf dem die App läuft. Es werden
 keine Daten an einen Server gesendet, es gibt kein Tracking und keine Analytics.
 
