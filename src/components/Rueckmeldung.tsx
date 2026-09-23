@@ -19,14 +19,14 @@ export function Rueckmeldung({ frage, richtig }: { frage: Frage; richtig: boolea
       className={richtig ? 'rueckmeldung rueckmeldung--richtig' : 'rueckmeldung rueckmeldung--falsch'}
       aria-live="polite"
     >
-      <p className="rueckmeldung__titel">{richtig ? 'Richtig!' : 'Nicht ganz.'}</p>
+      <p className="rueckmeldung__titel">{richtig ? 'Richtig!' : 'Nicht schlimm — hier ist der wichtige Punkt.'}</p>
       {!richtig && (
         <p>
           <strong>Richtig wäre:</strong> {loesungAlsText(frage)}
         </p>
       )}
       <p>{frage.erklaerung}</p>
-      {frage.merksatz !== undefined && <p className="merksatz">💡 {frage.merksatz}</p>}
+      {frage.merksatz !== undefined && <p className="merksatz"><strong>Merksatz</strong>{frage.merksatz}</p>}
       {frage.rechenweg !== undefined && <Rechenweg schritte={frage.rechenweg} alleOffen={!richtig} />}
       {frage.rechtsbezug !== undefined && <p className="rechtsbezug">Rechtsgrundlage: {frage.rechtsbezug}</p>}
       <p className="rechtsbezug">Frage-ID: {frage.id}</p>

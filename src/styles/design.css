@@ -213,32 +213,6 @@
   background: linear-gradient(to bottom, transparent, var(--bg) 28%);
 }
 
-/* ---------- Konfetti ---------- */
-
-.konfetti {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.konfetti span {
-  position: absolute;
-  top: -12px;
-  width: 9px;
-  height: 14px;
-  border-radius: 2px;
-  animation: konfetti-fallen var(--dauer) cubic-bezier(0.25, 0.7, 0.4, 1) var(--verzoegerung) forwards;
-}
-
-@keyframes konfetti-fallen {
-  to {
-    transform: translate3d(var(--drift), 105vh, 0) rotate(var(--drehung));
-    opacity: 0.2;
-  }
-}
-
 /* ---------- Hinweis-Toast ---------- */
 
 .toast {

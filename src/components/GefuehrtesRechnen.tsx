@@ -84,7 +84,7 @@ export function GefuehrtesRechnen({
 
               {s.hinweis !== undefined &&
                 (tippOffen ? (
-                  <p className="schritt__hinweis">💡 {s.hinweis}</p>
+                  <p className="merksatz"><strong>Kleiner Tipp</strong>{s.hinweis}</p>
                 ) : (
                   <button className="knopf-klein" onClick={() => setTippOffen(true)}>
                     Kleiner Tipp

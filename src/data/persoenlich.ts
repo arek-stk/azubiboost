@@ -36,10 +36,10 @@ export function anrede(name: string | null): string | null {
 /** Begrüßung passend zur Tageszeit. */
 export function begruessung(stunde: number, wer: string | null): string {
   const an = wer === null ? '' : `, ${wer}`
-  if (stunde >= 5 && stunde < 11) return `Guten Morgen${an} ☀️`
-  if (stunde >= 17 && stunde < 23) return `Guten Abend${an} 🌙`
-  if (stunde >= 23 || stunde < 5) return `Noch wach${an}? 💫`
-  return `Hallo${an} 💕`
+  if (stunde >= 5 && stunde < 11) return `Guten Morgen${an}`
+  if (stunde >= 17 && stunde < 23) return `Guten Abend${an}`
+  if (stunde >= 23 || stunde < 5) return `Noch wach${an}?`
+  return `Hallo${an}`
 }
 
 /** Jeden Tag eine andere Nachricht, falls mehrere hinterlegt sind. */

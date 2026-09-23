@@ -1,91 +1,101 @@
-/* Design-Tokens. Farben nur hier definieren, nie direkt in Komponenten.
-   Kontraste geprüft: Fließtext ≥ 7:1, Sekundärtext ≥ 4,5:1, weiße Schrift auf Akzent ≈ 5,2:1. */
+/* Design-Tokens nach dem Designkonzept „persönliches Notizbuch":
+   warmes Off-White, Terrakotta als Akzent, gedämpfte Bereichsfarben.
+   Fehler werden nicht rot bestraft, sondern als korrigierbare Lernmomente gezeigt.
+   Kontraste u. a.: #263238 auf #FBF8F3 ≈ 13:1, #FFFFFF auf #A94E3D ≈ 5,3:1. */
 
 :root {
-  --bg: #fbf6f3;
+  color-scheme: light;
+
+  --bg: #fbf8f3;
   --bg-erhoeht: #ffffff;
-  --bg-gedrueckt: #f3eae6;
-  --linie: #ece0db;
-  --text: #2a1e23;
-  --text-2: #5c4a52;
-  --text-3: #7b6a71;
+  --bg-gedrueckt: #f1ece4;
+  --linie: #ddd5ca;
 
-  --akzent: #c0396a;
-  --akzent-hell: #e0607a;
+  --text: #263238;
+  --text-2: #596168;
+  --text-3: #727a7f;
+
+  --akzent: #a94e3d;
+  --akzent-hell: #c87865;
   --akzent-text: #ffffff;
-  --akzent-weich: #fbe6ed;
-  --verlauf: linear-gradient(140deg, #9e2754 0%, #c2406a 48%, #df6e62 100%);
-  --pfirsich: #fde8dc;
-  --gold: #e7a93b;
+  --akzent-weich: #f4e2dc;
 
-  --gut: #1d7a48;
-  --gut-weich: #e2f3e8;
-  --mittel: #9c5d08;
-  --mittel-weich: #fbeed6;
-  --schlecht: #c02f3c;
-  --schlecht-weich: #fbe3e4;
+  --pfirsich: #f0c5b4;
+  --gold: #b08a35;
 
-  /* Eine Farbe je Prüfungsbereich — überall gleich, damit man sich orientiert. */
-  --b-geschaeftsprozesse: #7045c8;
-  --b-geschaeftsprozesse-weich: #efe9fb;
-  --b-warenwirtschaft: #25619f;
-  --b-warenwirtschaft-weich: #e4eef8;
-  --b-verkauf: #c0396a;
-  --b-verkauf-weich: #fbe6ed;
-  --b-wiso: #8a6414;
-  --b-wiso-weich: #f7efd9;
+  --gut: #35665a;
+  --gut-weich: #dcebe6;
+  --mittel: #715a20;
+  --mittel-weich: #f3e9c9;
+  --schlecht: #9b5548;
+  --schlecht-weich: #f4e0da;
 
-  --schatten: 0 1px 2px rgb(80 30 50 / 0.04), 0 8px 24px rgb(80 30 50 / 0.06);
-  --schatten-hoch: 0 14px 36px rgb(110 30 60 / 0.2);
-  --radius: 22px;
-  --radius-klein: 14px;
+  --b-geschaeftsprozesse: #536b80;
+  --b-geschaeftsprozesse-weich: #e2e9ee;
+  --b-warenwirtschaft: #527363;
+  --b-warenwirtschaft-weich: #e0ebe5;
+  --b-verkauf: #a95f48;
+  --b-verkauf-weich: #f1e2dc;
+  --b-wiso: #75624b;
+  --b-wiso-weich: #eee7dd;
 
-  --schrift: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, system-ui,
-    sans-serif;
-  --schrift-titel: 'Fraunces Variable', 'New York', Georgia, serif;
-  --schrift-zahl: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+  /* Nur noch als sanfter Hintergrund der Kopfkarte, nie hinter weißer Schrift. */
+  --verlauf: linear-gradient(135deg, var(--akzent-weich), var(--bg-erhoeht));
+
+  --schatten: 0 2px 8px rgb(38 50 56 / 0.06), 0 1px 2px rgb(38 50 56 / 0.04);
+  --schatten-hoch: 0 12px 32px rgb(38 50 56 / 0.1), 0 3px 8px rgb(38 50 56 / 0.06);
+  --radius: 20px;
+  --radius-klein: 12px;
+
+  --schrift: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --schrift-titel: 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  --schrift-zahl: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --tabbar-hoehe: 58px;
   --sicher-oben: env(safe-area-inset-top, 0px);
   --sicher-unten: env(safe-area-inset-bottom, 0px);
-  --federnd: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --weich: cubic-bezier(0.22, 0.8, 0.25, 1);
+  --federnd: var(--weich);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #181015;
-    --bg-erhoeht: #24171e;
-    --bg-gedrueckt: #31212a;
-    --linie: #3d2a34;
-    --text: #f8eef2;
-    --text-2: #cfbac3;
-    --text-3: #ab959f;
+    color-scheme: dark;
 
-    --akzent: #ff8fb3;
-    --akzent-hell: #ffb1c8;
-    --akzent-text: #3a0d1d;
-    --akzent-weich: #45192b;
-    --verlauf: linear-gradient(140deg, #6e1a3d 0%, #962f55 55%, #ad4c4b 100%);
-    --pfirsich: #3a2420;
-    --gold: #f2c060;
+    --bg: #181716;
+    --bg-erhoeht: #242220;
+    --bg-gedrueckt: #302d29;
+    --linie: #403c37;
 
-    --gut: #4fd08a;
-    --gut-weich: #12301f;
-    --mittel: #f2ad45;
-    --mittel-weich: #3a2a0c;
-    --schlecht: #f47a7a;
-    --schlecht-weich: #3d1719;
+    --text: #f3eee7;
+    --text-2: #c8c1b8;
+    --text-3: #9d9891;
 
-    --b-geschaeftsprozesse: #b59bff;
-    --b-geschaeftsprozesse-weich: #2c2150;
-    --b-warenwirtschaft: #82b2f0;
-    --b-warenwirtschaft-weich: #172a45;
-    --b-verkauf: #ff8fb3;
-    --b-verkauf-weich: #45192b;
-    --b-wiso: #e2b75e;
-    --b-wiso-weich: #36290f;
+    --akzent: #d27a67;
+    --akzent-hell: #e09988;
+    --akzent-text: #241714;
+    --akzent-weich: #402924;
 
-    --schatten: 0 1px 2px rgb(0 0 0 / 0.35);
-    --schatten-hoch: 0 12px 32px rgb(0 0 0 / 0.5);
+    --pfirsich: #70483d;
+    --gold: #d2af5b;
+
+    --gut: #75b09b;
+    --gut-weich: #233a32;
+    --mittel: #d2b35d;
+    --mittel-weich: #40381f;
+    --schlecht: #db8a78;
+    --schlecht-weich: #402823;
+
+    --b-geschaeftsprozesse: #91afc4;
+    --b-geschaeftsprozesse-weich: #27343d;
+    --b-warenwirtschaft: #88b5a0;
+    --b-warenwirtschaft-weich: #25372f;
+    --b-verkauf: #d7977f;
+    --b-verkauf-weich: #3d2c27;
+    --b-wiso: #c5ad8c;
+    --b-wiso-weich: #393229;
+
+    --schatten: 0 2px 8px rgb(0 0 0 / 0.22), 0 1px 2px rgb(0 0 0 / 0.18);
+    --schatten-hoch: 0 16px 36px rgb(0 0 0 / 0.3), 0 4px 10px rgb(0 0 0 / 0.2);
   }
 }

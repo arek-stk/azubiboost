@@ -59,7 +59,7 @@ export function ThemaSeite({ thema }: { thema: ThemaId }) {
         <p>{e.beispiel}</p>
       </section>
 
-      <p className="merksatz" style={{ background: 'var(--akzent-weich)' }}>💡 {e.merksatz}</p>
+      <p className="merksatz"><strong>Merksatz</strong>{e.merksatz}</p>
 
       <section className="karte" style={{ background: 'var(--mittel-weich)', boxShadow: 'none' }}>
         <h3>Typische Prüfungsfalle</h3>

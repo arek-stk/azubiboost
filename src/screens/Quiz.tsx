@@ -90,7 +90,7 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
     const ok = istRichtig(f, aktuelleAntwort)
     const tag = heute()
     if (heuteBeantwortet(zustand) + 1 === zustand.einstellungen.tagesziel) {
-      feiere({ symbol: '🎉', titel: 'Tagesziel geschafft!', text: 'Alles, was jetzt noch kommt, ist ein Bonus.' })
+      feiere({ symbol: 'pokal', titel: 'Tagesziel geschafft!', text: 'Alles, was jetzt noch kommt, ist ein Bonus.' })
     }
     dispatch({ typ: 'frageBeantwortet', frageId: f.id, richtig: ok, tag })
     const neu = [
@@ -101,7 +101,6 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
     setGeprueft(true)
 
     if (neu.length === fragen.length) {
-      if (neu.filter((e) => e.richtig).length / neu.length >= 0.8) feiere()
       dispatch({
         typ: 'versuchBeendet',
         versuch: {

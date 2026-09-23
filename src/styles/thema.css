@@ -1,0 +1,385 @@
+/* Designkonzept „persönliches Notizbuch" — wird zuletzt geladen und legt die
+   Gestaltung über die Grundstile. Hierarchie entsteht durch Weißraum und
+   Typografie, nicht durch Dekoration. Keine Emojis, keine Verläufe hinter
+   Schrift, keine hektischen Animationen. */
+
+body {
+  font-family: var(--schrift);
+  font-size: 16px;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* ---------- Flächen ---------- */
+
+.karte {
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 20px;
+}
+
+.liste {
+  border: 1px solid var(--linie);
+  box-shadow: var(--schatten);
+}
+
+.zeile {
+  min-height: 52px;
+  border-bottom-color: var(--linie);
+}
+
+/* ---------- Knöpfe ---------- */
+
+.knopf {
+  border: 1px solid transparent;
+  border-radius: 13px;
+  font-weight: 600;
+  transition: transform 140ms ease-out, background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.knopf:active {
+  transform: scale(0.98);
+}
+
+.knopf--zweit {
+  background: transparent;
+  border-color: var(--linie);
+  color: var(--text);
+}
+
+.knopf--gross {
+  min-height: 56px;
+  border-radius: 16px;
+  font-size: 17px;
+  background: var(--akzent);
+  box-shadow: var(--schatten);
+}
+
+.knopf--gefahr {
+  background: var(--schlecht);
+  color: #fff;
+}
+
+.knopf-klein {
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 11px;
+  background: var(--bg-gedrueckt);
+  color: var(--text-2);
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ---------- Fortschritt ---------- */
+
+.balken__fuellung {
+  transition: width 450ms var(--weich);
+}
+
+.ring__wert {
+  transition: stroke-dashoffset 550ms var(--weich);
+}
+
+/* ---------- Kopfkarte „Tagesziel": hell, dunkle Schrift ---------- */
+
+.held {
+  background: var(--verlauf);
+  border: 1px solid var(--linie);
+  color: var(--text);
+  box-shadow: var(--schatten);
+}
+
+.held::after {
+  display: none;
+}
+
+.held .ring__spur {
+  stroke: var(--bg-erhoeht);
+}
+
+.held .ring__wert {
+  stroke: var(--akzent);
+}
+
+.held__titel {
+  color: var(--text-2);
+  opacity: 1;
+}
+
+.held .plakette {
+  background: var(--bg-erhoeht);
+  color: var(--text-2);
+}
+
+/* ---------- Brief: persönliche Nachricht ---------- */
+
+.brief {
+  background: var(--bg-erhoeht);
+  border-left: 3px solid var(--pfirsich);
+  border-radius: 0 var(--radius-klein) var(--radius-klein) 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+}
+
+.brief::before {
+  display: none;
+}
+
+.brief__text {
+  font-size: 19px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.brief__von {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+
+/* ---------- Kacheln und Symbole ---------- */
+
+.kachel {
+  min-height: 128px;
+  padding: 17px;
+  border: 1px solid var(--linie);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.kachel:active {
+  transform: scale(0.985);
+}
+
+.symbol {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+}
+
+/* ---------- Tab-Bar: nur die Akzentfläche wechselt ---------- */
+
+.tab {
+  margin: 4px 2px;
+  border-radius: 11px;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.tab[aria-current='page'] {
+  background: var(--akzent-weich);
+}
+
+.tab[aria-current='page']::after {
+  display: none;
+}
+
+.tab[aria-current='page'] svg {
+  transform: none;
+}
+
+/* ---------- Quiz ---------- */
+
+.option {
+  min-height: 52px;
+  border: 1px solid var(--linie);
+  border-radius: 14px;
+  box-shadow: none;
+  transition: background-color 180ms ease-out, border-color 180ms ease-out;
+}
+
+.option--gewaehlt {
+  border-color: var(--akzent);
+  background: var(--akzent-weich);
+}
+
+.option--richtig {
+  border-color: var(--gut);
+  background: var(--gut-weich);
+}
+
+.option--falsch {
+  border-color: var(--schlecht);
+  background: var(--schlecht-weich);
+}
+
+.rueckmeldung {
+  border-radius: 16px;
+  padding: 17px;
+  animation: einblenden 180ms ease-out;
+}
+
+.rueckmeldung--richtig {
+  border: 1px solid var(--gut);
+}
+
+.rueckmeldung--falsch {
+  border: 1px solid var(--schlecht);
+}
+
+/* Der Fehler wird markiert, der Blick geht aber sofort zur Erklärung. */
+.rueckmeldung--falsch .rueckmeldung__titel {
+  color: var(--text);
+}
+
+.merksatz {
+  padding: 15px 16px;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  background: var(--mittel-weich);
+  color: var(--text);
+  font-weight: 500;
+}
+
+.merksatz strong {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--mittel);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------- Rechnen ---------- */
+
+.ziffer {
+  min-height: 54px;
+  border: 1px solid var(--linie);
+  border-radius: 13px;
+  box-shadow: none;
+  font-family: var(--schrift-zahl);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.ziffer--neben {
+  background: var(--bg-gedrueckt);
+}
+
+.eingabe-anzeige {
+  border: 1px solid var(--linie);
+  border-radius: 14px;
+  background: var(--bg-gedrueckt);
+  box-shadow: none;
+  font-family: var(--schrift-zahl);
+  font-size: 28px;
+  letter-spacing: 0.02em;
+}
+
+.formel,
+.schritt__rechnung,
+.schritt__ergebnis {
+  font-family: var(--schrift-zahl);
+  font-variant-numeric: tabular-nums;
+}
+
+.gefuehrt__schritt {
+  border: 1px solid transparent;
+  border-radius: 14px;
+  box-shadow: none;
+  background: var(--bg-gedrueckt);
+  transition: background-color 180ms ease-out;
+}
+
+.gefuehrt__schritt--spaeter {
+  opacity: 0.58;
+}
+
+.gefuehrt__schritt--aktuell {
+  outline: none;
+  border-color: var(--akzent);
+  background: var(--akzent-weich);
+  box-shadow: var(--schatten);
+  animation: schritt-rein 220ms ease-out;
+}
+
+.gefuehrt__schritt--richtig {
+  background: var(--gut-weich);
+}
+
+.gefuehrt__schritt--korrigiert {
+  background: var(--mittel-weich);
+}
+
+@keyframes schritt-rein {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.taste--zahl {
+  background: var(--bg-erhoeht);
+  border: 1px solid var(--linie);
+  box-shadow: none;
+}
+
+.taste--op {
+  background: var(--akzent-weich);
+  color: var(--akzent);
+}
+
+.taste--gleich {
+  background: var(--akzent);
+  color: var(--akzent-text);
+}
+
+/* ---------- Abzeichen, Hinweis ---------- */
+
+.abzeichen {
+  min-height: 96px;
+  border: 1px solid var(--linie);
+  border-radius: 16px;
+  box-shadow: none;
+  color: var(--akzent);
+}
+
+.abzeichen--gesperrt {
+  opacity: 0.42;
+  filter: grayscale(0.7);
+  background: var(--bg-erhoeht);
+  color: var(--text-3);
+}
+
+.abzeichen--neu {
+  animation: abzeichen-neu 320ms ease-out;
+}
+
+@keyframes abzeichen-neu {
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.toast {
+  top: auto;
+  bottom: calc(var(--tabbar-hoehe) + var(--sicher-unten) + 16px);
+  border: 1px solid var(--linie);
+  border-radius: 14px;
+  animation: toast-hoch 220ms var(--weich);
+}
+
+.toast__symbol {
+  color: var(--akzent);
+  font-size: inherit;
+}
+
+@keyframes toast-hoch {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.aktionsleiste {
+  background: linear-gradient(to top, var(--bg) 70%, transparent);
+}

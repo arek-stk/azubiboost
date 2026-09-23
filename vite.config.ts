@@ -46,7 +46,8 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // Offline nur die lateinischen Schriftschnitte — Deutsch samt € braucht keine anderen.
+        globPatterns: ['**/*.{js,css,html,svg,png}', '**/*-latin-wght-normal-*.woff2'],
         cleanupOutdatedCaches: true,
         navigateFallback: '/index.html',
       },

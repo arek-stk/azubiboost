@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Icon, type IconName } from '../components/Icon'
 import { Balken, Plakette, Ring, prozentText, stufe } from '../components/ui'
 import { FRAGEN } from '../data/fragen'
 import { BESTEHENSGRENZE, PRUEFUNGSBEREICHE, bereich } from '../domain/pruefung'
@@ -67,7 +68,7 @@ export function Fortschritt() {
             return (
               <div key={e.id} className={hat ? 'abzeichen' : 'abzeichen abzeichen--gesperrt'} title={e.beschreibung}>
                 <span className="abzeichen__symbol" aria-hidden="true">
-                  {e.symbol}
+                  <Icon name={e.symbol as IconName} groesse={30} />
                 </span>
                 <span className="abzeichen__titel">{e.titel}</span>
                 <span className="nur-screenreader">{hat ? 'erreicht' : 'noch offen'}: {e.beschreibung}</span>
