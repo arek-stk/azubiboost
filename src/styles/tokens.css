@@ -1,0 +1,59 @@
+/* Design-Tokens. Farben nur hier definieren, nie direkt in Komponenten. */
+
+:root {
+  --bg: #f4f5f7;
+  --bg-erhoeht: #ffffff;
+  --bg-gedrueckt: #eceef2;
+  --linie: #e1e4ea;
+  --text: #14171f;
+  --text-2: #5a6070;
+  --text-3: #8a90a0;
+
+  --akzent: #0e8a7a;
+  --akzent-text: #ffffff;
+  --akzent-weich: #dff3ef;
+
+  --gut: #1f9d55;
+  --gut-weich: #e3f5ea;
+  --mittel: #c77d0a;
+  --mittel-weich: #fdf1dc;
+  --schlecht: #d23f3f;
+  --schlecht-weich: #fbe6e6;
+
+  --schatten: 0 1px 2px rgb(20 23 31 / 0.06), 0 4px 16px rgb(20 23 31 / 0.05);
+  --radius: 16px;
+  --radius-klein: 10px;
+
+  --schrift: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, system-ui,
+    sans-serif;
+  --schrift-zahl: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+
+  --tabbar-hoehe: 56px;
+  --sicher-oben: env(safe-area-inset-top, 0px);
+  --sicher-unten: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1120;
+    --bg-erhoeht: #151c2e;
+    --bg-gedrueckt: #1d2539;
+    --linie: #263049;
+    --text: #eef1f7;
+    --text-2: #a3abbd;
+    --text-3: #6f7890;
+
+    --akzent: #2cc2ad;
+    --akzent-text: #06201c;
+    --akzent-weich: #103a35;
+
+    --gut: #3ccf7c;
+    --gut-weich: #0f3120;
+    --mittel: #f0a93b;
+    --mittel-weich: #3a2a0c;
+    --schlecht: #f06c6c;
+    --schlecht-weich: #3d1717;
+
+    --schatten: 0 1px 2px rgb(0 0 0 / 0.3);
+  }
+}

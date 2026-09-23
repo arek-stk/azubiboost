@@ -1,0 +1,87 @@
+/* Übungszettel: am Bildschirm als Vorschau, beim Drucken als zwei saubere Seiten. */
+
+.zettel {
+  background: #fff;
+  color: #111;
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 20px;
+  font-size: 15px;
+}
+
+.zettel__kopf {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.zettel__liste {
+  padding-left: 22px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.zettel ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.zettel__platz {
+  height: 110px;
+  margin-top: 8px;
+  border: 1px dashed #bbb;
+  border-radius: 8px;
+}
+
+.zettel__loesungen {
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 2px solid #111;
+}
+
+.zettel__loesungen h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .nicht-drucken,
+  .tabbar {
+    display: none !important;
+  }
+
+  .seite {
+    padding: 0;
+    max-width: none;
+  }
+
+  .zettel {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 12pt;
+  }
+
+  .zettel__aufgabe {
+    break-inside: avoid;
+  }
+
+  .zettel__loesungen {
+    break-before: page;
+    border-top: 0;
+  }
+}

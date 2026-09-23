@@ -1,0 +1,324 @@
+/* ---------- Quiz ---------- */
+
+.quiz-kopf {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quiz-kopf .balken {
+  flex: 1;
+}
+
+.frage-text {
+  white-space: pre-line;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.frage-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.optionen {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 14px 16px;
+  text-align: left;
+  border-radius: 14px;
+  background: var(--bg-erhoeht);
+  box-shadow: var(--schatten);
+  border: 2px solid transparent;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.option:active:not(:disabled) {
+  background: var(--bg-gedrueckt);
+}
+
+.option__marke {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--linie);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-2);
+}
+
+.option--mehrfach .option__marke {
+  border-radius: 7px;
+}
+
+.option--gewaehlt {
+  border-color: var(--akzent);
+}
+
+.option--gewaehlt .option__marke {
+  background: var(--akzent);
+  border-color: var(--akzent);
+  color: var(--akzent-text);
+}
+
+.option--richtig {
+  border-color: var(--gut);
+  background: var(--gut-weich);
+}
+
+.option--richtig .option__marke {
+  background: var(--gut);
+  border-color: var(--gut);
+  color: #fff;
+}
+
+.option--falsch {
+  border-color: var(--schlecht);
+  background: var(--schlecht-weich);
+}
+
+.option--falsch .option__marke {
+  background: var(--schlecht);
+  border-color: var(--schlecht);
+  color: #fff;
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+/* ---------- Rückmeldung nach der Antwort ---------- */
+
+.rueckmeldung {
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: einblenden 0.25s ease;
+}
+
+.rueckmeldung--richtig {
+  background: var(--gut-weich);
+}
+
+.rueckmeldung--falsch {
+  background: var(--schlecht-weich);
+}
+
+.rueckmeldung__titel {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.rueckmeldung--richtig .rueckmeldung__titel {
+  color: var(--gut);
+}
+
+.rueckmeldung--falsch .rueckmeldung__titel {
+  color: var(--schlecht);
+}
+
+.merksatz {
+  padding: 10px 12px;
+  border-radius: var(--radius-klein);
+  background: var(--bg-erhoeht);
+  font-weight: 550;
+}
+
+.rechtsbezug {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+@keyframes einblenden {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* ---------- Rechnen ---------- */
+
+.gegeben {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 16px;
+  font-size: 16px;
+}
+
+.gegeben dt {
+  color: var(--text-2);
+}
+
+.gegeben dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.papier-hinweis {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 15px;
+  color: var(--text-2);
+}
+
+.eingabe-anzeige {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+  min-height: 64px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--bg-erhoeht);
+  box-shadow: var(--schatten);
+  font-family: var(--schrift-zahl);
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.eingabe-anzeige__leer {
+  color: var(--text-3);
+}
+
+.eingabe-anzeige__einheit {
+  font-size: 18px;
+  color: var(--text-2);
+}
+
+.ziffernblock {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ziffer {
+  min-height: 56px;
+  border-radius: 12px;
+  background: var(--bg-erhoeht);
+  box-shadow: var(--schatten);
+  font-size: 24px;
+  font-weight: 550;
+  font-variant-numeric: tabular-nums;
+}
+
+.ziffer:active {
+  background: var(--bg-gedrueckt);
+}
+
+.ziffer--neben {
+  background: var(--bg-gedrueckt);
+  box-shadow: none;
+  font-size: 18px;
+}
+
+.rechenweg {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: schritt;
+}
+
+.schritt {
+  counter-increment: schritt;
+  border-radius: var(--radius-klein);
+  background: var(--bg-erhoeht);
+  overflow: hidden;
+}
+
+.schritt summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.schritt summary::-webkit-details-marker {
+  display: none;
+}
+
+.schritt summary::before {
+  content: counter(schritt);
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--akzent-weich);
+  color: var(--akzent);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.schritt__inhalt {
+  padding: 0 14px 14px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.schritt__rechnung {
+  font-family: var(--schrift-zahl);
+  font-size: 15px;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+
+.schritt__ergebnis {
+  font-family: var(--schrift-zahl);
+  font-size: 15px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.schritt__hinweis {
+  font-size: 14px;
+  color: var(--mittel);
+}
+
+.formel {
+  font-family: var(--schrift-zahl);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 12px;
+  border-radius: var(--radius-klein);
+  background: var(--bg-gedrueckt);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Timer ---------- */
+
+.uhr {
+  font-family: var(--schrift-zahl);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+.uhr--knapp {
+  color: var(--schlecht);
+}

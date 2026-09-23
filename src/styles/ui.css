@@ -1,0 +1,303 @@
+/* ---------- Seitenrahmen ---------- */
+
+.seite {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: calc(var(--sicher-oben) + 12px) 16px
+    calc(var(--tabbar-hoehe) + var(--sicher-unten) + 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.seite--ohne-tabbar {
+  padding-bottom: calc(var(--sicher-unten) + 24px);
+}
+
+.kopf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.kopf h1 {
+  font-size: 28px;
+  font-weight: 750;
+  flex: 1;
+}
+
+.kopf--klein h1 {
+  font-size: 20px;
+  font-weight: 650;
+}
+
+.zurueck {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: -8px;
+  padding: 0 8px;
+  color: var(--akzent);
+  font-weight: 500;
+}
+
+.icon-knopf {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--text-2);
+}
+
+.icon-knopf:active {
+  background: var(--bg-gedrueckt);
+}
+
+.untertitel {
+  color: var(--text-2);
+  font-size: 15px;
+}
+
+.abschnitt {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.abschnitt > h2 {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+  padding: 0 4px;
+}
+
+/* ---------- Karten ---------- */
+
+.karte {
+  background: var(--bg-erhoeht);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.karte--akzent {
+  background: var(--akzent-weich);
+  box-shadow: none;
+}
+
+.karte h3 {
+  font-size: 17px;
+  font-weight: 650;
+}
+
+.liste {
+  background: var(--bg-erhoeht);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  overflow: hidden;
+}
+
+.zeile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--linie);
+}
+
+.zeile:last-child {
+  border-bottom: 0;
+}
+
+button.zeile:active {
+  background: var(--bg-gedrueckt);
+}
+
+.zeile__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.zeile__titel {
+  font-weight: 550;
+}
+
+.zeile__info {
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.pfeil {
+  color: var(--text-3);
+  flex-shrink: 0;
+}
+
+/* ---------- Knöpfe ---------- */
+
+.knopf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 0 20px;
+  border-radius: 14px;
+  font-weight: 650;
+  background: var(--akzent);
+  color: var(--akzent-text);
+  transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.knopf:active {
+  transform: scale(0.98);
+}
+
+.knopf:disabled {
+  opacity: 0.4;
+  transform: none;
+}
+
+.knopf--breit {
+  width: 100%;
+}
+
+.knopf--zweit {
+  background: var(--bg-gedrueckt);
+  color: var(--text);
+}
+
+.knopf--gefahr {
+  background: var(--schlecht-weich);
+  color: var(--schlecht);
+}
+
+.knopf-reihe {
+  display: flex;
+  gap: 10px;
+}
+
+.knopf-reihe > * {
+  flex: 1;
+}
+
+/* ---------- Fortschritt ---------- */
+
+.balken {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--bg-gedrueckt);
+  overflow: hidden;
+}
+
+.balken__fuellung {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--akzent);
+  transition: width 0.4s ease;
+}
+
+.balken__fuellung--gut {
+  background: var(--gut);
+}
+
+.balken__fuellung--mittel {
+  background: var(--mittel);
+}
+
+.balken__fuellung--schlecht {
+  background: var(--schlecht);
+}
+
+.ring {
+  display: block;
+}
+
+.ring__spur {
+  stroke: var(--bg-gedrueckt);
+}
+
+.ring__wert {
+  stroke: var(--akzent);
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.plakette {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--bg-gedrueckt);
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.plakette--gut {
+  background: var(--gut-weich);
+  color: var(--gut);
+}
+
+.plakette--mittel {
+  background: var(--mittel-weich);
+  color: var(--mittel);
+}
+
+.plakette--schlecht {
+  background: var(--schlecht-weich);
+  color: var(--schlecht);
+}
+
+/* ---------- Tab-Bar ---------- */
+
+.tabbar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--sicher-unten);
+  background: color-mix(in srgb, var(--bg-erhoeht) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--linie);
+}
+
+.tabbar__innen {
+  display: flex;
+  width: 100%;
+  max-width: 640px;
+  height: var(--tabbar-hoehe);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 550;
+  color: var(--text-3);
+}
+
+.tab[aria-current='page'] {
+  color: var(--akzent);
+}
