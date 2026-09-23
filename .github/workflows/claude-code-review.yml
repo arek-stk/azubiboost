@@ -13,6 +13,9 @@ jobs:
   review:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # Ohne hinterlegtes Secret wird der Claude-Schritt übersprungen statt rot zu werden.
+      HAT_SECRET: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' || secrets.ANTHROPIC_API_KEY != '' }}
     permissions:
       contents: read
       pull-requests: write
@@ -24,6 +27,7 @@ jobs:
           fetch-depth: 1
 
       - uses: anthropics/claude-code-action@v1
+        if: env.HAT_SECRET == 'true'
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}

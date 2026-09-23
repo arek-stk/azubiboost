@@ -26,6 +26,9 @@ jobs:
       (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude')))
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      # Ohne hinterlegtes Secret wird der Claude-Schritt übersprungen statt rot zu werden.
+      HAT_SECRET: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' || secrets.ANTHROPIC_API_KEY != '' }}
     permissions:
       contents: write
       pull-requests: write
@@ -38,6 +41,7 @@ jobs:
           fetch-depth: 1
 
       - uses: anthropics/claude-code-action@v1
+        if: env.HAT_SECRET == 'true'
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
