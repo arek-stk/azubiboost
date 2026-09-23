@@ -1,6 +1,9 @@
+import { FeierProvider } from './components/Feier'
 import { TabBar } from './components/TabBar'
+import { ErfolgMelder } from './store/ErfolgMelder'
 import { NavigationProvider, istTabAnsicht, useNavigation } from './navigation'
-import { StoreProvider } from './store/useStore'
+import { StoreProvider, useStore } from './store/useStore'
+import { Onboarding } from './screens/Onboarding'
 import { Einstellungen } from './screens/Einstellungen'
 import { Ergebnis } from './screens/Ergebnis'
 import { Fachgespraech } from './screens/Fachgespraech'
@@ -54,6 +57,16 @@ function Ansicht() {
 
 function Rahmen() {
   const { aktuell } = useNavigation()
+  const { zustand } = useStore()
+
+  if (!zustand.einstellungen.onboardingFertig) {
+    return (
+      <main className="seite seite--ohne-tabbar">
+        <Onboarding />
+      </main>
+    )
+  }
+
   // Die Tab-Bar gehört zu den Hauptseiten; in Quiz, Simulation & Co. lenkt sie nur ab.
   const mitTabBar = istTabAnsicht(aktuell)
   return (
@@ -69,9 +82,12 @@ function Rahmen() {
 export function App() {
   return (
     <StoreProvider>
-      <NavigationProvider>
-        <Rahmen />
-      </NavigationProvider>
+      <FeierProvider>
+        <NavigationProvider>
+          <Rahmen />
+          <ErfolgMelder />
+        </NavigationProvider>
+      </FeierProvider>
     </StoreProvider>
   )
 }

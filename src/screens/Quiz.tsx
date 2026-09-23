@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useFeier } from '../components/Feier'
 import { FrageKarte } from '../components/FrageKarte'
 import { Rueckmeldung } from '../components/Rueckmeldung'
 import { Balken, Kopf, Ring } from '../components/ui'
@@ -9,10 +10,11 @@ import type { Antwort, Bewertet, Frage } from '../domain/types'
 import { heute } from '../engine/datum'
 import { rngMitSeed } from '../engine/zufall'
 import { useNavigation } from '../navigation'
-import { useStore } from '../store/useStore'
+import { heuteBeantwortet, useStore } from '../store/useStore'
 
 export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] }) {
-  const { dispatch } = useStore()
+  const { zustand, dispatch } = useStore()
+  const { feiere } = useFeier()
   const { zurueck, gehe } = useNavigation()
   const fragen = useMemo(
     () => {
@@ -87,6 +89,9 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
   const pruefe = () => {
     const ok = istRichtig(f, aktuelleAntwort)
     const tag = heute()
+    if (heuteBeantwortet(zustand) + 1 === zustand.einstellungen.tagesziel) {
+      feiere({ symbol: '🎉', titel: 'Tagesziel geschafft!', text: 'Alles, was jetzt noch kommt, ist ein Bonus.' })
+    }
     dispatch({ typ: 'frageBeantwortet', frageId: f.id, richtig: ok, tag })
     const neu = [
       ...ergebnisse,
@@ -96,6 +101,7 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
     setGeprueft(true)
 
     if (neu.length === fragen.length) {
+      if (neu.filter((e) => e.richtig).length / neu.length >= 0.8) feiere()
       dispatch({
         typ: 'versuchBeendet',
         versuch: {
@@ -137,15 +143,17 @@ export function Quiz({ titel, frageIds }: { titel: string; frageIds: string[] })
 
       {geprueft && <Rueckmeldung frage={f} richtig={richtig} />}
 
-      {!geprueft ? (
-        <button className="knopf knopf--breit" onClick={pruefe} disabled={!istBeantwortet(aktuelleAntwort)}>
-          Antwort prüfen
-        </button>
-      ) : (
-        <button className="knopf knopf--breit" onClick={weiter}>
-          {index + 1 === fragen.length ? 'Auswertung ansehen' : 'Nächste Frage'}
-        </button>
-      )}
+      <div className="aktionsleiste">
+        {!geprueft ? (
+          <button className="knopf knopf--breit" onClick={pruefe} disabled={!istBeantwortet(aktuelleAntwort)}>
+            Antwort prüfen
+          </button>
+        ) : (
+          <button className="knopf knopf--breit" onClick={weiter}>
+            {index + 1 === fragen.length ? 'Auswertung ansehen' : 'Nächste Frage'}
+          </button>
+        )}
+      </div>
     </>
   )
 }

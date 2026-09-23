@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { GefuehrtesRechnen } from '../components/GefuehrtesRechnen'
 import { Icon } from '../components/Icon'
 import { RezeptKarte } from '../components/RezeptKarte'
@@ -6,7 +6,6 @@ import { REZEPTE } from '../data/rezepte'
 import { Rechenweg } from '../components/Rechenweg'
 import { Kopf, Plakette } from '../components/ui'
 import { Ziffernblock, eingabeAlsZahl, eingabeAnzeigen } from '../components/Ziffernblock'
-import { uhrzeit } from '../components/useCountdown'
 import { heute } from '../engine/datum'
 import { eur, zahl } from '../engine/format'
 import {
@@ -27,17 +26,6 @@ function erzeuge(typId: AufgabentypId | 'gemischt'): Aufgabe {
   return typ.erzeuge(rng)
 }
 
-function useStoppuhr(laeuft: boolean): number {
-  const [sekunden, setSekunden] = useState(0)
-  useEffect(() => {
-    if (!laeuft) return
-    const start = Date.now() - sekunden * 1000
-    const id = setInterval(() => setSekunden(Math.round((Date.now() - start) / 1000)), 1000)
-    return () => clearInterval(id)
-  }, [laeuft])
-  return sekunden
-}
-
 function loesungText(a: Aufgabe): string {
   return a.loesung.einheit === '€' ? eur(a.loesung.wert) : `${zahl(a.loesung.wert, 3)} ${a.loesung.einheit}`.trim()
 }
@@ -48,7 +36,6 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
   const [phase, setPhase] = useState<Phase>('lesen')
   const [eingabe, setEingabe] = useState('')
   const [formelOffen, setFormelOffen] = useState(false)
-  const sekunden = useStoppuhr(phase === 'rechnen')
   const [richtig, setRichtig] = useState(false)
   const [ohneFehler, setOhneFehler] = useState(false)
   const rezept = REZEPTE[aufgabe.typId]
@@ -85,7 +72,6 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
       <Kopf
         titel={aufgabe.titel}
         klein
-        rechts={phase === 'rechnen' ? <span className="uhr untertitel">{uhrzeit(sekunden)}</span> : undefined}
       />
 
       <section className="karte">
@@ -128,6 +114,7 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
             <span className="eingabe-anzeige__einheit">{aufgabe.loesung.einheit}</span>
           </div>
           <Ziffernblock wert={eingabe} onAendern={setEingabe} />
+          <p className="untertitel" style={{ textAlign: 'center' }}>Keine Eile — hier läuft keine Uhr.</p>
           <button className="knopf knopf--breit" onClick={pruefe} disabled={eingabeAlsZahl(eingabe) === null}>
             Ergebnis prüfen
           </button>
@@ -174,22 +161,23 @@ export function RechenAufgabe({ typId }: { typId: AufgabentypId | 'gemischt' }) 
       {phase === 'ergebnis' && (
         <>
           <section className={richtig ? 'rueckmeldung rueckmeldung--richtig' : 'rueckmeldung rueckmeldung--falsch'}>
-            <p className="rueckmeldung__titel">{richtig ? 'Richtig gerechnet!' : 'Da hat sich ein Fehler eingeschlichen.'}</p>
+            <p className="rueckmeldung__titel">{richtig ? 'Richtig gerechnet!' : 'Fast! Lass uns schauen, wo es hakt.'}</p>
             <p>
               Dein Ergebnis: <strong className="zahl">{eingabeAnzeigen(eingabe)} {aufgabe.loesung.einheit}</strong>
               <br />
               Richtig: <strong className="zahl">{loesungText(aufgabe)}</strong>
             </p>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              <Plakette>
-                <Icon name="uhr" groesse={14} /> {uhrzeit(sekunden)}
-              </Plakette>
-              {formelOffen && <Plakette art="mittel">mit Formel-Tipp</Plakette>}
-            </div>
+            {formelOffen && <Plakette art="mittel">mit Formel-Tipp</Plakette>}
           </section>
 
+          {!richtig && (
+            <button className="knopf knopf--breit" onClick={starteGefuehrt}>
+              Diese Aufgabe gemeinsam Schritt für Schritt rechnen
+            </button>
+          )}
+
           <section className="abschnitt">
-            <h2>{richtig ? 'Zum Vergleich: der Rechenweg' : 'Vergleiche Schritt für Schritt mit deinem Blatt'}</h2>
+            <h2>{richtig ? 'Zum Vergleich: der Rechenweg' : 'Oder vergleiche mit deinem Blatt'}</h2>
             <Rechenweg schritte={aufgabe.rechenweg} alleOffen={!richtig} />
           </section>
 

@@ -168,16 +168,16 @@ export function Simulation({ bereich }: { bereich: BereichId }) {
         aufgedeckt={false}
       />
 
-      <div className="knopf-reihe">
-        <button className="knopf knopf--zweit" onClick={() => setIndex((i) => i - 1)} disabled={index === 0}>
+      <div className="aktionsleiste" style={{ flexDirection: 'row' }}>
+        <button className="knopf knopf--zweit" style={{ flex: 1 }} onClick={() => setIndex((i) => i - 1)} disabled={index === 0}>
           Zurück
         </button>
         {index + 1 < fragen.length ? (
-          <button className="knopf" onClick={() => setIndex((i) => i + 1)}>
+          <button className="knopf" style={{ flex: 1 }} onClick={() => setIndex((i) => i + 1)}>
             Weiter
           </button>
         ) : (
-          <button className="knopf" onClick={abgabeFragen}>
+          <button className="knopf" style={{ flex: 1 }} onClick={abgabeFragen}>
             Abgeben
           </button>
         )}

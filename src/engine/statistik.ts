@@ -215,3 +215,28 @@ export function tageBisPruefung(pruefungstermin: IsoTag | null, von: IsoTag = he
   if (pruefungstermin === null) return null
   return tageBis(von, pruefungstermin)
 }
+
+/** So oft soll jede Frage richtig beantwortet sein, bevor sie als sicher gilt. */
+export const ZIEL_BOX = 3
+/** Die letzten Tage vor der Prüfung bleiben frei für Simulationen und Wiederholung. */
+export const PUFFER_TAGE = 14
+
+/**
+ * Empfohlene Fragen pro Tag, damit bis zum Puffer vor der Prüfung jede Frage
+ * mindestens dreimal richtig beantwortet ist. null, wenn kein Termin feststeht
+ * oder die Prüfung schon vorbei ist.
+ */
+export function empfohlenesTempo(
+  fragen: readonly Frage[],
+  karten: Readonly<Record<string, Kartenstand>>,
+  tageBisPruefung: number | null,
+): { proTag: number; offeneAntworten: number } | null {
+  if (tageBisPruefung === null || tageBisPruefung < 0) return null
+  const offeneAntworten = fragen.reduce(
+    (summe, f) => summe + Math.max(0, ZIEL_BOX - (karten[f.id]?.box ?? 0)),
+    0,
+  )
+  const lernTage = Math.max(1, tageBisPruefung - PUFFER_TAGE)
+  const proTag = Math.min(80, Math.max(offeneAntworten === 0 ? 0 : 5, Math.ceil(offeneAntworten / lernTage)))
+  return { proTag, offeneAntworten }
+}

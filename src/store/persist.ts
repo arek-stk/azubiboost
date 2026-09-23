@@ -27,6 +27,8 @@ export type Einstellungen = {
   pruefungstermin: IsoTag | null
   tagesziel: number
   wahlqualifikation: string | null
+  /** Einrichtung beim ersten Start abgeschlossen. */
+  onboardingFertig: boolean
 }
 
 export type RechenStand = { richtig: number; falsch: number }
@@ -41,6 +43,8 @@ export type AppZustand = {
   rechnen: Partial<Record<AufgabentypId, RechenStand>>
   /** Selbsteinschätzung fürs Fachgespräch auf der 100er-Skala. */
   fachgespraechSelbst: number | null
+  /** IDs der bereits freigeschalteten Erfolge. */
+  erfolge: string[]
 }
 
 export function leererZustand(tag: IsoTag = heute()): AppZustand {
@@ -51,6 +55,7 @@ export function leererZustand(tag: IsoTag = heute()): AppZustand {
       pruefungstermin: STANDARD_PRUEFUNGSTERMIN,
       tagesziel: STANDARD_TAGESZIEL,
       wahlqualifikation: null,
+      onboardingFertig: false,
     },
     karten: {},
     versuche: [],
@@ -58,6 +63,7 @@ export function leererZustand(tag: IsoTag = heute()): AppZustand {
     heute: { tag, beantwortet: 0 },
     rechnen: {},
     fachgespraechSelbst: null,
+    erfolge: [],
   }
 }
 
@@ -105,6 +111,11 @@ export function migriere(roh: unknown, tag: IsoTag = heute()): AppZustand {
         : STANDARD_PRUEFUNGSTERMIN,
     tagesziel: Math.min(200, Math.max(5, Math.round(zahl(e.tagesziel, STANDARD_TAGESZIEL)))),
     wahlqualifikation: typeof e.wahlqualifikation === 'string' ? e.wahlqualifikation : null,
+    // Wer schon vor Einführung der Einrichtung gelernt hat, soll sie nicht noch einmal sehen.
+    onboardingFertig:
+      typeof e.onboardingFertig === 'boolean'
+        ? e.onboardingFertig
+        : (istObjekt(roh.karten) && Object.keys(roh.karten).length > 0) || typeof e.name === 'string',
   }
 
   if (istObjekt(roh.karten)) {
@@ -140,6 +151,10 @@ export function migriere(roh: unknown, tag: IsoTag = heute()): AppZustand {
   const fg = roh.fachgespraechSelbst
   z.fachgespraechSelbst =
     typeof fg === 'number' && Number.isFinite(fg) ? Math.min(100, Math.max(0, fg)) : null
+
+  if (Array.isArray(roh.erfolge)) {
+    z.erfolge = [...new Set(roh.erfolge.filter((x): x is string => typeof x === 'string'))]
+  }
 
   return z
 }

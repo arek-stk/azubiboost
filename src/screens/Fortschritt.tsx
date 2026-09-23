@@ -11,6 +11,7 @@ import {
   themenStatistik,
   verlauf,
 } from '../engine/statistik'
+import { ERFOLGE } from '../engine/erfolge'
 import { useNavigation } from '../navigation'
 import { useStore } from '../store/useStore'
 
@@ -53,6 +54,26 @@ export function Fortschritt() {
           </span>
           <span className="untertitel">{antworten} Antworten insgesamt</span>
           <span className="untertitel">{streak(zustand.tageMitZiel, tag)} Tage Serie</span>
+        </div>
+      </section>
+
+      <section className="abschnitt">
+        <h2>
+          Erfolge · {zustand.erfolge.length} von {ERFOLGE.length}
+        </h2>
+        <div className="abzeichen-raster">
+          {ERFOLGE.map((e) => {
+            const hat = zustand.erfolge.includes(e.id)
+            return (
+              <div key={e.id} className={hat ? 'abzeichen' : 'abzeichen abzeichen--gesperrt'} title={e.beschreibung}>
+                <span className="abzeichen__symbol" aria-hidden="true">
+                  {e.symbol}
+                </span>
+                <span className="abzeichen__titel">{e.titel}</span>
+                <span className="nur-screenreader">{hat ? 'erreicht' : 'noch offen'}: {e.beschreibung}</span>
+              </div>
+            )
+          })}
         </div>
       </section>
 

@@ -164,3 +164,23 @@ describe('Backup', () => {
     expect(() => ausBackup('{"app":"andere"}')).toThrow('nicht aus AzubiBoost')
   })
 })
+
+describe('Einrichtung und Erfolge', () => {
+  it('zeigt die Einrichtung bei einem ganz neuen Zustand', () => {
+    expect(leererZustand(TAG).einstellungen.onboardingFertig).toBe(false)
+  })
+
+  it('überspringt die Einrichtung für alle, die schon gelernt haben', () => {
+    const alt = migriere(
+      { karten: { f1: { frageId: 'f1', box: 1, faelligAm: TAG, richtig: 1, falsch: 0, zuletztAm: TAG } } },
+      TAG,
+    )
+    expect(alt.einstellungen.onboardingFertig).toBe(true)
+    expect(migriere({ einstellungen: { name: 'Mia' } }, TAG).einstellungen.onboardingFertig).toBe(true)
+    expect(migriere({}, TAG).einstellungen.onboardingFertig).toBe(false)
+  })
+
+  it('übernimmt freigeschaltete Erfolge ohne Doppelte', () => {
+    expect(migriere({ erfolge: ['start', 'start', 42, 'serie-3'] }, TAG).erfolge).toEqual(['start', 'serie-3'])
+  })
+})

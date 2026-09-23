@@ -88,3 +88,17 @@ p {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Überschriften in einer warmen Serifenschrift — gibt der App ihren Charakter. */
+h1,
+.held__wert,
+.brief__text,
+.titel-serif {
+  font-family: var(--schrift-titel);
+  font-optical-sizing: auto;
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  font-weight: 620;
+}

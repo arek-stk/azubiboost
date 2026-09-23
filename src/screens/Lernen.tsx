@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { Icon } from '../components/Icon'
-import { Balken, Plakette, prozentText, stufe } from '../components/ui'
+import { THEMA_ICON, bereichStil } from '../components/symbole'
+import { Plakette, prozentText, stufe } from '../components/ui'
 import { FRAGEN } from '../data/fragen'
 import { bereich } from '../domain/pruefung'
 import type { BereichId } from '../domain/types'
@@ -46,16 +47,24 @@ export function Lernen() {
         const eigene = themen.filter((t) => t.bereich === b)
         const info = bereich(b)
         return (
-          <section className="abschnitt" key={b}>
-            <h2>
-              {info.name} · Teil {info.teil}
-            </h2>
+          <section className="abschnitt" key={b} style={bereichStil(b)}>
+            <div className="bereich-kopf">
+              <span className="bereich-kopf__punkt" />
+              <h2>
+                {info.kurz} · Teil {info.teil} · {info.gewicht} %
+              </h2>
+            </div>
             <div className="liste">
               {eigene.map((t) => (
                 <button key={t.thema} className="zeile" onClick={() => gehe({ name: 'thema', thema: t.thema })}>
+                  <span className="symbol symbol--klein">
+                    <Icon name={THEMA_ICON[t.thema]} groesse={20} />
+                  </span>
                   <span className="zeile__text">
                     <span className="zeile__titel">{t.name}</span>
-                    <Balken wert={t.fortschritt} farbe={stufe(t.quote)} />
+                    <div className="balken balken--bereich">
+                      <div className="balken__fuellung" style={{ width: `${Math.round(t.fortschritt * 100)}%` }} />
+                    </div>
                     <span className="zeile__info">
                       {t.anzahlFragen} Fragen · {t.beantwortet === 0 ? 'noch nicht geübt' : `${t.beantwortet} Antworten`}
                     </span>

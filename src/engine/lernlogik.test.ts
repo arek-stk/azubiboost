@@ -328,3 +328,29 @@ describe('Lerncoach', () => {
     expect(coachNachricht({ ...basis, tageBisPruefung: 5 }).text).toContain('5 Tage')
   })
 })
+
+describe('Lerntempo', () => {
+  const zehn = Array.from({ length: 10 }, (_, i) => frage(`t${i}`, 'kalkulation', 'warenwirtschaft'))
+
+  it('verteilt die offenen Antworten auf die Tage vor dem Puffer', async () => {
+    const { empfohlenesTempo, PUFFER_TAGE, ZIEL_BOX } = await import('./statistik')
+    // 10 Fragen × 3 Antworten = 30, verteilt auf 30 Lerntage → mindestens 5 (Untergrenze)
+    const t = empfohlenesTempo(zehn, {}, 30 + PUFFER_TAGE)
+    expect(t?.offeneAntworten).toBe(10 * ZIEL_BOX)
+    expect(t?.proTag).toBe(5)
+  })
+
+  it('zählt Fragen, die schon sicher sitzen, nicht mehr mit', async () => {
+    const { empfohlenesTempo } = await import('./statistik')
+    const karten = Object.fromEntries(zehn.map((f) => [f.id, { ...neueKarte(f.id, TAG), box: 3 }]))
+    expect(empfohlenesTempo(zehn, karten, 100)).toEqual({ proTag: 0, offeneAntworten: 0 })
+  })
+
+  it('wird kurz vor der Prüfung dringlicher und hat eine Obergrenze', async () => {
+    const { empfohlenesTempo } = await import('./statistik')
+    const viele = Array.from({ length: 200 }, (_, i) => frage(`v${i}`, 'kalkulation', 'warenwirtschaft'))
+    expect(empfohlenesTempo(viele, {}, 20)?.proTag).toBe(80)
+    expect(empfohlenesTempo(viele, {}, null)).toBeNull()
+    expect(empfohlenesTempo(viele, {}, -1)).toBeNull()
+  })
+})

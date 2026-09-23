@@ -102,3 +102,20 @@ der zuständigen IHK.
 ## Lizenz
 
 [MIT](LICENSE)
+
+## Persönliche Anpassung (privat, nicht im Repo)
+
+Name, Anrede und persönliche Nachrichten stehen nicht im Code, sondern in
+Umgebungsvariablen — lokal in `.env.local` (von git ignoriert), beim Hosting in
+den Projekteinstellungen von Vercel:
+
+| Variable | Wirkung |
+|---|---|
+| `VITE_APP_NAME` | Name der App im Titel |
+| `VITE_APP_KURZNAME` | Name unter dem Icon auf dem Home-Bildschirm |
+| `VITE_VORNAME` | Vorbelegung des Namens beim ersten Start |
+| `VITE_KOSENAME` | Anrede in der Begrüßung |
+| `VITE_NACHRICHT_VON` | Absender der persönlichen Nachricht |
+| `VITE_NACHRICHTEN` | Eine oder mehrere Nachrichten, getrennt durch `\|` — jeden Tag eine andere |
+
+Ohne diese Variablen läuft die App neutral als „AzubiBoost".

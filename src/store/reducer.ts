@@ -18,6 +18,7 @@ export type Aktion =
   | { typ: 'versuchBeendet'; versuch: Versuch }
   | { typ: 'einstellungenGeaendert'; aenderung: Partial<Einstellungen> }
   | { typ: 'fachgespraechEingeschaetzt'; punkte: number }
+  | { typ: 'erfolgeFreigeschaltet'; ids: string[] }
   | { typ: 'ersetzen'; zustand: AppZustand }
   | { typ: 'zuruecksetzen'; tag: IsoTag }
 
@@ -57,6 +58,9 @@ export function reducer(z: AppZustand, a: Aktion): AppZustand {
 
     case 'fachgespraechEingeschaetzt':
       return { ...z, fachgespraechSelbst: Math.min(100, Math.max(0, Math.round(a.punkte))) }
+
+    case 'erfolgeFreigeschaltet':
+      return { ...z, erfolge: [...new Set([...z.erfolge, ...a.ids])] }
 
     case 'ersetzen':
       return a.zustand

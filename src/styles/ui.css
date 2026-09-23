@@ -81,6 +81,7 @@
 
 .karte {
   background: var(--bg-erhoeht);
+  border: 1px solid color-mix(in srgb, var(--linie) 55%, transparent);
   border-radius: var(--radius);
   box-shadow: var(--schatten);
   padding: 16px;

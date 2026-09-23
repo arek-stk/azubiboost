@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { RechenSchritt } from '../domain/types'
 import { schrittWert } from '../engine/schrittwert'
+import { TaschenrechnerTasten } from './TaschenrechnerTasten'
 import { Ziffernblock, eingabeAlsZahl, eingabeAnzeigen } from './Ziffernblock'
 
 type Stand = 'offen' | 'richtig' | 'korrigiert'
@@ -91,10 +92,13 @@ export function GefuehrtesRechnen({
                 ))}
 
               {rechnungOffen ? (
-                <p className="formel">{s.rechnung}</p>
+                <>
+                  <TaschenrechnerTasten schritt={s} />
+                  <p className="formel">{s.rechnung}</p>
+                </>
               ) : (
                 <button className="knopf-klein" onClick={() => setRechnungOffen(true)}>
-                  Rechnung zeigen
+                  Zeig mir, was ich eintippe
                 </button>
               )}
 
@@ -108,7 +112,7 @@ export function GefuehrtesRechnen({
               ) : geprueft ? (
                 <>
                   <p className="rueckmeldung rueckmeldung--falsch">
-                    Nicht ganz — richtig ist: <strong className="zahl">{s.ergebnis}</strong>
+                    Fast! Richtig ist: <strong className="zahl">{s.ergebnis}</strong>
                   </p>
                   <button className="knopf knopf--breit" onClick={() => weiter('korrigiert')}>
                     Weiter zum nächsten Schritt

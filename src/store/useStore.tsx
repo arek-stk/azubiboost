@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from 'react'
 import { heute } from '../engine/datum'
+import { VORNAME_VORBELEGUNG } from '../data/persoenlich'
 import { laden, speichern, type AppZustand } from './persist'
 import { reducer, type Aktion } from './reducer'
 
@@ -15,7 +16,14 @@ type StoreKontext = { zustand: AppZustand; dispatch: Dispatch<Aktion> }
 const Kontext = createContext<StoreKontext | null>(null)
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [zustand, dispatch] = useReducer(reducer, undefined, () => laden())
+  const [zustand, dispatch] = useReducer(reducer, undefined, () => {
+    const z = laden()
+    // Vorbelegung des Namens nur auf einem ganz neuen Gerät, nie über eine eigene Eingabe hinweg.
+    if (!z.einstellungen.onboardingFertig && z.einstellungen.name === null && VORNAME_VORBELEGUNG !== null) {
+      return { ...z, einstellungen: { ...z.einstellungen, name: VORNAME_VORBELEGUNG } }
+    }
+    return z
+  })
 
   useEffect(() => {
     speichern(zustand)

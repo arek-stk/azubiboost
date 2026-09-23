@@ -422,3 +422,66 @@
   min-height: 52px;
   font-size: 26px;
 }
+
+/* ---------- Taschenrechner-Tasten ---------- */
+
+.tasten-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--bg);
+}
+
+.tasten-box__titel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.tasten-box__hinweis {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+.tasten-zeile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.tasten-zeile__nr {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  min-width: 36px;
+}
+
+.taste {
+  min-width: 38px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.taste--zahl {
+  background: var(--bg-erhoeht);
+  border: 1px solid var(--linie);
+  box-shadow: 0 2px 0 var(--linie);
+}
+
+.taste--op {
+  background: var(--text);
+  color: var(--bg-erhoeht);
+}
+
+.taste--gleich {
+  background: var(--akzent);
+  color: var(--akzent-text);
+}

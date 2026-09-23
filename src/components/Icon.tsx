@@ -21,6 +21,21 @@ const PFADE = {
   formel: 'M5 4h14M5 20h14M8 4l7 8-7 8',
   sprechblase: 'M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z',
   loeschen: 'M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1ZM17.5 9.5l-5 5M12.5 9.5l5 5',
+  warenkorb: 'M3 4h2l2.4 11h11l2-8H6.3M9 20.5h.01M17 20.5h.01',
+  euro: 'M17 6.5A7 7 0 1 0 17 17.5M4 10h9M4 14h9',
+  paket: 'M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3ZM4 7.5l8 4.5 8-4.5M12 12v9',
+  liste: 'M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01',
+  lkw: 'M3 6h11v10H3zM14 10h4l3 3v3h-7M7 19a2 2 0 1 0 0-.01M17 19a2 2 0 1 0 0-.01',
+  prozent: 'M19 5 5 19M7 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z',
+  lager: 'M3 10l9-6 9 6v10H3zM7 20v-6h10v6M7 17h10',
+  waage: 'M12 4v16M7 20h10M5 8h14M7 8l-3 6a3 3 0 0 0 6 0L7 8ZM17 8l-3 6a3 3 0 0 0 6 0l-3-6Z',
+  weltkugel: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18',
+  aktenkoffer: 'M4 8h16v11H4zM9 8V5h6v3M4 13h16',
+  schild: 'M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3Z',
+  diagramm: 'M4 19h16M7 16v-4M11 16V8M15 16v-6M19 16V5',
+  stern: 'M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.5 9.7l5.9-.9L12 3.5Z',
+  brief: 'M4 6h16v12H4zM4 7l8 6 8-6',
+  pokal: 'M8 4h8v5a4 4 0 0 1-8 0V4ZM8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8',
 } as const
 
 export type IconName = keyof typeof PFADE

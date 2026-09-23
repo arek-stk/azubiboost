@@ -1,0 +1,335 @@
+/* ---------- Begrüßung und Kopfkarte ---------- */
+
+.begruessung__datum {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-3);
+}
+
+.held {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  border-radius: 22px;
+  background: var(--verlauf);
+  color: #fff;
+  box-shadow: var(--schatten-hoch);
+}
+
+/* Leichter Lichtschein oben rechts — gibt der Fläche Tiefe. */
+.held::after {
+  content: '';
+  position: absolute;
+  inset: -40% -30% auto auto;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 255 255 / 0.22), transparent 70%);
+  pointer-events: none;
+}
+
+.held .ring__spur {
+  stroke: rgb(255 255 255 / 0.22);
+}
+
+.held .ring__wert {
+  stroke: #fff;
+}
+
+.held__titel {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+
+.held__wert {
+  font-size: 22px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.held .plakette {
+  background: rgb(255 255 255 / 0.18);
+  color: #fff;
+}
+
+/* ---------- Brief: persönliche Nachricht ---------- */
+
+.brief {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 22px 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, var(--pfirsich), var(--akzent-weich));
+  box-shadow: var(--schatten);
+  animation: einblenden 0.5s ease;
+}
+
+/* Großes Anführungszeichen als ruhiges Schmuckelement. */
+.brief::before {
+  content: '“';
+  position: absolute;
+  right: 14px;
+  top: -18px;
+  font-family: var(--schrift-titel);
+  font-size: 120px;
+  line-height: 1;
+  color: var(--akzent);
+  opacity: 0.16;
+}
+
+.brief__von {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--akzent);
+}
+
+.brief__text {
+  position: relative;
+  font-size: 22px;
+  font-weight: 560;
+  line-height: 1.3;
+  margin-top: 6px;
+  color: var(--text);
+}
+
+/* ---------- Großer Hauptknopf ---------- */
+
+.knopf--gross {
+  flex-direction: column;
+  gap: 2px;
+  min-height: 64px;
+  font-size: 18px;
+  background: var(--verlauf);
+  box-shadow: 0 10px 24px rgb(192 57 106 / 0.3);
+}
+
+.knopf--gross small {
+  font-size: 13px;
+  font-weight: 550;
+  opacity: 0.9;
+}
+
+/* ---------- Kacheln ---------- */
+
+.kacheln {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.kachel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 112px;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
+  box-shadow: var(--schatten);
+  text-align: left;
+  transition: transform 0.12s ease;
+}
+
+.kachel:active {
+  transform: scale(0.97);
+}
+
+.kachel__titel {
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.kachel__info {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+/* Farbiges Symbol-Plättchen, Farbe kommt über --farbe aus bereichStil() */
+.symbol {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--farbe-weich, var(--akzent-weich));
+  color: var(--farbe, var(--akzent));
+}
+
+.symbol--klein {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.bereich-kopf {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.bereich-kopf__punkt {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--farbe);
+}
+
+.bereich-kopf h2 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--farbe);
+}
+
+.balken--bereich .balken__fuellung {
+  background: var(--farbe);
+}
+
+/* ---------- Aktionsleiste unten (Daumenbereich) ---------- */
+
+.aktionsleiste {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0 -16px calc(-1 * (var(--sicher-unten) + 24px));
+  padding: 16px 16px calc(var(--sicher-unten) + 16px);
+  background: linear-gradient(to bottom, transparent, var(--bg) 28%);
+}
+
+/* ---------- Konfetti ---------- */
+
+.konfetti {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.konfetti span {
+  position: absolute;
+  top: -12px;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  animation: konfetti-fallen var(--dauer) cubic-bezier(0.25, 0.7, 0.4, 1) var(--verzoegerung) forwards;
+}
+
+@keyframes konfetti-fallen {
+  to {
+    transform: translate3d(var(--drift), 105vh, 0) rotate(var(--drehung));
+    opacity: 0.2;
+  }
+}
+
+/* ---------- Hinweis-Toast ---------- */
+
+.toast {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  top: calc(var(--sicher-oben) + 12px);
+  z-index: 60;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
+  box-shadow: var(--schatten-hoch);
+  animation: toast-rein 0.45s var(--federnd);
+}
+
+.toast__symbol {
+  font-size: 30px;
+}
+
+@keyframes toast-rein {
+  from {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+}
+
+/* ---------- Abzeichen ---------- */
+
+.abzeichen-raster {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.abzeichen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border-radius: var(--radius);
+  background: var(--bg-erhoeht);
+  box-shadow: var(--schatten);
+  text-align: center;
+}
+
+.abzeichen__symbol {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.abzeichen__titel {
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.abzeichen--gesperrt {
+  box-shadow: none;
+  background: var(--bg-gedrueckt);
+}
+
+.abzeichen--gesperrt .abzeichen__symbol {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.abzeichen--gesperrt .abzeichen__titel {
+  color: var(--text-3);
+}
+
+/* ---------- Tab-Bar: aktiver Tab mit Punkt ---------- */
+
+.tab[aria-current='page']::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.tab svg {
+  transition: transform 0.2s var(--federnd);
+}
+
+.tab[aria-current='page'] svg {
+  transform: translateY(-1px) scale(1.08);
+}
